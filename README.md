@@ -2,7 +2,7 @@
 
 ## PROJETO FINAL - ESTAÇÃO METEOROLÓGICA
 
-Autores: Carlos Martinez Perezs e Ricardo Jorge Furlan
+Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 ### ETAPA 1:
 
