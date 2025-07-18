@@ -64,7 +64,6 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 #### LISTA INICIAL DE MATERIAIS
 
 - Sensores:  
-### Sensores
 
 | Quantidade | Componente                                            | Utilidade                                        |
 |------------|-------------------------------------------------------|--------------------------------------------------|
@@ -86,8 +85,8 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 | 1          | MICS-6814                                             | Qualidade do Ar - CO, NH3, NO2                   |
 | 1          | NHZ-14A                                               | Qualidade do Ar - CO2                            |
 
-[cite_start]*Nota 1: Só será utilizado um dos três sensores (BME680, BME280 ou BMP280), mas o sistema será compatível com todos eles.* [cite: 77]
-[cite_start]*Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvolvimento, sendo apenas uma previsão para a estruturação do projeto.* [cite: 76]
+Nota 1: Só será utilizado um dos três sensores (BME680, BME280 ou BMP280), mas o sistema será compatível com todos eles.  
+Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvolvimento, sendo apenas uma previsão para a estruturação do projeto.  
 | Quantidade | Componente                                | Utilidade                                 |
 |------------|-------------------------------------------|-------------------------------------------|
 | 1          | BME680 (Nota 1)                           | Pressão, Temperatura, Umidade, Qualidade do Ar |
@@ -108,100 +107,10 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 | 1          | MICS-6814                                 | Qualidade do Ar - CO, NH3, NO2            |
 | 1          | NHZ-14A                                   | Qualidade do Ar - CO2                     |
 
-[cite_start]*Nota 1: Será utilizado apenas um dos três sensores (BME680, BME280 ou BMP280) para pressão, temperatura e umidade, mas o sistema será compatível com todos eles.* [cite: 77]
-[cite_start]*Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvolvimento, sendo apenas uma previsão para a estruturação do projeto.* [cite: 76]
+Nota 1: Será utilizado apenas um dos três sensores (BME680, BME280 ou BMP280) para pressão, temperatura e umidade, mas o sistema será compatível com todos eles.  
+Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvolvimento, sendo apenas uma previsão para a estruturação do projeto.  
 
-
-- Sensores:  
-|**Quantidade**  | **Componente**    | **Utilidade**     |  
-|----------------|-------------------|-------------------|
-                |                   |Pressão  
-       1        |BME680             |Temperatura  
-                |Nota 1             |Umidade  
-                |                   |Qualidade do ar  
-Pressão
-Temperatura
-Umidade Qualidade do Ar
-1
-BME280
-Nota 1
-Pressão
-Temperatura
-Umidade
-1
-BMP280
-Nota 1
-Pressão
-Temperatura
-1
-ATH10
-Umidade Temperatura
-1
-Catavento com magneto + HMC5883 (ou sensor hall switch)
-Velocidade do Vento
-1
-Biruta com magneto +
-HMC5883
-Direção do Vento
-1
-BH1750
-Luminosidade
-1
-GY33
-Luminosidade “espectral”
-1
-GUVA-S12SD
-Indice UV
-1
-UVM-30A
-Indice UV
-3
-DS18B20 A prova dagua
-Temperatura do solo
-3
-SEN0193
-Umidade do solo
-1
-TS-300B + MCP6002
-Turbidez da água
-1
-RS-GYL-*-1-EX ou RS-YL-*-2-EX
-Pluviômetro
-1
-MQ-131
-Qualidade do Ar - ozônio
-1
-MICS-6814
-Qualidade do Ar – CO, NH3, NO2
-1
-NHZ-14A
-Qualidade do Ar - CO2
-Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvolvimento, sendo apenas uma previsão para a estruturação do projeto.
-Nota 1: Só será utilizado um dos três sensores, mas o sistema será compatível com todos eles.
-Diversos:
-Quantidade
-Componente
-Utilidade
-1
-BitDogLab V6.3
-CPU
-1
-RTC DS3231 ou
-RTC DS1302 ou
-RTC DS1307
-RTC – Real Time Clock
-1
-Cartão de memória
-Armazenamento temporário
-1
-Cartão de expansão I2C com cabos
-1
-Módulo Lora
-Comunicação
-1
-Fonte 5V
-A
-
+- Diversos:  
 
 
 | Quantidade | Componente                          | Utilidade              |
