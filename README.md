@@ -99,21 +99,11 @@ Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvo
 | 1          | Módulo Lora                         | Comunicação            |
 | 1          | Fonte 5V                            |                        |
   
-
-
-
-
-
-
-
-
 #### DIAGRAMA ESTRUTURAL
 
 ![Figura 1. Diagrama Estrutural](imagens/Diagrama_Estrutural.jpg)
-
   
 #### EXPLICAÇÃO SOBRE A ESTRUTURA
-
-
+  
 #### FLUXOGRAMA DO SOFTWARE
-
+  
