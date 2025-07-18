@@ -65,7 +65,8 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 
 - Sensores:  
-**Quantidade**  | **Componente**    | **Utilidade**  
+**Quantidade**  | **Componente**    | **Utilidade**     |  
+|---------------|-------------------|-------------------|
                 |                   |Pressão  
        1        |BME680             |Temperatura  
                 |Nota 1             |Umidade  
