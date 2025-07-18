@@ -79,7 +79,7 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 #### DIAGRAMA ESTRUTURAL
 
-![Figura 1. Rola](imagens/Diagrama Estrutural.jpg)
+![Figura 1. ](imagens/Diagrama Estrutural.jpg)
 
 
 
