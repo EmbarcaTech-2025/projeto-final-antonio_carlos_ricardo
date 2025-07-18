@@ -6,7 +6,7 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 ### ETAPA 1:
 
-#### INTRODUçÃO
+#### INTRODUÇÃO
 
 - Agronegócio: adoção de novas tecnologias- Agricultura 4.0 ou Agricultura de Precisão.  
 - Capacidade de coletar e analisar dados do microclima em tempo real.  
@@ -24,14 +24,14 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 #### IDENTIFICAÇÃO DO PROBLEMA
 
-    - Desafios na tomada de decisão.  
-    - Carência de dados microclimáticos.  
-    - Dados localizados e em tempo real.  
-    - Resultando em:  
-        - Irrigação Ineficiente.  
-        - Perdas de Safra.  
-        - Falha na otimização de Insumos.  
-        - Planejamento Agrícola Subjetivo.  
+- Desafios na tomada de decisão.  
+- Carência de dados microclimáticos.  
+- Dados localizados e em tempo real.  
+- Resultando em:  
+    - Irrigação Ineficiente.  
+    - Perdas de Safra.  
+    - Falha na otimização de Insumos.  
+    - Planejamento Agrícola Subjetivo.  
 
 #### REQUISITOS
 
