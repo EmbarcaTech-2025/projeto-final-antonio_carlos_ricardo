@@ -104,6 +104,38 @@ Obs.: Nem todos os sensores serão implementados num primeiro momento do desenvo
 ![Figura 1. Diagrama Estrutural](imagens/Diagrama_Estrutural.jpg)
   
 #### EXPLICAÇÃO SOBRE A ESTRUTURA
+
+A estrutura da estação meteorológica é organizada em módulos funcionais, conforme ilustrado no diagrama.  
+
+UCP (Unidade Central de Processamento) - Raspberry Pi Pico W:  
+Este é o coração do sistema. O Pico W é responsável por orquestrar todas as operações, incluindo a leitura dos dados brutos dos sensores, o processamento inicial desses dados, o armazenamento temporário (se necessário) e a gestão da comunicação para o envio das informações. Ele atua como o cérebro da estação, garantindo que os dados sejam coletados e preparados para transmissão de forma eficiente.  
+
+- Sensores:
+Este bloco agrupa todos os dispositivos responsáveis pela coleta de dados ambientais. A modularidade dos sensores permite a fácil adição ou substituição de componentes para atender a necessidades específicas. Os tipos de sensores representados incluem:  
+
+    - Temperatura  
+    - Umidade (do ar)  
+    - Pressão  
+    - Velocidade e Direção do Vento  
+    - Luminosidade  
+    - UV (Radiação Ultravioleta)  
+    - Temperatura do Solo  
+    - Umidade do Solo  
+    - Turbidez da Água  
+    - Qualidade do Ar  
+  
+Esses sensores fornecem os dados brutos que descrevem o microclima e as condições do solo.  
+
+- Comunicação:  
+Este módulo é fundamental para a transmissão dos dados coletados para um servidor remoto. Ele incorpora as tecnologias de conectividade que permitem à estação enviar as informações de forma confiável. Os componentes destacados são:  
+
+    - Módulo LoRa SPI e Antena LoRa : Representam a opção de comunicação de longo alcance e baixo consumo de energia, ideal para áreas rurais sem infraestrutura Wi-Fi densa.  
+    - WiFi Integrado : Sendo a comunicação primária, o Wi-Fi presente no Raspberry Pi Pico W permite a conexão direta com redes locais ou roteadores para acesso à internet.  
+
+- Fonte de Alimentação:  
+Este bloco garante a autonomia energética da estação, um requisito crucial para a operação em campo. Ele representa a capacidade de fornecer energia contínua ao sistema. A figura menciona:  
+
+    - Bateria / Fonte 5V : Indicando que a estação pode ser alimentada por uma fonte externa de 5V ou, para autonomia, por um sistema de bateria, que pode ser recarregável por energia solar.
   
 #### FLUXOGRAMA DO SOFTWARE
   
