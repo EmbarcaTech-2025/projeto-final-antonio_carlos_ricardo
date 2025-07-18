@@ -64,10 +64,12 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 #### LISTA INICIAL DE MATERIAIS
 
 
-- Sensores:
-Quantidade  | Componente | Utilidade
-1           |BME680      |
-Nota 1
+- Sensores:  
+**Quantidade**  | **Componente**    | **Utilidade**  
+                |                   |Pressão  
+       1        |BME680             |Temperatura  
+                |Nota 1             |Umidade  
+                |                   |Qualidade do ar  
 Pressão
 Temperatura
 Umidade Qualidade do Ar
