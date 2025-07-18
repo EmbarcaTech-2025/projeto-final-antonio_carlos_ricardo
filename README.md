@@ -110,7 +110,7 @@ A estrutura da estação meteorológica é organizada em módulos funcionais, co
 UCP (Unidade Central de Processamento) - Raspberry Pi Pico W:  
 Este é o coração do sistema. O Pico W é responsável por orquestrar todas as operações, incluindo a leitura dos dados brutos dos sensores, o processamento inicial desses dados, o armazenamento temporário (se necessário) e a gestão da comunicação para o envio das informações. Ele atua como o cérebro da estação, garantindo que os dados sejam coletados e preparados para transmissão de forma eficiente.  
 
-- Sensores:
+- Sensores:  
 Este bloco agrupa todos os dispositivos responsáveis pela coleta de dados ambientais. A modularidade dos sensores permite a fácil adição ou substituição de componentes para atender a necessidades específicas. Os tipos de sensores representados incluem:  
 
     - Temperatura  
@@ -134,7 +134,7 @@ Este módulo é fundamental para a transmissão dos dados coletados para um serv
 
 - Fonte de Alimentação:  
 Este bloco garante a autonomia energética da estação, um requisito crucial para a operação em campo. Ele representa a capacidade de fornecer energia contínua ao sistema. A figura menciona:  
-
+    
     - Bateria / Fonte 5V : Indicando que a estação pode ser alimentada por uma fonte externa de 5V ou, para autonomia, por um sistema de bateria, que pode ser recarregável por energia solar.
   
 #### FLUXOGRAMA DO SOFTWARE
