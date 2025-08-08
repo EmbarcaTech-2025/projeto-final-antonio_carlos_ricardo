@@ -1,7 +1,7 @@
 # EMBARCATECH - FASE 2
 
 ## Projeto Final - Etapa 1 (16/07/2025)
-Revisão 1: 08/08/2025
+Revisão 1.1: 08/08/2025
 
 ---
 
