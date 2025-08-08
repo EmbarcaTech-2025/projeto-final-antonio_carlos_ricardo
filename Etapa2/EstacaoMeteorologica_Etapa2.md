@@ -179,17 +179,6 @@ A estrutura de armazenamento local é responsável por **registrar os dados ambi
         - Estados do sistema (nível de bateria, status da conexão etc.)  
         - Suporta arquivos de log contínuo com rotação por data/hora.
 
-- **Módulo RTC (Relógio de Tempo Real):**  
-    - Exemplo: DS3231, DS1307 ou DS1302.  
-    - Mantém o tempo mesmo sem alimentação, via bateria de lítio.  
-    - Permite que as leituras sejam feitas com data e hora confiáveis.  
-    - Essencial para correlação temporal e posterior análise de tendências climáticas.  
-
-- **Sistema de Buffer Temporário(opcional):**  
-    - Caso o cartão SD esteja momentaneamente indisponível (ex: retirada incorreta ou erro de escrita), os dados podem ser armazenados temporariamente na RAM ou Flash interna do Pico W.  
-    - Uma fila de backup pode manter os últimos N registros e sincronizar assim que o cartão SD for detectado novamente.  
-
-
 - **Vantagens da Arquitetura:**  
     - **Continuidade de operação**: garante que nenhuma leitura se perca em caso de falhas na comunicação (Wi-Fi ou LoRa).  
     - **Facilidade de acesso local**: o cartão SD pode ser removido e lido diretamente em qualquer computador.  
@@ -198,62 +187,22 @@ A estrutura de armazenamento local é responsável por **registrar os dados ambi
 - **Considerações Técnicas:**  
     - Recomenda-se **uso de bibliotecas otimizadas** para SD (ex: FatFS ou pico\_sd\_card).  
     - É importante prever verificação de integridade (checksums) e estratégias de **rotação de arquivos** para evitar excesso de escrita em um mesmo setor do cartão (aumentando a vida útil).  
-    - É possível adicionar uma **função de "download local"** por botão ou comando, para coletar manualmente os dados via cabo serial ou Bluetooth.  
-
 
 A estrutura de armazenamento local é especialmente útil em contextos onde a comunicação pode ser **intermitente** ou **indisponível por longos períodos**, como zonas rurais ou remotas. Ela forma o elo de segurança da arquitetura, garantindo a **persistência dos dados ambientais**.  
 
-![Figura 8: Estrutura de Monitoramento e Diagnóstico Local](assets/Estrutura7.jpg)  
-**Figura 8:** Estrutura de Monitoramento e Diagnóstico Local  
+![Figura 8: Estrutura de Monitoramento Remoto](assets/Estrutura7.jpg)  
+**Figura 8:** Estrutura de Monitoramento Remoto  
 
-Esta estrutura representa a **interface local de interação com o sistema**, permitindo ao usuário **visualizar dados diretamente na estação**, **verificar o funcionamento dos sensores** e **executar diagnósticos de campo**. Essa camada de monitoramento é crucial para facilitar a **manutenção preventiva** e a **validação do funcionamento** sem necessidade de conexão externa. Obs. blocos funcionais dessa estrutura, são:  
+Esta estrutura representa como os dados fluem para que o usuário possa ter acesso a eles via internet.
 
-- **Raspberry Pi Pico W:**  
-    - Processa os dados dos sensores e envia informações relevantes à interface local.  
-    - Controla os periféricos de saída (display, LEDs) e entrada (botões).  
-    - Responsável por detectar falhas, erros de leitura e status de funcionamento.  
+- **Container Node.JS:**  
+    - É o ponto de acesso pelo qual o dispositivo IoT enviará os dados.
 
-- **Display OLED / LCD:**  
-    - Exibe informações de forma local e direta, como:  
-        - Temperatura, umidade, pressão, velocidade do vento etc.  
-        - Status da conexão (Wi-Fi / LoRa)  
-        - Estado da bateria (carga/descarga)  
-        - Mensagens de erro (ex: “Sensor UV offline”)  
-O tipo de display pode variar conforme o consumo energético e a visibilidade desejada (ex: **OLED 128x64 I2C** é uma escolha comum por seu baixo consumo e contraste).  
+- **Container PostgreSql:**  
+    - Armazena os dados Recebidos
 
-- **Botões Locais de Controle:**  
-    - Permitem ao operador interagir com o sistema sem conexão externa. Exemplos de funções:  
-        - Alternar entre diferentes telas de dados.  
-        - Forçar uma leitura imediata dos sensores.  
-        - Iniciar testes de diagnóstico automático.  
-        - Solicitar backup manual para o cartão SD.  
-        - Geralmente conectados aos GPIOs com pull-ups internos ativados.  
-
-- **LEDs Indicadores:**  
-    - Fornecem **feedback rápido e visual** sobre o status do sistema:  
-        - Verde: sistema operacional e conectado.  
-        - Amarelo: aviso (ex: bateria fraca).  
-        - Vermelho: falha crítica (ex: sensor ausente ou corrompido).  
-Podem piscar em padrões diferentes para indicar estados diversos (boot, leitura, transmissão).
-
-- **Módulo Diagnóstico Serial / USB:**  
-    - Porta de comunicação para **depuração via cabo USB**.  
-    - Pode ser usada para:  
-        - Observar logs em tempo real.  
-        - Receber comandos de manutenção (modo shell).  
-        - Atualizar o firmware da estação.  
-
-- **Funções Estratégicas do Diagnóstico Local:**  
-    - **Reduz a dependência de rede** para validações rápidas.  
-    - **Facilita a instalação inicial** da estação no campo.  
-    - Permite **verificação periódica da saúde do sistema** por operadores não técnicos.  
-    - Garante **respostas rápidas a falhas**, aumentando a disponibilidade da estação.  
-
-
-- **Possibilidades Futuras:**  
-    - Interface via **Bluetooth ou app mobile local**.   
-    - Exportação de logs por cabo USB ou Bluetooth.  
-    - Modo “autodiagnóstico” completo com relatório na tela.  
+- **Container Grafana:**  
+	- Gera os DashBoards
 
 ---
 
