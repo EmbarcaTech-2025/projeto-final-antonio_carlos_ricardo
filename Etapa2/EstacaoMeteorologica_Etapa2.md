@@ -160,7 +160,7 @@ O projeto da estação meteorológica considera um modelo **híbrido**, ou seja:
     - Usa **LoRa como canal secundário ou redundante**, quando o Wi-Fi falhar ou for insuficiente.  
     - Permite comunicação **assíncrona e resiliente**, garantindo que os dados cheguem ao destino mesmo em situações adversas.  
 
-![Figura 7: Estrutura de Armazenamento Local](assets/Estrutura6.jpg)  
+![Figura 7: Estrutura de Armazenamento Local](assets/Estrutura6.png)  
 **Figura 7:** Estrutura de Armazenamento Local  
 
 A estrutura de armazenamento local é responsável por **registrar os dados ambientais coletados** pela estação meteorológica em **memória não volátil**, permitindo a retenção mesmo sem conectividade com o servidor remoto. Essa funcionalidade é essencial para garantir **resiliência**, **confiabilidade** e **continuidade** no registro dos dados.  Os blocos funcionais do Armazenamento Local, são:  
