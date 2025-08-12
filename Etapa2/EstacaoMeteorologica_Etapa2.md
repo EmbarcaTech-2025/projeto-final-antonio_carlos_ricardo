@@ -239,24 +239,26 @@ Entre as etapas mais relevantes, destacam-se: a **leitura dos sensores**, segmen
 
 ### PRINCIPAIS CONEXÕES E GPIOS UTILIZADOS
 
-| Componente | Interface | Conector | GPIO |
-| :-: | :-: | :-: | :-: |
-| BME680               | I2C   | I2C1 | 02 e 03|
-| BME280               | I2C   | I2C1 | 02 e 03|
-| BMP280               | I2C   | I2C1 | 02 e 03|
-| ATH10                | I2C   | I2C1 | 02 e 03|
-| Anemômetro - HMC5883 | I2C   | I2C1 | 02 e 03|
-| Anemômetro - HALL    | Pulse | IDC  | 09 |
-| Biruta - HMC5883     | I2C   | I2C1 | 02 e 03|
-| Pluviômetro - HALL   | Pulse | I2C0 | 01|
-| BH1750               | I2C   | I2C1 | 02 e 03|
-| GY33                 | I2C   | I2C1 | 02 e 03|
-| DS1307               | I2C   | I2C1 | 02 e 03|
-| DS3231               | I2C   | I2C1 | 02 e 03|
-| Memory card          | SIO   | IDC  | Cartão de expansão |
-| AD card              | SIO   | IDC  | Cartão de expansão |  
-| LoRA card            | SIO   | IDC  | Cartão de expansão |  
+| Componente | Interface | Endereço | Conector | GPIO |
+| :-: | :-: | :-: | :-: | :-: |
+| BME680               | I2C   | 76-77 | J20-JST | 02 e 03|
+| BME280               | I2C   | 76-77 | J20-JST | 02 e 03|
+| BMP280               | I2C   | 76-77 | J20-JST | 02 e 03|
+| ATH10                | I2C   | 38    | J20-JST | 02 e 03|
+| Anemômetro - HMC5883 | I2C   | 3C    | J20-JST | 02 e 03|
+| Anemômetro - HALL    | Pulse |   -   | J2-IDC  | 09 |
+| Biruta - HMC5883     | I2C   | 3C    | J20-JST | 02 e 03|
+| Pluviômetro - HALL   | Pulse |   -   | J21-JST | 01|
+| BH1750               | I2C   | 23    | J20-JST | 02 e 03|
+| GY33                 | I2C   | 29    | J20-JST | 02 e 03|
+| DS1307               | I2C   | 68    | J20-JST | 02 e 03|
+| DS3231               | I2C   | 68    | J20-JST | 02 e 03|
+| Memory card          | SIO   |   -   | J2-IDC  | Cartão de expansão |
+| AD card              | SIO   |   -   | J2-IDC  | Cartão de expansão |  
+| LoRA card            | SIO   |   -   | J2-IDC  | Cartão de expansão |  
 
+Obs.1: Endereço se refere ao endereço I2C;
+Obs.2: Endereços repetidos indicam que apenas 1 dos componentes estarão instalados.
 
 Componentes com saída analógica utilizarão o AD Card.
 Obs.: As portas analógicas serão configuráveis por software
