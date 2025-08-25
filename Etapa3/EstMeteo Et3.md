@@ -12,4 +12,8 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 
 - O código json do dashboard está no arquivo dashboard15.json.
 
-- A pasta Code contem os códigos fontes, tanto da estação metereológica (BitDogLab) como do Servidor de dados
+- A pasta Code contem os códigos fonte, tanto da estação metereológica (BitDogLab) (pasta estacao_metereologica) como do Servidor de dados (pasta iot-server05)
+
+- O servidor roda em um container Docker, para isso basta entrar no diretório do servidor e executar os comandos:
+    - $ docker-compose build
+    - $ docker-compose up
