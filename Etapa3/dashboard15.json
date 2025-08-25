@@ -1,0 +1,447 @@
+{
+  "id": null,
+  "title": "v26",
+  "tags": [
+    "iot",
+    "sensores"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 8,
+
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+
+  "refresh": "5s", 
+
+  "templating": {
+    "list": [
+        {
+        "dataSource": {
+            "type": "postgres",
+            "uid": "grafana-postgresql-datasource"
+        },
+        "name": "device_id",
+        "query": "SELECT DISTINCT device_id FROM sensor_data ORDER BY device_id ASC;",
+        "refresh": 1,
+        "type": "query"
+        }
+    ]
+  },
+
+  "panels": [
+    {
+      "type": "text",
+      "title": "",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 2
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "## DADOS METEOROLÓGICOS DAS ESTAÇÔES INSTALADAS"
+      },
+      "pluginVersion": "11.1.0",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          }
+        }
+      }
+    },
+    {
+      "type": "gauge",
+      "title": "Temperatura (°C) - Agora",
+      "gridPos": {
+        "x": 0,
+        "y": 3,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": -10,
+          "max": 50,
+          "unit": "celsius",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "green",
+                "value": 18
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 35
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT temp AS value FROM sensor_data WHERE device_id = '${device_id}' ORDER BY timestamp DESC LIMIT 1;",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "gauge",
+      "title": "Umidade (%) - Agora",
+      "gridPos": {
+        "x": 8,
+        "y": 3,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 100,
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 40
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT humi AS value FROM sensor_data WHERE device_id = '${device_id}' ORDER BY timestamp DESC LIMIT 1;",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "gauge",
+      "title": "Pressão Atmosférica (hPa) - Agora",
+      "gridPos": {
+        "x": 16,
+        "y": 3,
+        "w": 8,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "min": 950,
+          "max": 1050,
+          "unit": "pressurehpa",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": 950
+              },
+              {
+                "color": "green",
+                "value": 980
+              },
+              {
+                "color": "yellow",
+                "value": 1030
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT press AS value FROM sensor_data WHERE device_id = '${device_id}' ORDER BY timestamp DESC LIMIT 1;",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Temperaturas (°C) - Hoje",
+      "gridPos": {
+        "x": 0,
+        "y": 11,
+        "w": 12,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT MIN(temp) AS \"Mínima\", MAX(temp) AS \"Máxima\" FROM sensor_data WHERE timestamp::date = CURRENT_DATE AND device_id = '${device_id}';",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "fields": "",
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "orientation": "horizontal",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto"
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Temperaturas (°C) - Média dos últimos 7 dias",
+      "gridPos": {
+        "x": 12,
+        "y": 11,
+        "w": 12,
+        "h": 4
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "custom": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [{ "color": "green", "value": null }]
+          }
+        }
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT ROUND(AVG(min_temp)::numeric,1) AS \"Média Mínima\", ROUND(AVG(max_temp)::numeric,1) AS \"Média Máxima\" FROM ( SELECT date_trunc('day', timestamp)::date AS dia, MAX(temp) AS max_temp, MIN(temp) AS min_temp FROM sensor_data WHERE timestamp >= NOW() - INTERVAL '7 days' AND device_id = '${device_id}' GROUP BY dia ) t;",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": { "fields": "", "values": true, "calcs": ["lastNotNull"] },
+        "orientation": "horizontal",
+        "textMode": "auto",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto"
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Máximos e Mínimos Diários de Temperatura (°C), Umidade (%) e Pressão Atmosférica (hPa)",
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 24,
+        "h": 10
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temperatura Mínima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temperatura Máxima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Temperatura Mínima"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Umidade Mínima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Umidade (%)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Umidade Máxima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Umidade Mínima"
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Umidade (%)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pressão Atmosférica Mínima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "pressurehpa"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pressão Atmosférica Máxima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "pressurehpa"
+              },
+              {
+                "id": "custom.fillBelowTo",
+                "value": "Pressão Atmosférica Mínima"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        },
+        "xaxis": {
+          "mode": "time",
+          "show": true
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_trunc('day', timestamp)::timestamptz AS time,\n  MAX(temp) AS \"Temperatura Máxima\",\n  MIN(temp) AS \"Temperatura Mínima\",\n  MAX(humi) AS \"Umidade Máxima\",\n  MIN(humi) AS \"Umidade Mínima\",\n  MAX(press) AS \"Pressão Atmosférica Máxima\",\n  MIN(press) AS \"Pressão Atmosférica Mínima\"\nFROM sensor_data\nWHERE\n  $__timeFilter(timestamp) AND device_id = '${device_id}' \nGROUP BY time\nORDER BY time ASC;",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

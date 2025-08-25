@@ -9,3 +9,5 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 Vídeo mostrando o funcionamento do protótipo da estação meteorológica: https://youtu.be/qt6M3t1E6bA
 
 Vídeo mostrando o dashboard com os dados colhidos pelas estações: https://youtu.be/kJ8YwOBT3hk
+
+O código json do dashboard está no arquivo dashboard15.json.
