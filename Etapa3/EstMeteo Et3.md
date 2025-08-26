@@ -17,3 +17,5 @@ Autores: Carlos Martinez Perez e Ricardo Jorge Furlan
 - O servidor roda em um container Docker, para isso basta entrar no diretório do servidor e executar os comandos:
     - $ docker-compose build
     - $ docker-compose up
+
+    
