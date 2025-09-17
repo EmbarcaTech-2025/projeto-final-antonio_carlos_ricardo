@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['config_5fdata_5fget_5fperiod_5fin_5fsec_0',['config_data_get_period_in_sec',['../config__data_8h.html#a46c5870347580fd58dabd2e3990c2590',1,'config_data.h']]],
+  ['config_5fdata_5fperiod_5fstring_1',['config_data_period_string',['../config__data_8h.html#aad8db6a89b1512ee96f231113ce5030b',1,'config_data.h']]],
+  ['config_5fdata_5fset_5fdefault_2',['config_data_set_default',['../config__data_8h.html#a9f0cb3fdc1957d598dda85accdc57929',1,'config_data.h']]],
+  ['config_5fdata_5fstorage_5fread_3',['config_data_storage_read',['../config__data_8h.html#a101d3486eb797181f6209f8a4a663b1d',1,'config_data.h']]],
+  ['config_5fdata_5fstorage_5fwrite_4',['config_data_storage_write',['../config__data_8h.html#a0028c4677b1a5c2c9de190c90599e1e7',1,'config_data.h']]],
+  ['core0_5fcomm_5faguarda_5fcmd_5',['core0_comm_aguarda_cmd',['../core0__comm_8h.html#a589158066cae7271644a485ffeed1864',1,'core0_comm.h']]],
+  ['core0_5fcomm_5fcore0_5ffifo_5firq_5fhandler_6',['core0_comm_core0_fifo_irq_handler',['../core0__comm_8h.html#a4023252525eb07671497e55e70496ba8',1,'core0_comm.h']]],
+  ['core0_5fcomm_5fgive_5flast_5fdata_7',['core0_comm_give_last_data',['../core0__comm_8h.html#a1c99d56c7f4cb579423e7dd7b78256f6',1,'core0_comm.h']]],
+  ['core0_5fcomm_5fgive_5fnext_5fdata_8',['core0_comm_give_next_data',['../core0__comm_8h.html#a92b0fece0953f953d3d3962b042ff7da',1,'core0_comm.h']]],
+  ['core0_5fcomm_5fgive_5fnext_5fdata_5fsent_9',['core0_comm_give_next_data_sent',['../core0__comm_8h.html#ae2aaf6f57311d353795fd32a13cbebee',1,'core0_comm.h']]],
+  ['core0_5fcomm_5fnew_5ftime_10',['core0_comm_new_time',['../core0__comm_8h.html#ab5598a43c95036a18061ca70f03e12d1',1,'core0_comm.h']]],
+  ['core1_5facquisition_5fget_11',['core1_acquisition_get',['../core1__acquisition_8h.html#a1eb5ed12d84c9997c850fb03c72f6c97',1,'core1_acquisition.h']]],
+  ['core1_5facquisition_5finit_12',['core1_acquisition_init',['../core1__acquisition_8h.html#adfe835ffeea2db69534fad2075fb2eb9',1,'core1_acquisition.h']]],
+  ['core1_5fdata_5fmem_5fread_13',['core1_data_mem_read',['../core1__data__mem_8h.html#a96f44ab36b588b535ac6e0badd2342ec',1,'core1_data_mem.h']]],
+  ['core1_5fdata_5fmem_5fsave_14',['core1_data_mem_save',['../core1__data__mem_8h.html#a71da131a1db18931ff0ca2335f1fb4be',1,'core1_data_mem.h']]],
+  ['core1_5fdata_5fmem_5fupdate_15',['core1_data_mem_update',['../core1__data__mem_8h.html#a7a553991213dc17ab91fc855a1263240',1,'core1_data_mem.h']]],
+  ['core1_5fmain_16',['core1_main',['../core1__main_8h.html#ab148110bebfeb5468545d63e65d8095f',1,'core1_main.h']]]
+];

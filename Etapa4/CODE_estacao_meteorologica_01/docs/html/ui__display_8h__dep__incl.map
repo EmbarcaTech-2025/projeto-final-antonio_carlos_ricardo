@@ -1,0 +1,4 @@
+<map id="include/ui_display.h" name="include/ui_display.h">
+<area shape="rect" id="node1" title="Inicializa display OLED e mostra dados da estação." alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="47,80,113,107"/>
+</map>

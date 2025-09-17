@@ -1,0 +1,4 @@
+<map id="include/menu_config.h" name="include/menu_config.h">
+<area shape="rect" id="node1" title="Ativa o Menu para a configuração do sistema." alt="" coords="5,5,173,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="56,80,123,107"/>
+</map>

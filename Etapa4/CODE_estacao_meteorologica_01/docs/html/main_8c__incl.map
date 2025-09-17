@@ -1,0 +1,24 @@
+<map id="main.c" name="main.c">
+<area shape="rect" id="node1" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="1389,5,1456,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="97,80,239,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="759,155,860,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="315,80,442,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="466,80,585,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="609,80,743,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="767,80,929,107"/>
+<area shape="rect" id="node9" href="$config_8h.html" title="Configurações do hardware e definição de mensagens." alt="" coords="954,80,1078,107"/>
+<area shape="rect" id="node10" href="$config__data_8h.html" title="Configurações que são utilizadas pelo sistema." alt="" coords="1103,80,1263,107"/>
+<area shape="rect" id="node11" href="$core__communication_8h.html" title="Comandos e Flags utilizados na comunicação entre os COREs." alt="" coords="2335,80,2556,107"/>
+<area shape="rect" id="node13" href="$core0__comm_8h.html" title="Módulo para envio e recebimento de mensagens e dados do Core1." alt="" coords="1419,80,1589,107"/>
+<area shape="rect" id="node14" href="$core1__main_8h.html" title="Inicializa o core1 e mantem o main loop do core1." alt="" coords="1613,80,1774,107"/>
+<area shape="rect" id="node15" href="$led__rgb_8h.html" title="Configura portas GPIO dos LEDs RGB e botões, controla LEDs." alt="" coords="1799,80,1932,107"/>
+<area shape="rect" id="node16" href="$menu__config_8h.html" title="Ativa o Menu para a configuração do sistema." alt="" coords="1956,80,2124,107"/>
+<area shape="rect" id="node17" href="$menu__clock_8h.html" title="Ativa o Menu para a configuração do relógio RTC(ou não)" alt="" coords="2148,80,2311,107"/>
+<area shape="rect" id="node18" href="$storage_8h.html" title="Rotinas para leitura e escrita na Flash Obs.: O outro core tem que estar rodando em RAM,..." alt="" coords="2885,80,3019,107"/>
+<area shape="rect" id="node19" href="$ui__display_8h.html" title="Inicializa display OLED e mostra dados da estação." alt="" coords="2580,80,2729,107"/>
+<area shape="rect" id="node20" href="$util_8h.html" title="Funções genericas utilizadas em várias partes." alt="" coords="2753,80,2860,107"/>
+<area shape="rect" id="node21" href="$wifi_8h.html" title="Inicializa, Atualiza, Conecta e Desconecta o módulo de WiFi." alt="" coords="1287,80,1395,107"/>
+<area shape="rect" id="node22" href="$wifi__tcp_8h.html" title="Executa requisições/envio de mensagens TCP." alt="" coords="3043,80,3178,107"/>
+<area shape="rect" id="node12" href="$estation__data_8h.html" title="Define a estrutura de dados da estação, e." alt="" coords="2637,155,2760,181"/>
+</map>
