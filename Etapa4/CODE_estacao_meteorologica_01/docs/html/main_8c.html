@@ -77,8 +77,6 @@ $(function() {
 <code>#include &quot;pico/stdlib.h&quot;</code><br />
 <code>#include &quot;pico/multicore.h&quot;</code><br />
 <code>#include &quot;hardware/i2c.h&quot;</code><br />
-<code>#include &quot;hardware/timer.h&quot;</code><br />
-<code>#include &quot;hardware/watchdog.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="config_8h_source.html">include/config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="config__data_8h_source.html">include/config_data.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="core__communication_8h_source.html">include/core_communication.h</a>&quot;</code><br />
@@ -90,6 +88,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="storage_8h_source.html">include/storage.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ui__display_8h_source.html">include/ui_display.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="util_8h_source.html">include/util.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wrap__watchdog_8h_source.html">include/wrap_watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wifi_8h_source.html">include/wifi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wifi__tcp_8h_source.html">include/wifi_tcp.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -97,28 +96,27 @@ Include dependency graph for main.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c__incl.png" border="0" usemap="#amain_8c" alt=""/></div>
 <map name="amain_8c" id="amain_8c">
-<area shape="rect" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="1389,5,1456,32"/>
+<area shape="rect" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="1313,5,1380,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,72,107"/>
 <area shape="rect" title=" " alt="" coords="97,80,239,107"/>
-<area shape="rect" title=" " alt="" coords="759,155,860,181"/>
-<area shape="rect" title=" " alt="" coords="315,80,442,107"/>
-<area shape="rect" title=" " alt="" coords="466,80,585,107"/>
-<area shape="rect" title=" " alt="" coords="609,80,743,107"/>
-<area shape="rect" title=" " alt="" coords="767,80,929,107"/>
-<area shape="rect" href="config_8h.html" title="Configurações do hardware e definição de mensagens." alt="" coords="954,80,1078,107"/>
-<area shape="rect" href="config__data_8h.html" title="Configurações que são utilizadas pelo sistema." alt="" coords="1103,80,1263,107"/>
-<area shape="rect" href="core__communication_8h.html" title="Comandos e Flags utilizados na comunicação entre os COREs." alt="" coords="2335,80,2556,107"/>
-<area shape="rect" href="core0__comm_8h.html" title="Módulo para envio e recebimento de mensagens e dados do Core1." alt="" coords="1419,80,1589,107"/>
-<area shape="rect" href="core1__main_8h.html" title="Inicializa o core1 e mantem o main loop do core1." alt="" coords="1613,80,1774,107"/>
-<area shape="rect" href="led__rgb_8h.html" title="Configura portas GPIO dos LEDs RGB e botões, controla LEDs." alt="" coords="1799,80,1932,107"/>
-<area shape="rect" href="menu__config_8h.html" title="Ativa o Menu para a configuração do sistema." alt="" coords="1956,80,2124,107"/>
-<area shape="rect" href="menu__clock_8h.html" title="Ativa o Menu para a configuração do relógio RTC(ou não)" alt="" coords="2148,80,2311,107"/>
-<area shape="rect" href="storage_8h.html" title="Rotinas para leitura e escrita na Flash Obs.: O outro core tem que estar rodando em RAM,..." alt="" coords="2885,80,3019,107"/>
-<area shape="rect" href="ui__display_8h.html" title="Inicializa display OLED e mostra dados da estação." alt="" coords="2580,80,2729,107"/>
-<area shape="rect" href="util_8h.html" title="Funções genericas utilizadas em várias partes." alt="" coords="2753,80,2860,107"/>
-<area shape="rect" href="wifi_8h.html" title="Inicializa, Atualiza, Conecta e Desconecta o módulo de WiFi." alt="" coords="1287,80,1395,107"/>
-<area shape="rect" href="wifi__tcp_8h.html" title="Executa requisições/envio de mensagens TCP." alt="" coords="3043,80,3178,107"/>
-<area shape="rect" href="estation__data_8h.html" title="Define a estrutura de dados da estação, e." alt="" coords="2637,155,2760,181"/>
+<area shape="rect" title=" " alt="" coords="625,155,727,181"/>
+<area shape="rect" title=" " alt="" coords="395,80,522,107"/>
+<area shape="rect" title=" " alt="" coords="546,80,665,107"/>
+<area shape="rect" href="config_8h.html" title="Configurações do hardware e definição de mensagens." alt="" coords="689,80,813,107"/>
+<area shape="rect" href="config__data_8h.html" title="Configurações que são utilizadas pelo sistema." alt="" coords="837,80,997,107"/>
+<area shape="rect" href="core__communication_8h.html" title="Comandos e Flags utilizados na comunicação entre os COREs." alt="" coords="2663,80,2884,107"/>
+<area shape="rect" href="core0__comm_8h.html" title="Módulo para envio e recebimento de mensagens e dados do Core1." alt="" coords="1073,80,1242,107"/>
+<area shape="rect" href="core1__main_8h.html" title="Inicializa o core1 e mantem o main loop do core1." alt="" coords="1266,80,1427,107"/>
+<area shape="rect" href="led__rgb_8h.html" title="Configura portas GPIO dos LEDs RGB e botões, controla LEDs." alt="" coords="1452,80,1585,107"/>
+<area shape="rect" href="menu__config_8h.html" title="Ativa o Menu para a configuração do sistema." alt="" coords="1609,80,1777,107"/>
+<area shape="rect" href="menu__clock_8h.html" title="Ativa o Menu para a configuração do relógio RTC(ou não)" alt="" coords="1801,80,1964,107"/>
+<area shape="rect" href="storage_8h.html" title="Rotinas para leitura e escrita na Flash Obs.: O outro core tem que estar rodando em RAM,..." alt="" coords="1989,80,2123,107"/>
+<area shape="rect" href="ui__display_8h.html" title="Inicializa display OLED e mostra dados da estação." alt="" coords="2148,80,2297,107"/>
+<area shape="rect" href="util_8h.html" title="Funções genericas utilizadas em várias partes." alt="" coords="2321,80,2428,107"/>
+<area shape="rect" href="wrap__watchdog_8h.html" title="Gerencia o watchdog, criando artificios para que funcione com um timeout de 45 segundos." alt="" coords="2452,80,2639,107"/>
+<area shape="rect" href="wifi_8h.html" title="Inicializa, Atualiza, Conecta e Desconecta o módulo de WiFi." alt="" coords="263,80,371,107"/>
+<area shape="rect" href="wifi__tcp_8h.html" title="Executa requisições/envio de mensagens TCP." alt="" coords="2909,80,3043,107"/>
+<area shape="rect" href="estation__data_8h.html" title="Define a estrutura de dados da estação, e." alt="" coords="2353,155,2476,181"/>
 </map>
 </div>
 </div><table class="memberdecls">

@@ -25,8 +25,8 @@ endif()
 # ====================================================================================
 set(PICO_BOARD pico_w CACHE STRING "Board type")
 
-set(CMAKE_BUILD_TYPE "Debug")
-set(PICO_DEOPTIMIZED_DEBUG 1)
+# set(CMAKE_BUILD_TYPE "Debug")
+# set(PICO_DEOPTIMIZED_DEBUG 1)
 
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
@@ -69,6 +69,7 @@ add_executable(estacao_meteorologica_01
         src/testes.c
         src/ui_display.c
         src/util.c
+        src/wrap_watchdog.c
         src/wifi.c
         src/wifi_tcp.c
         )
@@ -90,6 +91,7 @@ target_link_libraries(estacao_meteorologica_01
         hardware_adc
         hardware_flash
         hardware_i2c
+        hardware_pwm
         # Oferece suporte Wi-Fi (CYW43) com LwIP (pilha TCP/IP) em um modo thread-safe em segundo plano.
         pico_cyw43_arch_lwip_threadsafe_background
         # O driver do chip Wi-Fi CYW43 (usado no Pico W).

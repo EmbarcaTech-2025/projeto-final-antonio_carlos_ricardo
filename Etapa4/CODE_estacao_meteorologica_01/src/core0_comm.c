@@ -74,7 +74,10 @@ CoreCommunicationCmd core0_comm_aguarda_cmd(void){
  * principalmente para tratar prontamente a requisição: CORE_COMM_CMD_HOLD
  * 
  */
-void core0_comm_core0_fifo_irq_handler(void) {
+
+// resolve o problema de travamento da Flash
+void __not_in_flash_func(core0_comm_core0_fifo_irq_handler)(void) {
+//void core0_comm_core0_fifo_irq_handler(void) {
     CoreCommunicationCmd cmd = multicore_fifo_pop_blocking();
 
     if(cmd == CORE_COMM_CMD_HOLD){

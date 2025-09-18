@@ -79,7 +79,7 @@ typedef struct{
     uint32_t xor;
 } ConfigData;
 
-#define CONFIG_DATA_VERSION         15    // 0x00000014      // quando atualizado usar versão do build
+#define CONFIG_DATA_VERSION         20    // 0x00000014      // quando atualizado usar versão do build
 
 
 #define AD_MAX_PORT                 8

@@ -40,7 +40,10 @@ static uint64_t core1_data_mem_get_cycle(uint32_t index){
  * @param estation_data, dado a ser gravado
  * @param erase, se é para limpar a memória antes de escrever, 
  */
-static void core1_data_mem_save_safe(uint32_t index, EstationData * estation_data, bool erase){
+
+// não resolve  o problema de travamento da flash, mas mesmo assim foi colocado
+static void __not_in_flash_func(core1_data_mem_save_safe)(uint32_t index, EstationData * estation_data, bool erase){
+//static void core1_data_mem_save_safe(uint32_t index, EstationData * estation_data, bool erase){
     /*
     if(erase) printf("SAVING AQ   Index=%4d, cycle=%4d\n", index, estation_data->cycle);
          else printf("UPDATING AQ Index=%4d, cycle=%4d\n", index, estation_data->cycle);

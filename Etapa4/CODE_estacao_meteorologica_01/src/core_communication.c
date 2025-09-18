@@ -15,5 +15,5 @@ uint64_t     core_comm_new_time;
 EstationData core_comm_estation_data;
 
 // Flags para comunicação entre os COREs
-bool core_comm_flash_busy = false;
-bool core_comm_core0_busy = true;
+volatile bool core_comm_flash_busy = false;
+volatile bool core_comm_core0_busy = true;

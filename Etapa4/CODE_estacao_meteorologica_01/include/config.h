@@ -12,11 +12,13 @@
 #define DEBUG_BITDOG_LAB
 #define BITDOGLAB_WITH_DEBUG_PROBE
 
-#define WATCHDOG_ENABLED
-#define EASTER_EGG_ENABLED
+#define WATCHDOG_PWM
+//#define WATCHDOG_TIMER
+
+//#define EASTER_EGG_ENABLED
 
 
-#define SW_BUILD "0015"     // 4 CARACTERES
+#define SW_BUILD "0020"     // 4 CARACTERES
 
 
 #define DEBUG_PRINTF_ENABLE      true

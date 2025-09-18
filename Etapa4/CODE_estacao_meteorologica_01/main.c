@@ -13,8 +13,6 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include "hardware/i2c.h"
-#include "hardware/timer.h"
-#include "hardware/watchdog.h"
 #include "include/config.h"
 #include "include/config_data.h"
 #include "include/core_communication.h"
@@ -26,11 +24,13 @@
 #include "include/storage.h"
 #include "include/ui_display.h"
 #include "include/util.h"
+#include "include/wrap_watchdog.h"
 #include "include/wifi.h"
 #include "include/wifi_tcp.h"
 
 #define PAGE_SEND       "/dados"
 #define PAGE_TIME       "/hora"
+
 
 typedef enum {
     WIFI_ST_DISCONNECTED = 0,
@@ -38,22 +38,6 @@ typedef enum {
     WIFI_ST_CONNECTED_WITH_ERROR
 } WiFiState;
 
-#ifdef WATCHDOG_ENABLED
-static volatile int16_t watchdog_count;
-
-static void watchdog_refresh(){
-    watchdog_count = 45;
-}
-// Callback de interrupção do timer
-static bool watchdog_feed_callback(repeating_timer_t *rt) {
-    //printf("WATCH %d\n", watchdog_count);
-    if(watchdog_count > 0){
-        watchdog_update(); // alimenta o watchdog
-        watchdog_count--;
-    }
-    return true; // retorna true para repetir o timer
-}
-#endif
 
 
 /**
@@ -119,8 +103,8 @@ int main()
     gpio_set_function(16, GPIO_FUNC_UART);
 #endif
 
-#ifdef WATCHDOG_ENABLED
-    watchdog_disable();
+#if defined(WATCHDOG_PWM) || defined(WATCHDOG_TIMER)
+    wrap_watchdog_disable();
 #endif
 
     printf("***** Estação Meteorológica 01 *****\n");
@@ -171,6 +155,7 @@ int main()
 
     // Instala e habilita o IRQ do FIFO para o Core 0
     irq_set_exclusive_handler(SIO_IRQ_PROC0, core0_comm_core0_fifo_irq_handler);
+    multicore_fifo_clear_irq();//SIO_IRQ_PROC0
     irq_set_enabled(SIO_IRQ_PROC0, true);
 
     // Ativa Core1  Led fica amarelo durante ativação do core1
@@ -199,20 +184,19 @@ int main()
 
     printf("Starting Core0 Main Loop\n");
 
-#ifdef WATCHDOG_ENABLED
-    watchdog_refresh();
-    static repeating_timer_t timer_watchdog;
-    add_repeating_timer_ms(1000, watchdog_feed_callback, NULL, &timer_watchdog);
-    watchdog_enable(5000, 1);
+#if defined(WATCHDOG_PWM) || defined(WATCHDOG_TIMER)    
+    wrap_watchdog_enable();
 #endif
 
     printf("START\n");
 
+    //sleep_ms(10000);
+
     while (true) {
         bool wifi_st = wifi_update();
 
-#ifdef WATCHDOG_ENABLED        
-        watchdog_refresh();
+#if defined(WATCHDOG_PWM) || defined(WATCHDOG_TIMER)
+        wrap_watchdog_refresh();
 #endif
 
         if(wifi_st){
@@ -261,9 +245,9 @@ int main()
                         fim         = true;
                         t_next_send = time_us_64() + dt_next_send;
                     }
-#ifdef WATCHDOG_ENABLED                    
-                    watchdog_refresh(); 
-#endif
+#if defined(WATCHDOG_PWM) || defined(WATCHDOG_TIMER)
+                    wrap_watchdog_refresh();
+#endif  
                 }
             }
         }else{  // WiFi OFF
@@ -286,7 +270,7 @@ int main()
             printf("Last Data : %s\n", estation_data_buf_tmp);
         }
 
-#ifdef WATCHDOG_ENABLED
+#if defined(WATCHDOG_PWM) || defined(WATCHDOG_TIMER)
 #ifdef EASTER_EGG_ENABLED        
         if(!gpio_get(BUTTON_J_GPIO)){
             printf("Iniciado processo de Watdog reset\n");

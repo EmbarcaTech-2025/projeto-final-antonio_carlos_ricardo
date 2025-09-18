@@ -33,8 +33,8 @@ extern EstationData core_comm_estation_data;
 
 
 // Flags para comunicação entre os COREs
-extern bool core_comm_flash_busy;
-extern bool core_comm_core0_busy;
+extern volatile bool core_comm_flash_busy;
+extern volatile bool core_comm_core0_busy;
 
 
 #endif // CORE_COMMUNICATION_H
