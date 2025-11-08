@@ -19,18 +19,17 @@ Foi desenvolvido firmware em C baseado no driver uLora.
 Através dos botões da BDL, selecionou-se a placa em teste e seu modo de operação.  
 
 Setting LoRa board:  
-
 | Botão | Função |
 |-------|--------|
 | A (GPIO5) | força placa Escola 4.0 |
 | B (GPIO6) | força placa do kit |
-Setting de modo TX/RX:
 
+Setting de modo TX/RX:  
 | Botão | Função |
 |-------|--------|
 | A (GPIO5) | força modo RSSI (RX simplificado) |
 | B (GPIO6) | força modo RX |
-| Votão do Joystick (GPIO22) | força nodo TX |
+| Botão do Joystick (GPIO22) | força nodo TX |
 
 ### 4. Problemas Encontrados e Mitigações
 Durante os testes surgiram problemas técnicos reais, relevantes para projetos futuros:
