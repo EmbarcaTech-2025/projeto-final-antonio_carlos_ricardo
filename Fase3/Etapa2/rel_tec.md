@@ -39,7 +39,7 @@ Durante os testes surgiram problemas técnicos reais, relevantes para projetos f
 | Necessidade de códigos específicos para cada versão de BDL | OLED não inicializa | definiçãi dos pinos SDA/SCL |
 | A placa Escola 4.0 na BDL 7, após algumas leituras | placa trava | ainda em análise |
 
-Observação: É necessário alinhar ambos os devices para mesmo SF e canal. Qualquer divergência de modem config impede recepção mesmo com SPI e RF ok.
+Observação: É necessário que ambos os devices (TX e RX) utilizem o mesmo SF e canal, pois havendo divergência impede que ocorra a recepção de mensagens.  
 
 ### 5. Resultados
 Com ambos os firmwares alinhados e antenas conectadas, obtivemos pacotes LoRa ponto-a-ponto estáveis. Foi possível medir **RSSI** no receptor em tempo real através de callback do driver.
