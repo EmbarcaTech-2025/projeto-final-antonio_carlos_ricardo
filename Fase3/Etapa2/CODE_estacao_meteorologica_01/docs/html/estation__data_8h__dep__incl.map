@@ -1,0 +1,8 @@
+<map id="include/estation_data.h" name="include/estation_data.h">
+<area shape="rect" id="node1" title="Define a estrutura de dados da estação, e." alt="" coords="327,5,501,32"/>
+<area shape="rect" id="node2" href="$core1__acquisition_8h.html" title="Inicializa os sensores e faz as aquisições." alt="" coords="5,80,204,107"/>
+<area shape="rect" id="node3" href="$core1__data_8h.html" title="Define a variavel EstationData que é utilizada no Core1 para aquisição de dados." alt="" coords="229,80,386,107"/>
+<area shape="rect" id="node4" href="$core__communication_8h.html" title="Comandos e Flags utilizados na comunicação entre os COREs." alt="" coords="410,80,631,107"/>
+<area shape="rect" id="node6" href="$storage_8h.html" title="Rotinas para leitura e escrita na Flash Obs.: O outro core tem que estar rodando em RAM,..." alt="" coords="656,80,791,107"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="589,155,655,181"/>
+</map>

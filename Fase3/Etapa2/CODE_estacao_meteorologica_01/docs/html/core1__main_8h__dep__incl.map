@@ -1,0 +1,4 @@
+<map id="include/core1_main.h" name="include/core1_main.h">
+<area shape="rect" id="node1" title="Inicializa o core1 e mantem o main loop do core1." alt="" coords="5,5,167,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="53,80,119,107"/>
+</map>

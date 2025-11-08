@@ -1,0 +1,9 @@
+PROJECT_NAME           = "BitDogLab Code structuring for modular architecture"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = ./main.c ./include ./app ./hal ./driver README.md
+USE_MDFILE_AS_MAINPAGE = README.md
+RECURSIVE              = YES
+GENERATE_LATEX         = NO
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = YES
+FILE_PATTERNS          = *.h *.c

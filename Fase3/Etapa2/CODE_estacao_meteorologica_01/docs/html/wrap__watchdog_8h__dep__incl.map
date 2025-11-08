@@ -1,0 +1,4 @@
+<map id="include/wrap_watchdog.h" name="include/wrap_watchdog.h">
+<area shape="rect" id="node1" title="Gerencia o watchdog, criando artificios para que funcione com um timeout de 45 segundos." alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="65,80,132,107"/>
+</map>

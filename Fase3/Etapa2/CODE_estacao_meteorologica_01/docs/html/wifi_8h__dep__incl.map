@@ -1,0 +1,4 @@
+<map id="include/wifi.h" name="include/wifi.h">
+<area shape="rect" id="node1" title="Inicializa, Atualiza, Conecta e Desconecta o módulo de WiFi." alt="" coords="5,5,113,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title="Inicialização do sistema e main loop para transmissão de dados." alt="" coords="26,80,93,107"/>
+</map>
