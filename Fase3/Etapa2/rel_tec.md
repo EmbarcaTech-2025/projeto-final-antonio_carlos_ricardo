@@ -39,27 +39,23 @@ Durante os testes surgiram problemas técnicos reais, relevantes para projetos f
 | Necessidade de códigos específicos para cada versão de BDL | OLED não inicializa | definiçãi dos pinos SDA/SCL |
 | A placa Escola 4.0 na BDL 7, após algumas leituras | placa trava | ainda em análise |
 
-Observação: É necessário que ambos os devices (TX e RX) utilizem o mesmo SF e canal, pois havendo divergência impede que ocorra a recepção de mensagens.  
+Observação: É necessário que ambos os devices (TX e RX) utilizem o mesmo SF e canal pois, havendo divergência, impede que ocorra a recepção de mensagens.  
 
 ### 5. Resultados
-Com ambos os firmwares alinhados e antenas conectadas, obtivemos pacotes LoRa ponto-a-ponto estáveis. Foi possível medir **RSSI** no receptor em tempo real através de callback do driver.
+Com ambos os firmwares alinhados e antenas conectadas, obtivemos pacotes LoRa ponto-a-ponto estáveis. Foi possível medir RSSI no receptor em tempo real através de callback do driver.
 
-Valores observados em bancada (aprox 1 metro de distância):
-- RSSI variando entre **-42 dBm** e **-55 dBm** na mesa de laboratório
-- SNR entre **9** e **11 dB** (ambiente interno com baixa interferência)
+Valores observados em bancada (aprox 0,5 metro de distância):
+- obteve-se valores de RSSI em torno de -30 dBm  
 
 ### 6. Conclusões Técnicas
-- Confirmou-se que duas BitDogLab podem operar LoRa puro sem LoRaWAN.
-- O firmware pode mudar de TX para RX **em tempo real**, sem regravar código.
-- A leitura do REG_VERSION=0x12 é o teste mais eficiente para avaliar “rádio vivo” antes da depuração RF.
-- A arquitetura é adequada para:
-  - testes de alcance
-  - exploração de parâmetros de rádio (SF/BW/CR)
-  - protótipos meteorológicos e sensores simplex
-
+- Confirmou-se que duas BitDogLab podem operar LoRa puro sem LoRaWAN.  
+- A leitura do REG_VERSION = 0x12 é o teste mais eficiente para avaliar a comunicação SPI.  
+- A arquitetura é adequada para:  
+  - testes de alcance  
+  
 ### 7. Próximos Passos
-- adicionar checksum do payload
-- testar modulação com SF variável
-- integrar ThingsBoard via Gateway LoRaWAN quando migrar de P2P para LoRaWAN
+- utilizar o protocolo LoRaWAN com gateway  
+- integrar TTN + ThingsBoard via Gateway LoRaWAN quando migrar de P2P para LoRaWAN  
 
-**Conclusão final**: o sistema é operacional, pode medir RSSI/SNR de forma consistente, e serve como base sólida para etapas posteriores de integração em rede LoRaWAN privada ou pública.
+Conclusão final: o sistema é operacional, pode medir RSSI de forma consistente, e serve como base para etapas posteriores de integração em rede LoRaWAN privada ou pública.  
+
