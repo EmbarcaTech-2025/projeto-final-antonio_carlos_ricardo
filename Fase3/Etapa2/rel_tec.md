@@ -35,7 +35,7 @@ Setting de modo TX/RX:
 | B (GPIO6) | força modo RX |
 | Botão do Joystick (GPIO22) | força modo TX |
 
-![Foto2](./assets/Pic04.0_SetMode.jpg)  
+![Foto3](./assets/Pic04.0_SetMode.jpg)  
 
 ### 4. Problemas Encontrados e Mitigações
 Durante os testes surgiram problemas técnicos reais, relevantes para projetos futuros:
@@ -52,6 +52,8 @@ Com ambos os firmwares alinhados e antenas conectadas, obtivemos pacotes LoRa po
 
 Valores observados em bancada (aprox 0,5 metro de distância):
 - obteve-se valores de RSSI em torno de -30 dBm  
+
+![Foto4](./assets/Pic04.1.2_RSSI_With_Signal.jpg)  
 
 ### 6. Conclusões Técnicas
 - Confirmou-se que duas BitDogLab podem operar LoRa puro sem LoRaWAN.  
