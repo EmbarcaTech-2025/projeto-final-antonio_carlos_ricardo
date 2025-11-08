@@ -29,18 +29,17 @@ Setting de modo TX/RX:
 |-------|--------|
 | A (GPIO5) | força modo RSSI (RX simplificado) |
 | B (GPIO6) | força modo RX |
-| Botão do Joystick (GPIO22) | força nodo TX |
+| Botão do Joystick (GPIO22) | força modo TX |
 
 ### 4. Problemas Encontrados e Mitigações
 Durante os testes surgiram problemas técnicos reais, relevantes para projetos futuros:
 
 | Problema | Sintoma | Solução aplicada |
 |----------|---------|------------------|
-| Incompatibilidade de bibliotecas SSD1306 | OLED não inicializava | correção de pinos SDA/SCL e teste isolado do I2C |
-| Falta de feedback visual local | difícil saber se device estava TX ou RX | uso de LEDs RGB da BitDogLab para sinalização |
-| Conflito ao tentar monitorar as duas placas simultaneamente no mesmo PC | Thonny não abre 2 instâncias por padrão | gravação do client como `main.py` para rodar sozinho sem debugger |
+| Necessidade de códigos específicos para cada versão de BDL | OLED não inicializa | definiçãi dos pinos SDA/SCL |
+| A placa Escola 4.0 na BDL 7, após algumas leituras | placa trava | ainda em análise |
 
-Além disso, foi necessário alinhar ambos os devices para **mesmo SF/BW/CR**. Qualquer divergência de modem config impede recepção mesmo com SPI e RF ok.
+Observação: É necessário alinhar ambos os devices para mesmo SF e canal. Qualquer divergência de modem config impede recepção mesmo com SPI e RF ok.
 
 ### 5. Resultados
 Com ambos os firmwares alinhados e antenas conectadas, obtivemos pacotes LoRa ponto-a-ponto estáveis. Foi possível medir **RSSI** no receptor em tempo real através de callback do driver.
