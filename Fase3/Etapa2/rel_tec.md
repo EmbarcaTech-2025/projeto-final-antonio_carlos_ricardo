@@ -11,7 +11,7 @@ Este documento registra os testes realizados com dois rádios LoRa modelo RFM95W
 - Antenas externas conectadas nos dois módulos da Escola 4.0 e pig tail na outra
 - Frequência de teste: AU915, canal 5, 915 MHz (compatível Brasil/ANATEL)
 
-![Foto1](./assets/Pic00_Modulos_LoRa.jpg)
+![Foto1](./assets/Pic00_Modulos_LoRa.jpg)  
 
 A pinagem do RFM95W foi mapeada para o SPI0 do RP2040.  
 Confirmamos que os módulos estavam vivos através da leitura do registrador VERSION (0x42), que retornou 0x12 nos três rádios. Isto garantiu que o SPI estava funcional antes dos testes de RF.  
@@ -26,7 +26,7 @@ Setting LoRa board:
 | A (GPIO5) | força placa Escola 4.0 |
 | B (GPIO6) | força placa do kit |
 
-![Foto2](./assets/Pic02_SelectBoard.jpg)
+![Foto2](./assets/Pic02_SelectBoard.jpg)  
 
 Setting de modo TX/RX:  
 | Botão | Função |
@@ -34,6 +34,8 @@ Setting de modo TX/RX:
 | A (GPIO5) | força modo RSSI (RX simplificado) |
 | B (GPIO6) | força modo RX |
 | Botão do Joystick (GPIO22) | força modo TX |
+
+![Foto2](./assets/Pic04.0_SetMode.jpg)  
 
 ### 4. Problemas Encontrados e Mitigações
 Durante os testes surgiram problemas técnicos reais, relevantes para projetos futuros:
