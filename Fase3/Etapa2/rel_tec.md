@@ -11,7 +11,7 @@ Este documento registra os testes realizados com dois rádios LoRa modelo RFM95W
 - Antenas externas conectadas nos dois módulos da Escola 4.0 e pig tail na outra
 - Frequência de teste: AU915, canal 5, 915 MHz (compatível Brasil/ANATEL)
 
-![Foto1](Etapa2\assets\Pic00_Modulos_LoRa.jpg)
+![Foto1](.\assets\Pic00_Modulos_LoRa.jpg)
 
 A pinagem do RFM95W foi mapeada para o SPI0 do RP2040.  
 Confirmamos que os módulos estavam vivos através da leitura do registrador VERSION (0x42), que retornou 0x12 nos três rádios. Isto garantiu que o SPI estava funcional antes dos testes de RF.  
