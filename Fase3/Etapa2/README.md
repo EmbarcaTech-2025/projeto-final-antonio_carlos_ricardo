@@ -5,7 +5,7 @@
 **Autores: Antonio Crepaldi - Carlos Martinez Perez - Ricardo Jorge Furlan**
 
 Este relatório foi legado da Fase 2 do Programa Embarcatech.  
-Na Fase 3 haverá a implementação da comubicação via LoRa e a adição de nova fonte de energia baseada em placas solares.  
+Na Fase 3 haverá a implementação da comunicação via LoRa e a adição de nova fonte de energia baseada em placas solares.  
 
 ---
 
