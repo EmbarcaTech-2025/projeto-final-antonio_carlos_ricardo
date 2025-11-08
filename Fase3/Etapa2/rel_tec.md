@@ -2,26 +2,35 @@
 **BitDogLab + RFM95W** – Novembro/2025
 
 ### 1. Objetivo
-Este documento registra os testes realizados com dois rádios LoRa modelo RFM95W utilizando duas placas BitDogLab (RP2040). O objetivo foi validar a comunicação ponto-a-ponto LoRa utilizando firmware próprio em MicroPython, com possibilidade de alternar entre **modo transmissor (TX)** e **modo receptor (RX)** através dos botões físicos da BitDogLab.
+Este documento registra os testes realizados com dois rádios LoRa modelo RFM95W utilizando duas placas BitDogLab (RP2040). O objetivo foi validar a comunicação ponto-a-ponto LoRa utilizando firmware próprio em C, com possibilidade de alternar entre modo transmissor (TX) e modo receptor (RX) através dos botões físicos da BitDogLab.
 
 ### 2. Montagem e Configuração
-- 2 placas BitDogLab v7 (RP2040)
-- 2 módulos LoRa Semtech SX1276/RFM95W
-- Alimentação via USB
-- Antenas externas conectadas nos dois módulos
-- Frequência de teste: **915 MHz** (compatível Brasil/ANATEL)
+- 2 placas BitDogLab v6.3 e v7 com pico w (RP2040)  
+- 3 módulos LoRa RFM95W (SX1276), sendo 2 módulos Escola 4.0 e 1 do kit avançado de periféricos  
+- Alimentação via USB e bateria (v7)
+- Antenas externas conectadas nos dois módulos da Escola 4.0 e pig tail na outra
+- Frequência de teste: AU915, canal 5, 915 MHz (compatível Brasil/ANATEL)
 
 A pinagem do RFM95W foi mapeada para o SPI0 do RP2040.  
-Confirmamos que os módulos estavam vivos através da leitura do registrador **VERSION (0x42)**, que retornou **0x12** em ambos os rádios (padrão do SX1276). Isto garantiu que o SPI estava funcional antes dos testes de RF.
+Confirmamos que os módulos estavam vivos através da leitura do registrador VERSION (0x42), que retornou 0x12 nos três rádios. Isto garantiu que o SPI estava funcional antes dos testes de RF.  
 
 ### 3. Firmware e Operação
-Foi desenvolvido firmware MicroPython baseado no driver uLora.  
-Por opção de simplificação operacional, o firmware identifica o modo de operação através dos botões da BitDogLab:
+Foi desenvolvido firmware em C baseado no driver uLora.  
+Através dos botões da BDL, selecionou-se a placa em teste e seu modo de operação.  
+
+Setting LoRa board:  
 
 | Botão | Função |
 |-------|--------|
-| A (GPIO5) | força modo TX |
+| A (GPIO5) | força placa Escola 4.0 |
+| B (GPIO6) | força placa do kit |
+Setting de modo TX/RX:
+
+| Botão | Função |
+|-------|--------|
+| A (GPIO5) | força modo RSSI (RX simplificado) |
 | B (GPIO6) | força modo RX |
+| Votão do Joystick (GPIO22) | força nodo TX |
 
 ### 4. Problemas Encontrados e Mitigações
 Durante os testes surgiram problemas técnicos reais, relevantes para projetos futuros:
