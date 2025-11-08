@@ -1,8 +1,11 @@
-# 📑 Relatório Final – Estação Meteorológica para o Agronegócio e a Agricultura Familiar
+# Embarcatech - Fase 3 - Etapa 2 - Semana 1 - Estação Meteorológica IoT
 
-**Projeto Final - Etapa 4 (18/09/2025)**
+** Projeto Estação Meteorológica IoT (09/11/2025)**
 
-**Autores: Carlos Martinez Perez e Ricardo Jorge Furlan**
+**Autores: Antonio Crepaldi - Carlos Martinez Perez - Ricardo Jorge Furlan**
+
+Este relatório foi legado da Fase 2 do Programa Embarcatech.  
+Na Fase 3 haverá a implementação da comubicação via LoRa e a adição de nova fonte de energia baseada em placas solares.  
 
 ---
 
