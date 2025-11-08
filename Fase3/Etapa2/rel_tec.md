@@ -26,7 +26,7 @@ Setting LoRa board:
 | A (GPIO5) | força placa Escola 4.0 |
 | B (GPIO6) | força placa do kit |
 
-!{Foto2}(./assets/Pic02_SelectBoard.jpg)
+![Foto2](./assets/Pic02_SelectBoard.jpg)
 
 Setting de modo TX/RX:  
 | Botão | Função |
