@@ -28,6 +28,10 @@ Setting LoRa board:
 
 ![Foto2](./assets/Pic02_SelectBoard.jpg)  
 
+Nesse momento, o programa verifica a versão da placa através do registrador 0x42. Se a resposta for 0x12 a versão da placa é validada.
+
+![Foto2.1](./assets/Pic03_CheckBoard_0x12.jpg)
+
 Setting de modo TX/RX:  
 | Botão | Função |
 |-------|--------|
