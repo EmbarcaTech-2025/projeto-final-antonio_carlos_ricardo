@@ -15,10 +15,19 @@ static void init_ledsrgb_buttons();
 
 int main(){
     stdio_init_all();
+
+#ifdef BITDOGLAB_WITH_DEBUG_PROBE
+    gpio_set_function( 0, GPIO_FUNC_SIO);
+    gpio_set_function( 1, GPIO_FUNC_SIO);
+    gpio_set_function(17, GPIO_FUNC_UART);
+    gpio_set_function(16, GPIO_FUNC_UART);
+#endif
+    
     init_ledsrgb_buttons();
 
     gpio_put(GPIO_LED_RED,   true);
-    sleep_ms(10000);    // para dar tempo de conectar a interface serial
+    //sleep_ms(10000);    // para dar tempo de conectar a interface serial
+    sleep_ms(1000);
     gpio_put(GPIO_LED_GREEN, true);
     printf("********** %s **********\n\n", NAME);
     printf("Version: %s - %s - Build: %s\n\n\n", VERSION, VERSION_DATA, BUILD);
@@ -30,6 +39,9 @@ int main(){
     aq_data.control1 = est_config.sensors1;
     gpio_put(GPIO_LED_RED,   false);
     gpio_put(GPIO_LED_GREEN, false);
+
+    sleep_ms(100);
+    //hw_sleep_init();
 
     int count = 0;
     int ret;
@@ -55,7 +67,7 @@ int main(){
         // Faz a BitDogLab "dormir"
         printf("Station Sleeping\n");
         gpio_put(GPIO_LED_BLUE, false);
-        hw_sleep(est_config.sleep_time_min);
+        hw_sleep_min(est_config.sleep_time_min);
     }
 }
 

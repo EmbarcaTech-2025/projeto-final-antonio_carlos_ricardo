@@ -1,5 +1,19 @@
 # Estação Meteorológica LoRa/LoRaWAN
 
+## Build:000x- xx/12/202
+- menu e conf: Variaveis do lorawan
+- Melhorar rotinas de aq dos 3 sensores
+- Melhorar Sleep mode
+- Comunicação com WCM
+
+
+## Build:0002- 08/12/2025
+- Add simple Sleep mode
+- Add simple Bat    Driver
+- Add simple Bmp280 Driver
+- Add simple GPS    Driver
+- Add print do que deve ser enviado pelo loRa
+- Add Debug Mode
 
 ## Build:0001- 05/12/2025
 - inicio do menu
@@ -46,7 +60,7 @@ Bit 1 ==> Bme280, Add 5 Bytes no Payload,
 Bit 2 ==> GPS, Add 10 Bytes
     Add x 4 Bytes Latitude
         0x7FFF FFFF ==> erro no sensor
-        latitude em graus = valor * 256 /(2^32)
+        latitude em graus = valor * 512 /(2^32)
     Add x 4 Bytes Longitude
         0x7FFF FFFF ==> erro no sensor
         latitude em graus = valor * 512 /(2^32)

@@ -1,6 +1,17 @@
+#include "hardware/i2c.h"
 #include "../include/aq_data.h"
+#include "../include/code_config.h"
 
 int aqdata_init( AqData *value){
+
+    // Inicializar I2Cs
+    i2c_init(         I2C_MAIN_BUS,      I2C_MAIN_BAUDRATE);
+    gpio_pull_up(     I2C_MAIN_GPIO_SDA);
+    gpio_pull_up(     I2C_MAIN_GPIO_SCL);
+    gpio_set_function(I2C_MAIN_GPIO_SDA, GPIO_FUNC_I2C);
+    gpio_set_function(I2C_MAIN_GPIO_SCL, GPIO_FUNC_I2C);
+
+
     if(value == NULL) return 0xFFFF;
     int ret = 0;
     if(value->control1  & AQDATA_CONTROL1_BAT_VALUE){

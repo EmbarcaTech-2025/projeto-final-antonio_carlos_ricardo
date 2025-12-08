@@ -4,8 +4,9 @@
 #include "pico/stdlib.h"
 
 typedef struct{
-    uint8_t value;
-
+    int32_t latitude;
+    int32_t longitude;
+    int16_t altitude;
 } AqDataGps_Value;
 
 int aqdatagps_init();

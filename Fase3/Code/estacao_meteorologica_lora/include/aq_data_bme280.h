@@ -4,8 +4,9 @@
 #include "pico/stdlib.h"
 
 typedef struct{
-    uint8_t value;
-
+    uint8_t  humidity;
+    int16_t  temp;
+    uint16_t press;
 } AqDataBme280_Value;
 
 

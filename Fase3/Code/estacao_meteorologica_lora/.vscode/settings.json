@@ -38,6 +38,11 @@
     "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.31.5/bin/cmake",
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
     "files.associations": {
-        "lora.h": "c"
+        "lora.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "code_config.h": "c",
+        "aq_data_bat.h": "c",
+        "stdio.h": "c"
     }
 }
