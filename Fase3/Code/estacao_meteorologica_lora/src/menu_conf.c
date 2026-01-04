@@ -25,10 +25,14 @@ void menu_conf(EstConfig * est_config){
             printf("\n\n");
         }else{
             printf("----- ABP Parameters ----\n");
-            printf("D) Device address         : \n");
-            printf("A) Application Session Key: \n");
-            printf("N) Network     Session Key: \n");         
-            printf("F) Frame Start counter    : \n");
+            printf("-) Channel                 : %02d\n", est_config->lora_abp_par.channel);
+            printf("-) SF                      : %02d\n", est_config->lora_abp_par.sf);
+            printf("D) Device address          : 0x%08X\n", est_config->lora_abp_par.device_address);
+            printf("A) Application Session Key : 0x");
+            for(int i=0;i<16;i++) printf(" %02X", est_config->lora_abp_par.app_s_key[i]);
+            printf("\nN) Network     Session Key : 0x");
+            for(int i=0;i<16;i++) printf(" %02X", est_config->lora_abp_par.net_s_key[i]);
+            printf("\nF) Frame Start counter     : 0x%04X\n", est_config->lora_abp_par.fcnt);
         }
         printf("\n\nU) Update time: %d minutes\n\n", est_config->sleep_time_min);
 

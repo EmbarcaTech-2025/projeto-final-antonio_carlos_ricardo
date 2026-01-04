@@ -4,7 +4,10 @@
 #include "pico/stdlib.h"
 
 typedef struct {
+    uint8_t  channel;
+    uint8_t  sf;
     uint32_t device_address;
+    uint16_t fcnt;
     uint8_t  app_s_key[16];
     uint8_t  net_s_key[16];
 }LoraAbpPar;

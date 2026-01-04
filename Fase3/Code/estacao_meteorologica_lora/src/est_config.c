@@ -3,11 +3,18 @@
 
 
 static void lora_abp_par_default(LoraAbpPar * lora_abp_par){
-    /*
-    uint32_t device_address;
-    uint8_t  app_s_key[16];
-    uint8_t  net_s_key[16];
-    */
+    lora_abp_par->channel        = 5;
+    lora_abp_par->sf             = 7;
+    lora_abp_par->device_address = 0x12345678;
+    lora_abp_par->fcnt           = 0x0123;
+
+    uint8_t app[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
+    uint8_t net[] = {0xFF, 0xEE, 0xDD, 0xCC, 0xBB, 0xAA, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00};
+    
+    for(int i=0;i<16;i++){
+        lora_abp_par->app_s_key[i] = app[i];
+        lora_abp_par->net_s_key[i] = net[i];
+    }
 }
 
 static void lora_otaa_par_default(LoraOtaaPar * lora_otaa_par){

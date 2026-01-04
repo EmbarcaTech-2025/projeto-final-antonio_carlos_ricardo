@@ -2,9 +2,9 @@
 #define CODE_CONFIG_H
 
 #define NAME            "Weather Station"
-#define VERSION         "0.00.00"
-#define VERSION_DATA    "2025/12/08"
-#define BUILD           "0003"
+#define VERSION         "0.00.01"
+#define VERSION_DATA    "2026/01/04"
+#define BUILD           "0004"
 
 
 #define DEBUG_ON        true
@@ -15,6 +15,8 @@
 //#define BITDOGLAB_WITH_DEBUG_PROBE
 
 #define HW_SLEEP_LOW_POWER false    //true
+
+#define SEND_FIX_DATA
 
 
 #define BAT_MAX_MV        4200     // 100%
@@ -31,6 +33,12 @@
 #define GPIO_LED_RED        13
 #define GPIO_LED_GREEN      11 
 #define GPIO_LED_BLUE       12
+
+#define WCM_UART_ID         uart1
+#define WCM_UART_TX_PIN     8       // 0
+#define WCM_UART_RX_PIN     9       // 1
+#define WCM_UART_BAUD_RATE  115200
+
 
 
 #define LED_INIT_DELAY_MS   400

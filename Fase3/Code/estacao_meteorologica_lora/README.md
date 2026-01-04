@@ -1,10 +1,13 @@
 # Estação Meteorológica LoRa/LoRaWAN
 
-## Build:000x- xx/12/202
-- menu e conf: Variaveis do lorawan
-- Melhorar rotinas de aq dos 3 sensores
-- Melhorar Sleep mode
-- Comunicação com WCM
+## Build:0004- 04/01/2026
+- Menu parcialmente funcional para LoRaWAN ABPVariaveis do lorawan
+- Rotinas com sensores de:
+    - Bateria
+    - Pressão, temperatura (BMP280)
+    - GPS
+- Sleep mode
+- Comunicação com WCM para envio LoRaWAN ABP
 
 
 ## Build:0002- 08/12/2025

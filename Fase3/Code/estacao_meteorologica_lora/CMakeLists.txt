@@ -50,15 +50,15 @@ add_executable(estacao_meteorologica_lora
         src/est_config.c
         src/flash.c
         src/hw_sleep.c
-        src/lora.c
         src/menu_conf.c
+        src/wcm.c
         )
 
 pico_set_program_name(estacao_meteorologica_lora "estacao_meteorologica_lora")
 pico_set_program_version(estacao_meteorologica_lora "0.1")
 
 # no_flash means the target is to run from RAM
-pico_set_binary_type(estacao_meteorologica_lora no_flash)
+# pico_set_binary_type(estacao_meteorologica_lora no_flash)
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(estacao_meteorologica_lora 0)

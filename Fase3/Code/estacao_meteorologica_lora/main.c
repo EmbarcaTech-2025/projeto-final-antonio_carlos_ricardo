@@ -5,8 +5,8 @@
 #include "include/flash.h"
 #include "include/est_config.h"
 #include "include/hw_sleep.h"
-#include "include/lora.h"
 #include "include/menu_conf.h"
+#include "include/wcm.h"
 
 static AqData    aq_data;
 static EstConfig est_config;
@@ -25,9 +25,11 @@ int main(){
     
     init_ledsrgb_buttons();
 
+    wcm_init();
+    
     gpio_put(GPIO_LED_RED,   true);
-    //sleep_ms(10000);    // para dar tempo de conectar a interface serial
-    sleep_ms(1000);
+    sleep_ms(10000);    // para dar tempo de conectar a interface serial
+    //sleep_ms(1000);
     gpio_put(GPIO_LED_GREEN, true);
     printf("********** %s **********\n\n", NAME);
     printf("Version: %s - %s - Build: %s\n\n\n", VERSION, VERSION_DATA, BUILD);
@@ -40,6 +42,8 @@ int main(){
     gpio_put(GPIO_LED_RED,   false);
     gpio_put(GPIO_LED_GREEN, false);
 
+    
+
     sleep_ms(100);
     //hw_sleep_init();
 
@@ -50,6 +54,7 @@ int main(){
         gpio_put(GPIO_LED_BLUE, true);
         printf("Station Wake Up %d\n", count++);
         
+
         // Faz a aquisição completa, inicia, le, e poem para dormir os sensores
         if(ret = aqdata_init(&aq_data)){
             printf("Init sensors fail: %d\n", ret);
@@ -62,7 +67,7 @@ int main(){
         }
 
         // Envia os dados
-        lora_send(&est_config, &aq_data);
+        wcm_send(&est_config, &aq_data);
 
         // Faz a BitDogLab "dormir"
         printf("Station Sleeping\n");
