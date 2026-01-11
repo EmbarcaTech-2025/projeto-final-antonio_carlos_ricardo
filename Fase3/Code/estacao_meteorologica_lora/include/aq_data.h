@@ -5,26 +5,28 @@
 #include "aq_data_bat.h"
 #include "aq_data_bme280.h"
 #include "aq_data_gps.h"
-
+#include "aq_data_lux.h"
+#include "est_config.h"
 
 typedef enum{
-    AQDATA_CONTROL1_BAT_VALUE = 0x01,
-    AQDATA_CONTROL1_BME280    = 0x02,
-    AQDATA_CONTROL1_GPS       = 0x04,
+    AQ_ITEM_BAT_VALUE = 0x01,
+    AQ_ITEM_BME280    = 0x02,
+    AQ_ITEM_GPS       = 0x04,
+    AQ_ITEM_LUX       = 0x08,
     // reservados para futuros:
-    AQDATA_CONTROL1_LUX       = 0x08,
-    AQDATA_CONTROL1_UV        = 0x10,
-    AQDATA_CONTROL1_WIND      = 0x20,
-    AQDATA_CONTROL1_RAIN      = 0x40,
-    AQDATA_CONTROL1_TBD       = 0x80,
-} AqData_Control1;
+    AQ_ITEM_UV        = 0x10,
+    AQ_ITEM_WIND      = 0x20,
+    AQ_ITEM_RAIN      = 0x40,
+    AQ_ITEM_TBD       = 0x80
+} AqItem;
 
 
 typedef struct{
-    uint8_t             control1;
+    ActiveSensors       active_sensors;
     AqDataBat_Value     battery;
     AqDataBme280_Value  bme280;
     AqDataGps_Value     gps;
+    AqDataLux_Value     lux;
     // add futuros
 } AqData;
 

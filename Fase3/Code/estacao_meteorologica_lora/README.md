@@ -1,7 +1,34 @@
 # Estação Meteorológica LoRa/LoRaWAN
+## Next:
+- Compartilhar código com esp32-c3
+- Melhorar estrutura do loop_printf quando o USB está off
+- Salvar e ler dados da flash
+- Manter histórico na flash do fcnt
+- Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
+- Implementar watch-dog
+- Implementar Timeout do envio do comando no wcm_send
+
+
+## Build:0009 - 11/01/2026
+- Pequenas melhorias no menu_conf.c
+- Adicionado controle de log(ativação) da USB: OFF, ON, OFF-ON
+- Adicionado controle de LEDs acessos para reduzir consumo
+- Obs.: wcm_send está documentado
+
+## Build:0008- 10/01/2026
+- replace printf por loop_printf para printf s que são acessados dentro do loop, para poder desativar a USB
+
+## Build:0007- 10/01/2026
+- Refactory variáveis de configuração
+- Add Mode Lora
+- Revisto menu
+
+## Build:0006- 10/01/2026
+- Transmitindo LoRaWAM ABP
+- Baixo consumo quando em idle 
 
 ## Build:0004- 04/01/2026
-- Menu parcialmente funcional para LoRaWAN ABPVariaveis do lorawan
+- Menu parcialmente funcional para LoRaWAN ABP variaveis do lorawan
 - Rotinas com sensores de:
     - Bateria
     - Pressão, temperatura (BMP280)

@@ -3,33 +3,70 @@
 
 #include "pico/stdlib.h"
 
+typedef enum{
+    LORA_MODE_LORA = 0,
+    LORA_MODE_LORAWAN_ABP,
+    LORA_MODE_LORAWAN_OTAA,
+    LORA_MODE_COUNT
+}LoraMode;
+
+typedef enum{
+    USB_MODE_OFF = 0,
+    USB_MODE_ON,
+    USB_MODE_OFF_ON,
+    USB_MODE_COUNT
+}UsbMode;
+
 typedef struct {
     uint8_t  channel;
     uint8_t  sf;
-    uint32_t device_address;
+    uint8_t device_address[4];
+}LoraPar;
+
+typedef struct {
+    uint8_t  channel;           // 0xFF ==> AUTO
+    uint8_t  sf;                // 0xFF ==> AUTO
     uint16_t fcnt;
-    uint8_t  app_s_key[16];
-    uint8_t  net_s_key[16];
-}LoraAbpPar;
+    uint8_t  device_address[4];    // DevAddr	4 bytes     Endereço do dispositivo
+    uint8_t  app_s_key[16];     // AppSKey	16 bytes	Chave da aplicação
+    uint8_t  nwk_s_key[16];     // NwkSKey	16 bytes	Chave de rede
+}LorawanAbpPar;
 
 typedef struct {
-    uint32_t device_address;
-    uint8_t  app_s_key[16];
-    uint8_t  net_s_key[16];
-}LoraOtaaPar;
+    uint8_t  channel;           // 0xFF ==> AUTO
+    uint8_t  sf;                // 0xFF ==> AUTO
+    uint8_t  dev_eui[8];        // DevEUI	             8 bytes	Identificador único do dispositivo
+    uint8_t  app_eui[8];        // AppEUI (ou JoinEUI)   8 bytes	Identificador da aplicação
+    uint8_t  app_key[16];       // AppKey	            16 bytes	Chave secreta (AES-128)
+}LorawanOtaaPar;
 
 
 typedef struct {
-    bool        mode_otaa;      // true ==> OTAA, false ==> ABP
-    LoraAbpPar  lora_abp_par;
-    LoraOtaaPar lora_otaa_par;
-    uint8_t     sensors1;       // AqData_Control1
-    uint16_t    sleep_time_min; // Aquisition period in minutes
+    bool battery;
+    bool bme280;
+    bool gps;
+    bool lux;
+    bool uv;    // not implemented
+    bool wind;  // not implemented
+    bool rain;  // not implemented
+    bool tbd;   // not implemented
+}ActiveSensors;
+
+
+typedef struct {
+    LoraMode       lora_mode;
+    LoraPar        lora_par;
+    LorawanAbpPar  lorawan_abp_par;
+    LorawanOtaaPar lorawan_otaa_par;
+    uint16_t       sleep_time_min; // Tempo que a estação dorme em minutos, 0 ==> 10 segundo usado para testes
+    ActiveSensors  active_sensors;
+    UsbMode        usb_mode;
+    bool           leds_on;
 }EstConfig;
 
-void est_config_default(EstConfig * est_config);
 
-//extern EstConfig est_config;
+
+void est_config_default(EstConfig * est_config);
 
 
 #endif // EST_CONFIG_H

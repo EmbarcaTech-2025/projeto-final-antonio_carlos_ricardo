@@ -25,8 +25,8 @@ endif()
 # ====================================================================================
 set(PICO_BOARD pico CACHE STRING "Board type")
 
-set(CMAKE_BUILD_TYPE "Debug")
-set(PICO_DEOPTIMIZED_DEBUG 1)
+# set(CMAKE_BUILD_TYPE "Debug")
+# set(PICO_DEOPTIMIZED_DEBUG 1)
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -43,9 +43,11 @@ add_executable(estacao_meteorologica_lora
         src/aq_data_bat.c
         src/aq_data_bme280.c
         src/aq_data_gps.c
+        src/aq_data_lux.c
         src/aq_data.c
         src/bmp280/bmp280.c
         src/bmp280/bmp280_low_level.c
+        src/buttons_and_leds.c
         src/gps/gy_neo6mv2.c
         src/est_config.c
         src/flash.c
@@ -67,6 +69,7 @@ pico_enable_stdio_usb(estacao_meteorologica_lora 1)
 # Add the standard library to the build
 target_link_libraries(estacao_meteorologica_lora
         pico_stdlib
+        hardware_adc
         hardware_i2c
         )
 
