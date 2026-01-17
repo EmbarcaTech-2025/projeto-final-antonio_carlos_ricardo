@@ -9,7 +9,8 @@ typedef struct{
     int16_t altitude;
 } AqDataGps_Value;
 
-int aqdatagps_init();
+int aqdatagps_init_power_on();
+int aqdatagps_init_aq();
 int aqdatagps_read(AqDataGps_Value *value);
 int aqdatagps_sleep();
 

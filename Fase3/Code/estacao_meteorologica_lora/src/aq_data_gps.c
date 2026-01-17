@@ -1,9 +1,10 @@
 #include "../include/aq_data_gps.h"
 #include "gps/gy_neo6mv2.h"
 
-
-
-int aqdatagps_init(){
+int aqdatagps_init_power_on(){
+    return 0;
+}
+int aqdatagps_init_aq(){
     gps_init();
     return 0;
 }

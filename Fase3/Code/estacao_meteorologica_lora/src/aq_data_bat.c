@@ -15,8 +15,10 @@
 #define CURRENT_REG         0x04
 #define CALIBRATION_REG     0x05
 
-
-int aqdatabat_init(){
+int aqdatabat_init_power_on(){
+    return 0;
+}
+int aqdatabat_init_aq(){
     return 0;
 }
 int aqdatabat_read(AqDataBat_Value *value){

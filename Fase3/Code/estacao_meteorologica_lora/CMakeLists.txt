@@ -42,18 +42,20 @@ add_executable(estacao_meteorologica_lora
         main.c
         src/aq_data_bat.c
         src/aq_data_bme280.c
+        src/aq_data_cpu_temp.c
         src/aq_data_gps.c
         src/aq_data_lux.c
         src/aq_data.c
+        src/bh1750.c
         src/bmp280/bmp280.c
         src/bmp280/bmp280_low_level.c
         src/buttons_and_leds.c
         src/gps/gy_neo6mv2.c
         src/est_config.c
-        src/flash.c
         src/hw_sleep.c
         src/menu_conf.c
         src/wcm.c
+        src/storage.c
         )
 
 pico_set_program_name(estacao_meteorologica_lora "estacao_meteorologica_lora")

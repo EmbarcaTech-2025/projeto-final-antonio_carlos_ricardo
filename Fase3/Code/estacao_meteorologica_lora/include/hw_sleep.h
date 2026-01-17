@@ -4,7 +4,7 @@
 #include "pico/stdlib.h"
 #include "est_config.h"
 
-void hw_sleep_init(UsbMode usb_mode, uint16_t sleep_minutes);
+void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes);
 void hw_sleep();
 
 

@@ -1,6 +1,7 @@
 #ifndef LOOP_PRINTF_H
 #define LOOP_PRINTF_H
 
+#include <stdio.h>
 #include "code_config.h"
 
 

@@ -2,12 +2,48 @@
 ## Next:
 - Compartilhar código com esp32-c3
 - Melhorar estrutura do loop_printf quando o USB está off
-- Salvar e ler dados da flash
 - Manter histórico na flash do fcnt
 - Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
 - Implementar watch-dog
-- Implementar Timeout do envio do comando no wcm_send
+- gps rever printf para loop_print
+- rever funcionamento GPS, principalmente durante sleep
 
+
+## Build:0016 - 17/01/2026
+- Add ao Payload lux
+- Add no estado original da flash, no printf e no menu_conf
+- Refactore sensor tbo por cpu_temp
+- Change default channel to 8
+
+## Build:0015 - 15/01/2026
+- Add no log das chamadas ao WCM o char que retornou
+- Add driver do luximetro bh1750
+- Add Timeout de transmissão
+
+## Build:0014 - 14/01/2026
+- Rotina de on-off do PLL USB agora leva em conta não só a USB mas também se o AD está On ou Off
+- Implementada rotinas para comunicação LoRa e LoRaWANa OTAA
+- Corrigido ordem do address no ABP
+
+## Build:0013 - 14/01/2026
+- Removido arquivos flash .h e .c
+
+## Build:0012 - 14/01/2026
+- Migrado da estação original as rotinas storage.h .c
+- Add Funcionalidade no menu para Read Write configuração e clear all
+
+## Build:0011unic - 13/01/2026
+- Códigos default da instalação da Unicamp
+
+## Build:0011 - 13/01/2026
+- Correções no sensor CPU temp
+
+## Build:0010 - 13/01/2026
+- Criado: int aqdata_init_power_on( AqData *value)
+- Transformado em parâmetro a interrupção da UART do GPS
+- No menu:
+  - Add CPU temp
+  - Mudança de "Sleep time" para "Sampling time"
 
 ## Build:0009 - 11/01/2026
 - Pequenas melhorias no menu_conf.c

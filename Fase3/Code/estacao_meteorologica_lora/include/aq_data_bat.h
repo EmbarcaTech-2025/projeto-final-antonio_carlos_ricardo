@@ -8,7 +8,8 @@ typedef struct{
 
 } AqDataBat_Value;
 
-int aqdatabat_init();
+int aqdatabat_init_power_on();
+int aqdatabat_init_aq();
 int aqdatabat_read(AqDataBat_Value *value);
 int aqdatabat_sleep();
 

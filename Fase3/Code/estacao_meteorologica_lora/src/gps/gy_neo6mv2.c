@@ -61,6 +61,7 @@ void gps_isr_uart_rx() {
 }
 
 void gps_init(){
+    printf("gps_init()\n");
     // Inicializa UART
     uart_init(GPS_UART_ID, GPS_UART_BAUD_RATE);
     gpio_set_function(GPS_UART_TX_PIN, GPIO_FUNC_UART);
@@ -79,8 +80,8 @@ void gps_init(){
     // Habilita interrupção de RX
     //gps_buffer_int_idx = 0;
     //gps_received_lines = 0;
-    irq_set_exclusive_handler(UART0_IRQ, gps_isr_uart_rx);
-    irq_set_enabled(UART0_IRQ, true);
+    irq_set_exclusive_handler(GPS_UART_UART_IRQ, gps_isr_uart_rx);
+    irq_set_enabled(GPS_UART_UART_IRQ, true);
     uart_set_irq_enables(GPS_UART_ID, true, false);  // RX on, TX off
 }
 
@@ -117,7 +118,7 @@ GpsGgaError gps_read(int32_t * lat, int32_t * lon, int32_t * alt){
     *lon = 0xFFFFFFFF;
     *alt = 0xFFFFFFFF;
 
-    irq_set_enabled(UART0_IRQ, false);
+    irq_set_enabled(GPS_UART_UART_IRQ, false);
 
 #if (DEB_PR_CORE1_GPS == true)   
     printf("Line=%d, %s\n", gps_received_lines, gps_buffer_out);
@@ -213,7 +214,7 @@ GpsGgaError gps_read(int32_t * lat, int32_t * lon, int32_t * alt){
 
 
 
-    irq_set_enabled(UART0_IRQ, true);
+    irq_set_enabled(GPS_UART_UART_IRQ, true);
 
     if(error) return error;
 

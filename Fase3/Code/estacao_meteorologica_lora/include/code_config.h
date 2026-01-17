@@ -3,15 +3,17 @@
 
 #define NAME            "Weather Station"
 #define VERSION         "0.00.01"
-#define VERSION_DATA    "2026/01/11"
-#define BUILD           "0009"
+#define VERSION_DATA    "2026/01/17"
+#define BUILD           "0016"
+
+#define CONFIG_DATA_VERSION         2   // uint32_t version;
 
 
 #define DEBUG_ON                true
 #define DEBUG_ON_BAT            (DEBUG_ON || true)
 #define DEBUG_ON_BMP280         (DEBUG_ON || true)
 #define DEBUG_ON_HW_SPEED       (DEBUG_ON || true)
-
+//#define DEB_PR_CORE1_GPS        (DEBUG_ON || false)
 
 
 #define BOARD_BITDOG_LAB_V7
@@ -25,8 +27,8 @@
 #define SEND_FIX_DATA
 
 #define ENABLE_GPIO_TEST
-
-
+#define GPIO_TEST_0     18  // 8
+#define GPIO_TEST_1     19  // 9
 
 
 #define BAT_MAX_MV        4200     // 100%
@@ -38,6 +40,7 @@
 #define GPS_UART_RX_PIN     1
 */
 #define GPS_UART_ID         uart1
+#define GPS_UART_UART_IRQ   UART1_IRQ
 #define GPS_UART_BAUD_RATE  9600
 #define GPS_UART_TX_PIN     8
 #define GPS_UART_RX_PIN     9
@@ -63,7 +66,6 @@
 #define WCM_UART_BAUD_RATE  115200
 
 
-
 #define LED_INIT_DELAY_MS   400
 
 
@@ -71,9 +73,6 @@
 #define I2C_MAIN_GPIO_SDA              3
 #define I2C_MAIN_BAUDRATE         400000
 #define I2C_MAIN_BUS                i2c1
-
-#define GPIO_TEST_0     8
-#define GPIO_TEST_1     9
 
 
 #endif // CODE_CONFIG_H

@@ -3,7 +3,6 @@
 #include "include/aq_data.h"
 #include "include/buttons_and_leds.h"
 #include "include/code_config.h"
-#include "include/flash.h"
 #include "include/est_config.h"
 #include "include/hw_sleep.h"
 #include "include/loop_printf.h"
@@ -25,6 +24,8 @@ static EstConfig est_config;
 
 
 int main(){
+    int ret;
+
     stdio_init_all();
 
     #ifdef ENABLE_GPIO_TEST
@@ -50,27 +51,34 @@ int main(){
     sleep_ms(INITIAL_DELAY_MS);    // para dar tempo de conectar a interface serial
 
     printf("********** %s **********\n\n", NAME);
-    printf("Version: %s - %s - Build: %s\n\n\n", VERSION, VERSION_DATA, BUILD);
+    printf("Version: %s - %s - Build: %s\n", VERSION, VERSION_DATA, BUILD);
 
     // se houver erro na leitura ou o botão A estiver prescionado entrar no menu
-    if((!flash_conf_read(&est_config)) || buttons_and_leds_button_a_pressed()){
+    bool valid_flash_data = est_config_storage_read(&est_config);
+    printf(valid_flash_data?"Flash: Valid Data\n\n\n":"Flash: Invalid Data\n\n\n");
+    if((!valid_flash_data) || buttons_and_leds_button_a_pressed()){
         buttons_and_leds_set_color(MAIN_ST_MENU);
-        menu_conf(&est_config);
+        menu_conf(&est_config, valid_flash_data);
     }
 
     buttons_and_leds_set_color(MAIN_ST_MENU_AFTER);
     aq_data.active_sensors = est_config.active_sensors;
-    hw_sleep_init(est_config.usb_mode, est_config.sleep_time_min);
+
+    if(ret = aqdata_init_power_on(&aq_data)){
+        loop_printf("Init Power sensors fail: %d\n", ret);
+    }
+
+    hw_sleep_init(est_config.usb_mode, est_config.active_sensors.cpu_temp,  est_config.sleep_time_min);
     
     buttons_and_leds_set_color(LED_BLACK);
-    int ret;
+    
     while (true) {
         // Avisa que vai iniciar a aquisição
         if(est_config.leds_on) buttons_and_leds_set_color(MAIN_ST_AQUISITION);
         
         // Faz a aquisição completa, inicia, le, e poem para dormir os sensores
-        if(ret = aqdata_init(&aq_data)){
-            loop_printf("Init sensors fail: %d\n", ret);
+        if(ret = aqdata_init_aq(&aq_data)){
+            loop_printf("Init Aq sensors fail: %d\n", ret);
         }
         if(ret = aqdata_read(&aq_data)){
             loop_printf("Read sensors fail: %d\n", ret);
@@ -83,8 +91,8 @@ int main(){
         // Envia os dados
         loop_printf("Station sending data\n");
         if(est_config.leds_on) buttons_and_leds_set_color(MAIN_ST_TRANSMISSION);
-        //wcm_send(&est_config, &aq_data);
-        sleep_ms(1000);
+        wcm_send(&est_config, &aq_data);
+        //sleep_ms(1000);
 
         // Faz a BitDogLab "dormir"
         loop_printf("Station sleeping\n");

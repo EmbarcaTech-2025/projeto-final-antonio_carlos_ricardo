@@ -5,8 +5,8 @@
 #include "../include/aq_data.h"
 #include "../include/code_config.h"
 #include "../include/est_config.h"
-#include "../include/flash.h"
 #include "../include/menu_conf.h"
+#include "../include/storage.h"
 
 static void print_hex_array(uint8_t * array, int array_size){
     for(int i=0;i<array_size;i++){
@@ -51,14 +51,14 @@ static void input_hex(uint8_t * array, int array_size){
     }
 }
 
-void menu_conf(EstConfig * est_config){
+void menu_conf(EstConfig * est_config, bool valid_flash_data){
     bool fim = false;
     while(!fim){
         printf("\033[2J\033[H");    // Faz com que o terminal volte para o início da tela
 
         printf("********** %s **********\n\n", NAME);
-        printf("Version: %s - %s - Build: %s\n\n\n", VERSION, VERSION_DATA, BUILD);
-
+        printf("Version: %s - %s - Build: %s\n", VERSION, VERSION_DATA, BUILD);
+        printf(valid_flash_data?"Flash: Valid Data\n\n\n":"Flash: Invalid Data\n\n\n");
         printf("M) LoRa Mode: ");
         switch(est_config->lora_mode){
             case LORA_MODE_LORA:
@@ -105,8 +105,8 @@ void menu_conf(EstConfig * est_config){
         }
         printf("\n\n");
 
-        if(est_config->sleep_time_min) printf("S) Sleep time: %d minutes\n\n", est_config->sleep_time_min);
-                                  else printf("S) Sleep time: 10 seconds (To Test)\n\n");
+        if(est_config->sleep_time_min) printf("S) Sampling time: %d minutes\n\n", est_config->sleep_time_min);
+                                  else printf("S) Sampling time: 10 seconds (To Test only)\n\n");
 
         printf("1) Battery level: %s\n", est_config->active_sensors.battery?"On":"Off");
         printf("2) BME280       : %s\n", est_config->active_sensors.bme280? "On":"Off");
@@ -115,7 +115,7 @@ void menu_conf(EstConfig * est_config){
         printf("5) UV Index     : NOT implemented\n");
         printf("6) Wind         : NOT implemented\n");
         printf("7) Rain         : NOT implemented\n");
-        printf("8) TBD          : NOT implemented\n\n\n");
+        printf("8) CPU Temp     : %s\n\n", est_config->active_sensors.cpu_temp?"On":"Off");
 
         if(est_config->leds_on) printf("L) LEDs state   : ON (not recommended)\n");
                            else printf("L) LEDs state   : OFF\n");
@@ -248,18 +248,18 @@ void menu_conf(EstConfig * est_config){
                 if(++est_config->usb_mode >= USB_MODE_COUNT) est_config->usb_mode = 0;
                 break;
                 
-            case '1': est_config->active_sensors.battery = !est_config->active_sensors.battery; break;
-            case '2': est_config->active_sensors.bme280  = !est_config->active_sensors.bme280;  break;
-            case '3': est_config->active_sensors.gps     = !est_config->active_sensors.gps;     break;
-            case '4': est_config->active_sensors.lux     = !est_config->active_sensors.lux;     break;
-            case '5':                                                                           break;
-            case '6':                                                                           break;
-            case '7':                                                                           break;
-            case '8':                                                                           break;
+            case '1': est_config->active_sensors.battery  = !est_config->active_sensors.battery;  break;
+            case '2': est_config->active_sensors.bme280   = !est_config->active_sensors.bme280;   break;
+            case '3': est_config->active_sensors.gps      = !est_config->active_sensors.gps;      break;
+            case '4': est_config->active_sensors.lux      = !est_config->active_sensors.lux;      break;
+            case '5':                                                                             break;
+            case '6':                                                                             break;
+            case '7':                                                                             break;
+            case '8': est_config->active_sensors.cpu_temp = !est_config->active_sensors.cpu_temp; break;
 
-            case 'C': flash_clear_all(); break;
+            case 'C': stored_data_clear_all(); break;
             case 'R': est_config_default(est_config); break;
-            case 'W': flash_conf_write(est_config); break;
+            case 'W': est_config_storage_write(est_config); break;
             case 'X': fim = true; break;
         }
     }   

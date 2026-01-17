@@ -8,7 +8,8 @@ typedef struct{
 
 } AqDataLux_Value;
 
-int aqdatalux_init();
+int aqdatalux_init_power_on();
+int aqdatalux_init_aq();
 int aqdatalux_read(AqDataLux_Value *value);
 int aqdatalux_sleep();
 

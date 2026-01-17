@@ -46,14 +46,16 @@ typedef struct {
     bool bme280;
     bool gps;
     bool lux;
-    bool uv;    // not implemented
-    bool wind;  // not implemented
-    bool rain;  // not implemented
-    bool tbd;   // not implemented
+    bool uv;        // not implemented
+    bool wind;      // not implemented
+    bool rain;      // not implemented
+    bool cpu_temp;
 }ActiveSensors;
 
 
 typedef struct {
+    uint32_t       version;
+
     LoraMode       lora_mode;
     LoraPar        lora_par;
     LorawanAbpPar  lorawan_abp_par;
@@ -62,7 +64,25 @@ typedef struct {
     ActiveSensors  active_sensors;
     UsbMode        usb_mode;
     bool           leds_on;
+
+    uint32_t       sum;
+    uint32_t       xor;
 }EstConfig;
+
+
+/**
+ * @brief Lê a configuração que está na memória flash.
+ * 
+ * @return true, conseguiu ler e os dados são válidos
+ * @return false, não conseguiu ler ou os dados são inválidos
+ */
+bool     est_config_storage_read(EstConfig * est_config);
+
+/**
+ * @brief Salva a configuração na memória flash.
+ * 
+ */
+void     est_config_storage_write(EstConfig * est_config);
 
 
 

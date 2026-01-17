@@ -9,8 +9,8 @@ typedef struct{
     uint16_t press;
 } AqDataBme280_Value;
 
-
-int aqdatabme280_init();
+int aqdatabme280_init_power_on();
+int aqdatabme280_init_aq();
 int aqdatabme280_read(AqDataBme280_Value *value);
 int aqdatabme280_sleep();
 

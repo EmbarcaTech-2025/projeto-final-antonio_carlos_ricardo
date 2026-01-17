@@ -2,7 +2,29 @@
 #include "../include/aq_data.h"
 #include "../include/code_config.h"
 
-int aqdata_init( AqData *value){
+
+int aqdata_init_power_on( AqData *value){
+    if(value == NULL) return 0xFFFF;
+    int ret = 0;
+    if(value->active_sensors.battery){
+        if(aqdatabat_init_power_on()) ret |= AQ_ITEM_BAT_VALUE;
+    }
+    if(value->active_sensors.bme280){
+        if(aqdatabme280_init_power_on()) ret |= AQ_ITEM_BME280;
+    }
+    if(value->active_sensors.gps){
+        if(aqdatagps_init_power_on()) ret |= AQ_ITEM_GPS;
+    }
+    if(value->active_sensors.lux){
+        if(aqdatalux_init_power_on()) ret |= AQ_ITEM_LUX;
+    }
+
+    if(aqdatacpu_temp_power_on()) ret |= AQ_ITEM_LUX;
+
+    return ret;
+}
+
+int aqdata_init_aq( AqData *value){
     // Inicializar I2Cs
     i2c_init(         I2C_MAIN_BUS,      I2C_MAIN_BAUDRATE);
     gpio_pull_up(     I2C_MAIN_GPIO_SDA);
@@ -13,16 +35,19 @@ int aqdata_init( AqData *value){
     if(value == NULL) return 0xFFFF;
     int ret = 0;
     if(value->active_sensors.battery){
-        if(aqdatabat_init()) ret |= AQ_ITEM_BAT_VALUE;
+        if(aqdatabat_init_aq()) ret |= AQ_ITEM_BAT_VALUE;
     }
     if(value->active_sensors.bme280){
-        if(aqdatabme280_init()) ret |= AQ_ITEM_BME280;
+        if(aqdatabme280_init_aq()) ret |= AQ_ITEM_BME280;
     }
     if(value->active_sensors.gps){
-        if(aqdatagps_init()) ret |= AQ_ITEM_GPS;
+        if(aqdatagps_init_aq()) ret |= AQ_ITEM_GPS;
     }
     if(value->active_sensors.lux){
-        if(aqdatalux_init()) ret |= AQ_ITEM_LUX;
+        if(aqdatalux_init_aq()) ret |= AQ_ITEM_LUX;
+    }
+    if(value->active_sensors.cpu_temp){
+        if(aqdatacpu_temp_init_aq()) ret |= AQ_ITEM_CPU_TEMP;
     }
     return ret;
 }
@@ -41,6 +66,9 @@ int aqdata_read( AqData *value){
     if(value->active_sensors.lux){
         if(aqdatalux_read(&value->lux)) ret |= AQ_ITEM_LUX;
     }
+    if(value->active_sensors.cpu_temp){
+        if(aqdatacpu_temp_read(&value->cpu_temp_deci)) ret |= AQ_ITEM_CPU_TEMP;
+    }
     return ret;
 }
 int aqdata_sleep(AqData *value){
@@ -57,6 +85,9 @@ int aqdata_sleep(AqData *value){
     }
     if(value->active_sensors.lux){
         if(aqdatalux_sleep()) ret |= AQ_ITEM_LUX;
+    }
+    if(value->active_sensors.cpu_temp){
+        if(aqdatacpu_temp_sleep()) ret |= AQ_ITEM_CPU_TEMP;
     }
     return ret;
 }

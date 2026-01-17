@@ -5,9 +5,10 @@
 #include "../include/loop_printf.h"
 #include "src/bmp280/bmp280.h"
 
-
-
-int aqdatabme280_init(){
+int aqdatabme280_init_power_on(){
+    return 0;
+}
+int aqdatabme280_init_aq(){
     return 0;
 }
 int aqdatabme280_read(AqDataBme280_Value *value){
