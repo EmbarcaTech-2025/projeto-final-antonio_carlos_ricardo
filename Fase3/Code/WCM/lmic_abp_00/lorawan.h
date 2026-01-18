@@ -15,15 +15,18 @@ typedef enum{
 
 typedef struct{
   LorawanMode mode;
-  uint8_t     channel;
-  uint8_t     sf;
-  uint8_t     fcnt[2];
-  uint8_t     devaddr[4];
-  uint8_t     appskey[16];
-  uint8_t     nwkskey[16];
+  uint8_t     channel;        // Lora, ABP, OTAA
+  uint8_t     sf;             // Lora, ABP, OTAA
+  uint8_t     abp_fcnt[2];    //       ABP
+  uint8_t     abp_devaddr[4]; //       ABP
+  uint8_t     appskey[16];    //       ABP
+  uint8_t     nwkskey[16];    //       ABP
+  uint8_t     deveui[8];      //            OTAA
+  uint8_t     appeui[8];      //            OTAA
+  uint8_t     appkey[16];     //            OTAA
 
-  uint8_t     msg[UART_BUFFER_SIZE];
-  int         msg_size;
+  uint8_t     msg[UART_BUFFER_SIZE];  // Lora, ABP, OTAA
+  int         msg_size;               // Lora, ABP, OTAA
 }LorawanPars;
 
 extern LorawanPars lorawan_pars;

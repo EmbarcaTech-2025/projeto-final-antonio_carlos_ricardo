@@ -5,6 +5,8 @@
 
 typedef enum{
     MAIN_STATE_SLEEP = 0,
+    MAIN_STATE_SLEEP_ERROR,
+    MAIN_STATE_SLEEP_TIMEOUT,
     MAIN_STATE_WAIT_CMD,
     MAIN_STATE_SENDING_MSG
 } MainState;
@@ -41,6 +43,14 @@ void loop() {
             uart_start_read_data();
             main_state = MAIN_STATE_WAIT_CMD;
             break;
+        case MAIN_STATE_SLEEP_ERROR:
+            SerialUART.print('E');
+            main_state = MAIN_STATE_SLEEP;
+            break;
+        case MAIN_STATE_SLEEP_TIMEOUT:
+            SerialUART.print('T');
+            main_state = MAIN_STATE_SLEEP;
+            break;
         case MAIN_STATE_WAIT_CMD:
             switch(uart_state()){
                 case UART_ST_WAITING_DATA:
@@ -58,7 +68,7 @@ void loop() {
             break;
         case MAIN_STATE_SENDING_MSG:
             if(lorawan_state() == LORAWAN_STATE_SLEEPING){  // Já enviou a msg, pode dormir
-                SerialUART.print('0');
+                SerialUART.print('O');
                 main_state = MAIN_STATE_SLEEP;
             }
             break;

@@ -32,31 +32,6 @@ static void printf_buffer(){
   Serial.println();
 }
 
-static bool read_channel(char *data){
-  lorawan_pars.channel = ((data[0] - '0') * 10) + (data[1] - '0');
-  if(lorawan_pars.channel < 64){
-    Serial.print("  - uard_read_channel: ");
-    Serial.println(lorawan_pars.channel);
-    return true;  
-  }else{
-    Serial.print("  - uard_read_channel: INVALID = ");
-    Serial.println(lorawan_pars.channel);
-    return false;
-  }
-}
-
-static bool read_sf(char *data){
-  lorawan_pars.sf = ((data[0] - '0') * 10) + (data[1] - '0');
-  if((lorawan_pars.sf >= 7)&&(lorawan_pars.sf <= 12)){
-    Serial.print("  - SF: ");
-    Serial.println(lorawan_pars.sf);
-    return true;  
-  }else{
-    Serial.print("  - SF: INVALID = ");
-    Serial.println(lorawan_pars.sf);
-    return false;
-  }
-}
 
 static int8_t get_hexa(char c){
   if((c >= 0)&&(c<='9')){
@@ -69,6 +44,45 @@ static int8_t get_hexa(char c){
     Serial.print("  - INVALID char: ");  
     Serial.println(c);
     return -1;
+  }
+}
+static bool read_channel(char *data){
+  int8_t d0 = get_hexa(data[0]);
+  int8_t d1 = get_hexa(data[1]);
+  lorawan_pars.channel =  (d0 << 4) | d1;
+  if((d0<0)||(d1<0)){
+    Serial.print("  - Channel: INVALID = ");
+    Serial.print(data[0]);
+    Serial.print(data[1]);
+    return false;
+  } else if(lorawan_pars.channel > 63){
+    lorawan_pars.channel = 0xFF;
+    Serial.println("  - Channel: FF ==> AUTO");
+    return true;
+  }else{
+    Serial.print("  - Channel: ");
+    Serial.println(lorawan_pars.channel);
+    return true;
+  }
+}
+
+static bool read_sf(char *data){
+  int8_t d0 = get_hexa(data[0]);
+  int8_t d1 = get_hexa(data[1]);
+  lorawan_pars.sf =  (d0 << 4) | d1;
+  if((d0<0)||(d1<0)){
+    Serial.print("  - SF: INVALID = ");
+    Serial.print(data[0]);
+    Serial.print(data[1]);
+    return false;
+  } else if((lorawan_pars.sf < 7)||(lorawan_pars.sf >12)){
+    lorawan_pars.sf = 0xFF;
+    Serial.println("  - SF: FF ==> AUTO");
+    return true;
+  }else{
+    Serial.print("  - SF: ");
+    Serial.println(lorawan_pars.sf);
+    return true;
   }
 }
 
@@ -121,6 +135,9 @@ static bool read_msg(char *data, int data_size){
 }
 
 static UartState valida_lora(){
+  // Example: L ch sf -Message\n
+  // Example: L 05 07 12345678\n
+
   Serial.println("Lora command validation:");
   // valid size
   if(buffer_pos < 9){
@@ -141,23 +158,26 @@ static UartState valida_lora(){
 }
 
 static UartState valida_lorawan_abp(){
+  // Example  : A ch sf devaddr  fcnt ------------appskey------------- ------------nwkskey------------- -Message--\n"
+  // Example 1: A 05 07 12345678 4321 00112233445566778899AABBCCDDEEFF FFEEDDCCBBAA99887766554433221100 0987654321\n
+
   Serial.println("LoRaWAN ABP command validation:");
   // valid size
-  if(buffer_pos < 0x59){
-    Serial.println("Command small < 0x59");
+  if(buffer_pos < 89){
+    Serial.println("Command small < 89");
     return UART_ST_DATA_ERROR;
   }
-  if(!((buffer_pos - 0x59) & 0x01)){
+  if(!((buffer_pos - 89) & 0x01)){
     Serial.println("The message is not an even size.");
     return UART_ST_DATA_ERROR;
   }
   if(!read_channel(&buffer[0x02])) return UART_ST_DATA_ERROR;
   if(!read_sf(     &buffer[0x05])) return UART_ST_DATA_ERROR;
-  if(!read_array(lorawan_pars.devaddr, &buffer[0x08],  4, "devaddr"))          return UART_ST_DATA_ERROR;
-  if(!read_array(lorawan_pars.fcnt,    &buffer[0x11],  2, "fCnt"))             return UART_ST_DATA_ERROR;
-  if(!read_array(lorawan_pars.appskey, &buffer[0x16], 16, "appskey"))          return UART_ST_DATA_ERROR;
-  if(!read_array(lorawan_pars.nwkskey, &buffer[0x37], 16, "nwkskey"))          return UART_ST_DATA_ERROR;
-  if(!read_msg(                        &buffer[0x58], (buffer_pos - 0x58)>>1)) return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.abp_devaddr, &buffer[0x08],  4, "abp_devaddr"))      return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.abp_fcnt,    &buffer[0x11],  2, "abp_fCnt"))         return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.appskey,     &buffer[0x16], 16, "appskey"))          return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.nwkskey,     &buffer[0x37], 16, "nwkskey"))          return UART_ST_DATA_ERROR;
+  if(!read_msg(                            &buffer[0x58], (buffer_pos - 0x58)>>1)) return UART_ST_DATA_ERROR;
 
   lorawan_pars.mode = LORAWAN_MODE_ABP;
   //Serial.println("LoRaWAN ABP command BEFORE SEND");
@@ -166,8 +186,32 @@ static UartState valida_lorawan_abp(){
 }
 
 static UartState valida_lorawan_otaa(){
-  //uart_last_cmd = UART_CMD_LORAWAN_OTAA;
+  // Example:  O ch sf -----DevEui----- -----AppEui----- -------------AppKey------------- -Message--\n
+  // Example1: O 05 07 0011223344556677 FFEEDDCCBBAA9988 00112233445566778899AABBCCDDEEFF 1234567890\n
+  
+  Serial.println("LoRaWAN OTAA command validation:");
+  // valid size
+  if(buffer_pos < 76){
+    Serial.println("Command small < 76");
+    return UART_ST_DATA_ERROR;
+  }
+  if(!((buffer_pos - 76) & 0x01)){
+    Serial.println("The message is not an even size.");
+    return UART_ST_DATA_ERROR;
+  }
+  if(!read_channel(&buffer[0x02]))                                          return UART_ST_DATA_ERROR;
+  if(!read_sf(     &buffer[0x05]))                                          return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.deveui, &buffer[0x08],  8, "deveui"))         return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.appeui, &buffer[0x19],  8, "appeui"))         return UART_ST_DATA_ERROR;
+  if(!read_array(lorawan_pars.appkey, &buffer[0x2A], 16, "appkey"))         return UART_ST_DATA_ERROR;
+  if(!read_msg(                       &buffer[0x4B], (buffer_pos - 76)>>1)) return UART_ST_DATA_ERROR;
+
+  lorawan_pars.mode = LORAWAN_MODE_OTAA;
+  //Serial.println("LoRaWAN ABP command BEFORE SEND");
+  lorawan_send();
   return UART_ST_DATA_READY;
+
+
 }
 
 UartState uart_state(){

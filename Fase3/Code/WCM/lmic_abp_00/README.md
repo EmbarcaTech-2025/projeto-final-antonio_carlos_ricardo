@@ -20,3 +20,6 @@
 ### Consumo do Módulo WCM com transmissão ABP
 
 ![Foto1](assets/ConsumoWCM_ABP.png)
+
+## Versão 0.00.05 - 14/01/2026 - Build: 0005
+Add Suporte para LoRaWAN OTAA
