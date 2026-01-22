@@ -5,6 +5,113 @@
 	(uuid "1ab57267-96ad-451f-b48e-ae9ab38a001c")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x02"
 			(pin_names
 				(offset 1.016)
@@ -3369,10 +3476,10 @@
 		(uuid "55bd1ad3-2b42-422e-8669-9a7199cdc9e7")
 	)
 	(junction
-		(at 115.57 110.49)
+		(at 113.03 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "8dfb983b-2623-470d-bf6c-1914c4ef2010")
+		(uuid "5e609c80-ea9c-4465-a693-fc625745ae80")
 	)
 	(junction
 		(at 148.59 29.21)
@@ -3526,16 +3633,6 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 121.92) (xy 118.11 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "13eb5ece-3f5e-48fa-b9bf-062104ab9204")
-	)
-	(wire
-		(pts
 			(xy 143.51 29.21) (xy 143.51 36.83)
 		)
 		(stroke
@@ -3606,13 +3703,13 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 120.65) (xy 109.22 120.65)
+			(xy 189.23 27.94) (xy 189.23 30.48)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2a8ecb8f-8db3-4d68-b5e0-747d162e39cf")
+		(uuid "2977b07e-fcc7-433a-ad68-15239b1c14e3")
 	)
 	(wire
 		(pts
@@ -3663,16 +3760,6 @@
 			(type default)
 		)
 		(uuid "32a50fc3-f605-4c95-ad86-cac1b6734f71")
-	)
-	(wire
-		(pts
-			(xy 109.22 110.49) (xy 115.57 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3327a505-077a-40e3-aeee-503c49d36edf")
 	)
 	(wire
 		(pts
@@ -3806,16 +3893,6 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 121.92) (xy 118.11 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "61aea96b-44e0-47f8-a956-250572bcd9ba")
-	)
-	(wire
-		(pts
 			(xy 195.58 46.99) (xy 189.23 46.99)
 		)
 		(stroke
@@ -3886,16 +3963,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 120.65) (xy 109.22 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "751d99ee-a021-4b95-a995-fdf1f7c4fea4")
-	)
-	(wire
-		(pts
 			(xy 238.76 110.49) (xy 238.76 111.76)
 		)
 		(stroke
@@ -3933,6 +4000,16 @@
 			(type default)
 		)
 		(uuid "79b8e850-5566-4142-92fd-5a2c7a76a21c")
+	)
+	(wire
+		(pts
+			(xy 107.95 120.65) (xy 113.03 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7a494d4c-af28-45f0-875b-fd12f40d764a")
 	)
 	(wire
 		(pts
@@ -4086,16 +4163,6 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 123.19) (xy 115.57 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98b35451-8ab7-4640-9a74-bad571d38487")
-	)
-	(wire
-		(pts
 			(xy 243.84 123.19) (xy 238.76 123.19)
 		)
 		(stroke
@@ -4103,6 +4170,16 @@
 			(type default)
 		)
 		(uuid "999e1492-bff3-4b86-8ac6-af432624d7d3")
+	)
+	(wire
+		(pts
+			(xy 113.03 120.65) (xy 115.57 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a330ae0-8cce-4a3b-8a85-586079df3544")
 	)
 	(wire
 		(pts
@@ -4143,6 +4220,16 @@
 			(type default)
 		)
 		(uuid "a1106c0c-fe6d-4c7d-af9c-c647816a3e39")
+	)
+	(wire
+		(pts
+			(xy 115.57 123.19) (xy 115.57 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5406102-8ae2-4a4d-b3cb-6d5d35e38dd6")
 	)
 	(wire
 		(pts
@@ -4193,6 +4280,16 @@
 			(type default)
 		)
 		(uuid "bb992904-0800-4add-8123-77070852d98b")
+	)
+	(wire
+		(pts
+			(xy 107.95 110.49) (xy 107.95 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd125cfd-9edd-44c9-bd1c-371e54c196f9")
 	)
 	(wire
 		(pts
@@ -4403,6 +4500,16 @@
 			(type default)
 		)
 		(uuid "e7b2da42-2b51-4d99-93bc-ba83cc081dcf")
+	)
+	(wire
+		(pts
+			(xy 110.49 110.49) (xy 107.95 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e837a437-ab49-44d5-9f16-e814c17af736")
 	)
 	(wire
 		(pts
@@ -4721,7 +4828,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Reset"
 			(at 152.4 72.39 0)
 			(effects
 				(font
@@ -4779,25 +4886,24 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "101458a0-e949-404c-846d-77d55943ee78")
-		(property "Reference" "J6"
-			(at 144.78 10.16 90)
+		(property "Reference" "J4"
+			(at 152.146 16.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "I2C"
-			(at 144.78 12.7 90)
+		(property "Value" "I2C-3"
+			(at 135.636 16.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
 			(at 143.51 16.51 0)
 			(effects
 				(font
@@ -4839,7 +4945,7 @@
 		(instances
 			(project "Estacao"
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "J6")
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -4986,7 +5092,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "19aaf5b3-9d67-4ba1-881a-8357aa562941")
-		(property "Reference" "J4"
+		(property "Reference" "J6"
 			(at 34.29 144.7801 0)
 			(effects
 				(font
@@ -4995,7 +5101,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x02"
+		(property "Value" "Photo Cel"
 			(at 34.29 142.2401 0)
 			(effects
 				(font
@@ -5004,7 +5110,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm"
+		(property "Footprint" "Connector_Molex:Molex_SL_171971-0002_1x02_P2.54mm_Vertical"
 			(at 36.83 144.78 0)
 			(effects
 				(font
@@ -5040,7 +5146,7 @@
 		(instances
 			(project ""
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "J4")
+					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -5134,17 +5240,16 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "2de6fda5-30dc-49b3-bc00-1f18df95a330")
 		(property "Reference" "J3"
-			(at 144.78 25.4 90)
+			(at 152.146 31.75 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "I2C"
+		(property "Value" "I2C-2"
 			(at 144.78 27.94 90)
 			(effects
 				(font
@@ -5152,7 +5257,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
 			(at 143.51 31.75 0)
 			(effects
 				(font
@@ -5265,6 +5370,73 @@
 			(project ""
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
 					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 189.23 27.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4b0cb796-7255-4562-bcbd-806de0c36194")
+		(property "Reference" "TP1"
+			(at 191.77 23.3679 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GND"
+			(at 191.77 25.9079 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 194.31 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 194.31 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 189.23 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5f5596bf-c0d4-4ba4-ba27-fbf08b43cbf3")
+		)
+		(instances
+			(project ""
+				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -5413,10 +5585,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "59dc9b84-c581-4760-a75b-ea3fb0ac01a7")
 		(property "Reference" "R1"
-			(at 168.91 99.06 90)
+			(at 173.482 104.394 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5424,7 +5595,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 168.91 101.6 90)
+			(at 168.91 105.41 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5546,10 +5717,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6179902c-720d-4ff0-aeb8-85572984c288")
-		(property "Reference" "D3"
-			(at 157.48 115.8874 90)
+		(property "Reference" "D1"
+			(at 150.622 113.03 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5557,8 +5727,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "LED"
-			(at 157.48 118.4274 90)
+		(property "Value" "G"
+			(at 151.892 118.364 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5611,7 +5781,7 @@
 		(instances
 			(project ""
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "D3")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -5636,7 +5806,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "RaspberryPi_Pico"
+		(property "Value" "Raspberry Pi Pico"
 			(at 202.8033 129.54 0)
 			(effects
 				(font
@@ -5809,7 +5979,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6a16883a-a563-4d74-9fcc-689e85b64a22")
 		(property "Reference" "J5"
 			(at 127 25.4 90)
@@ -5827,7 +5996,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
 			(at 125.73 31.75 0)
 			(effects
 				(font
@@ -5883,10 +6052,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6ac34dc9-0e64-454d-b628-6c8dc1faf326")
 		(property "Reference" "R2"
-			(at 168.91 101.6 90)
+			(at 173.482 106.934 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5894,7 +6062,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 168.91 104.14 90)
+			(at 169.164 107.95 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5951,17 +6119,16 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "709e11a7-ea48-4049-8df5-11047ec75554")
 		(property "Reference" "J2"
-			(at 144.78 17.78 90)
+			(at 152.146 24.13 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "I2C"
+		(property "Value" "I2C-1"
 			(at 144.78 20.32 90)
 			(effects
 				(font
@@ -5969,7 +6136,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
 			(at 143.51 24.13 0)
 			(effects
 				(font
@@ -6025,10 +6192,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "74db335f-7f9a-46bd-b695-155494db6394")
 		(property "Reference" "R3"
-			(at 168.91 104.14 90)
+			(at 173.482 109.474 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6036,7 +6202,7 @@
 			)
 		)
 		(property "Value" "R"
-			(at 168.91 106.68 90)
+			(at 168.91 110.49 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6087,7 +6253,8 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Wuerth_450301014042")
-		(at 115.57 115.57 270)
+		(at 113.03 115.57 270)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6095,7 +6262,7 @@
 		(dnp no)
 		(uuid "7e74b478-e566-4f05-aa45-63c925c109b7")
 		(property "Reference" "SW3"
-			(at 124.46 115.57 0)
+			(at 119.888 115.316 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6103,15 +6270,16 @@
 			)
 		)
 		(property "Value" "SW_Wuerth_450301014042"
-			(at 121.92 115.57 0)
+			(at 119.38 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm"
-			(at 105.41 115.57 0)
+		(property "Footprint" "PcbLibrary:switch_3p_2mm"
+			(at 102.87 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6120,7 +6288,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/450301014042.pdf"
-			(at 107.95 115.57 0)
+			(at 105.41 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6129,7 +6297,7 @@
 			)
 		)
 		(property "Description" "Switch slide, single pole double throw"
-			(at 115.57 115.57 0)
+			(at 113.03 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6172,7 +6340,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Config"
 			(at 152.4 92.71 0)
 			(effects
 				(font
@@ -6230,10 +6398,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8d90cac4-72b9-4ca1-9145-8584d409bcdb")
-		(property "Reference" "D1"
-			(at 167.64 115.8874 90)
+		(property "Reference" "D3"
+			(at 161.036 113.03 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6241,8 +6408,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "LED"
-			(at 167.64 118.4274 90)
+		(property "Value" "R"
+			(at 162.306 118.11 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6295,7 +6462,7 @@
 		(instances
 			(project ""
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "D1")
+					(reference "D3")
 					(unit 1)
 				)
 			)
@@ -6309,10 +6476,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a048fe5a-0ea0-4905-8464-5e66c8923031")
 		(property "Reference" "D2"
-			(at 162.56 115.8874 90)
+			(at 155.702 113.03 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6320,8 +6486,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "LED"
-			(at 162.56 118.4274 90)
+		(property "Value" "B"
+			(at 157.226 118.11 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6399,7 +6565,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Battery_Cell"
+		(property "Value" "Battery"
 			(at 152.4 142.9384 0)
 			(effects
 				(font
@@ -6542,7 +6708,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_SL_171971-0006_1x06_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical"
 			(at 163.83 31.75 0)
 			(effects
 				(font
@@ -6806,8 +6972,8 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c9c33c5d-059f-48db-a9b1-bbc5d0c58e5d")
-		(property "Reference" "SW6"
-			(at 139.7 129.54 0)
+		(property "Reference" "SW2"
+			(at 139.7 131.572 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6820,9 +6986,10 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm"
+		(property "Footprint" "PcbLibrary:switch_3p_2mm"
 			(at 139.7 148.59 0)
 			(effects
 				(font
@@ -6861,7 +7028,73 @@
 		(instances
 			(project ""
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "SW6")
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 189.23 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "de402c2d-763c-4bc9-93ba-d2d370ef3dcf")
+		(property "Reference" "#PWR010"
+			(at 189.23 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 189.23 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 189.23 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 189.23 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 189.23 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3a32a699-16e4-4026-826f-6b711e89e7b5")
+		)
+		(instances
+			(project ""
+				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -6947,8 +7180,8 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e7699893-f0cb-41a0-95b4-7e5730a74df7")
-		(property "Reference" "SW2"
-			(at 52.07 129.54 0)
+		(property "Reference" "SW1"
+			(at 51.816 131.826 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6961,9 +7194,10 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "Button_Switch_THT:SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm"
+		(property "Footprint" "PcbLibrary:switch_3p_2mm"
 			(at 52.07 148.59 0)
 			(effects
 				(font
@@ -7002,7 +7236,7 @@
 		(instances
 			(project "Estacao"
 				(path "/1ab57267-96ad-451f-b48e-ae9ab38a001c"
-					(reference "SW2")
+					(reference "SW1")
 					(unit 1)
 				)
 			)
@@ -7096,7 +7330,7 @@
 				)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "20V to 5V"
 			(at 74.295 133.35 0)
 			(effects
 				(font
