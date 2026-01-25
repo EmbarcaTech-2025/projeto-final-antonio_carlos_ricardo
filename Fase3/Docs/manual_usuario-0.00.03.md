@@ -162,19 +162,20 @@ Selecione a tecka S para escolher os intervalos de coleta entre 10 segundos (ape
 
 A partir desse ponto o manual está sob revisão para ficar atualizado com o projeto atual.
 
-Após a energização do sistema o LED RGB pisca rapidamente em sequências as cores vermelho, verde e azul, na sequência o Display pisca e mostra a mensagem:
+Após a energização do sistema os LEDs R, G e B pisca rapidamente na sequência vermelho, verde e azul.
 
-![Indicação Inicial do Display](assets/display_inicial.jpg)
-
-Se o botão A for pressionado quando o display ainda está piscando e continuar assim até o LED azul ficar acesso, a estação ativa o modo de configuração, conforme já mencionado acima. Após a configuração e/ajuste do relógio a operação da estação meteorológica começa. 
+Se o botão Config ficar pressionado durante o periodo que os LEDs Verde e Vermelho estiverem acessos a estação entrará em modo de configuração.
 
 ### 3.1 Indicações do LED RGB
 
-Durante a operação, a cor do LED indica:
-- Vermelho ==> Não há conexão com o roteado;
-- Verde ==> Conexão WiFi estabelecida com o roteador, roteador, e não houve falhas de acesso ao servidor;
-- Amarelo ==> Conexão WiFi estabelecida com o roteador, mas a última tentativa de conexão com o servidor falhou
-- Piscadas Azuis ==> Dados da estação estão sendo salvos na memória não volátil
+Durante a operação, os LEDs acessos indicam:
+- Verde e Vermelho ==> Inicializando e aguardado se entra ou não no modo configuração (dura uns 10 segundos);
+- Vermelho ==> Modo configuração ativo, o menu pode ser acessado pela USB;
+- Azul e Verde ==> Saiu do menu e continua a inicialização, periodo bem curto, menos de 1 Wsegundo;
+- Vermelho piscando ==> Falha na inicialização dos sensores, estação para.
+- Azul ==> estação fazendo a aquisição dos dados dos sensores;
+- Azul, Verde e Vermelho ==> Transmitindo os dados
+- nenhum LED acesso ==> periodo entre aquisições e transmissão dos dados, a estação está com baixo consumo
 
 ---
 
@@ -201,13 +202,13 @@ To be written
 
 ---
 
-## 6. Configuração do TheThingsBoard
+## 6. Configuração do TheThingsBoard 
 
 To be written
 
 ---
 
-### 5.1 Painéis do Dashboard
+### 6.1 Painéis do Dashboard
 
 **Descrição do exemplo1**
 
@@ -227,7 +228,7 @@ O gráfico na parte inferior do dashboard apresenta as séries temporais das med
 ![Dashboard](assets/grafana_l_3_historico.png)
 
 ---
-### 5.2 Como Acessar o Dashboard
+### 6.2 Como Acessar o Dashboard
 
 Para ter acesso ao dashboard, siga estes passos:
 
@@ -258,11 +259,11 @@ Para ter acesso ao dashboard, siga estes passos:
 
 ---
 
-## 6. Especificações Técnicas da Estação
+## 7. Especificações Técnicas da Estação
 
 ### Principais características
   
-- Placa mãe: BitDogLab V6.3.
+- Placa principal especifica como a placa pico e ...
 - Software Build: 0012 ou superior.
 - Consumo total médio típico:
 	+ WiFi desconectado: 46 mA
@@ -271,17 +272,15 @@ Para ter acesso ao dashboard, siga estes passos:
 
   Obs.: Sem sensores AD de alto consumo.
 
-- Duração estimada da bateria backup presente na BitDogLab: 20 horas
-	+ Para Bateria 18650 de 2000 mA hora  
+- Duração estimada da bateria sem alimentação solar (periodo de escuro):
+  - sem GPS ligado
+  - com GPS ligado
+	+ Para:
+    - Bateria 18650 de 2000 mA hora  
+    - Comunicação a cada 5 minutos
 
-- Modo de comunicação:
-	+ WiFi Conexão constante com o roteador, com reconexão automática.
-- Vida estimada da memória Flash:
-  -  **> 12 anos** Supondo uma aquisição salva por segundo.
-  -  **> 120 anos** Supondo uma aquisição salva a cada 10 segundos.
-  
-  Ref.: minimo 100K escritas por setor(W25Q16JV).
-- Mecanismo de Integridade:
+
+- Mecanismo de Integridade: ????
 	+ WatchDog com timeout de 45 segundos.
 
  
@@ -311,12 +310,6 @@ Obs.2: Como os sensores estão em homologação a tabela abaixo é apenas um ind
 |  | Velocidade do Vento | m/s | --- | --- | --- | --- |
 | --- | --- | --- | --- | --- | --- |
 | | Índice UV | índice | 0 - 12 | --- | --- | --- | Portas AD de 0 a 8 |
-| | Umidade do Solo | % | --- | --- | --- | --- | Portas AD de 0 a 8 |
-| | Temperatura do Solo | Celsius | --- | --- | --- | --- | Portas AD de 0 a 8 |
-| | Concentração de CO | ppm | --- | --- | --- | --- | Portas AD de 0 a 8 |
-| | Concentração de CO2 | ppm | --- | --- | --- | --- | Portas AD de 0 a 8 |
-| | Concentração de O3 | ppm | --- | --- | --- | --- | Portas AD de 0 a 8 |
-
 
 ### Especificação do servidor
 
