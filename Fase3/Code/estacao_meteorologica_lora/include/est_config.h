@@ -48,7 +48,7 @@ typedef struct {
     bool lux;
     bool uv;        // not implemented
     bool wind;      // not implemented
-    bool rain;      // not implemented
+    bool vsys;
     bool cpu_temp;
 }ActiveSensors;
 

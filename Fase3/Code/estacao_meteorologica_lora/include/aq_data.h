@@ -2,9 +2,10 @@
 #define AQ_DATA_H
 
 #include "pico/stdlib.h"
+#include "aq_data_ad.h"
 #include "aq_data_bat.h"
 #include "aq_data_bme280.h"
-#include "aq_data_cpu_temp.h"
+#include "aq_data_bmep280.h"
 #include "aq_data_gps.h"
 #include "aq_data_lux.h"
 #include "est_config.h"
@@ -17,19 +18,19 @@ typedef enum{
     // reservados para futuros:
     AQ_ITEM_UV        = 0x10,
     AQ_ITEM_WIND      = 0x20,
-    AQ_ITEM_RAIN      = 0x40,
-    //AQ_ITEM_TBD       = 0x80
+    AQ_ITEM_VSYS      = 0x40,
     AQ_ITEM_CPU_TEMP  = 0x80
 } AqItem;
 
 
 typedef struct{
-    ActiveSensors       active_sensors;
-    AqDataBat_Value     battery;
-    AqDataBme280_Value  bme280;
-    AqDataGps_Value     gps;
-    AqDataLux_Value     lux;
-    int                 cpu_temp_deci;
+    ActiveSensors         active_sensors;
+    AqDataBat_Value       battery;
+    AqDataBmep280_Value_I bmep280;
+    AqDataGps_Value       gps;
+    AqDataLux_Value       lux;
+    uint8_t               vsys;
+    int16_t               cpu_temp_deci;
     // add futuros
 } AqData;
 

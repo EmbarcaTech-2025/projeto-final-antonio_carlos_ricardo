@@ -40,9 +40,10 @@ pico_sdk_init()
 
 add_executable(estacao_meteorologica_lora
         main.c
+        src/aq_data_ad.c
         src/aq_data_bat.c
         src/aq_data_bme280.c
-        src/aq_data_cpu_temp.c
+        src/aq_data_bmep280.c
         src/aq_data_gps.c
         src/aq_data_lux.c
         src/aq_data.c
@@ -67,6 +68,9 @@ pico_set_program_version(estacao_meteorologica_lora "0.1")
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(estacao_meteorologica_lora 0)
 pico_enable_stdio_usb(estacao_meteorologica_lora 1)
+
+# pico_enable_stdio_uart(estacao_meteorologica_lora 1)
+# pico_enable_stdio_usb(estacao_meteorologica_lora 0)
 
 # Add the standard library to the build
 target_link_libraries(estacao_meteorologica_lora

@@ -9,6 +9,20 @@
 - rever funcionamento GPS, principalmente durante sleep
 
 
+
+## Build:0019 - /01/2026
+- correção: Não salvava a versão da configuração
+- Unificada as rotinas de ad: cpu temp e vsys
+
+
+## Build:0018 - 24/01/2026
+- Add aq_data_bmep280.h
+Obs.: - roda só o bmep280 para testes e está com prints de debug
+      - Está com o debug ativo e só em flash
+
+## Build:0017 - 22/01/2026
+- Add VSys
+
 ## Build:0016 - 17/01/2026
 - Add ao Payload lux
 - Add no estado original da flash, no printf e no menu_conf

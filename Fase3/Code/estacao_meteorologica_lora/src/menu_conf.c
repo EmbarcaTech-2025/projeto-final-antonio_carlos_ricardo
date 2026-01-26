@@ -114,7 +114,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
         printf("4) Luximeter    : %s\n", est_config->active_sensors.lux?    "On":"Off");
         printf("5) UV Index     : NOT implemented\n");
         printf("6) Wind         : NOT implemented\n");
-        printf("7) Rain         : NOT implemented\n");
+        printf("7) VSys         : %s\n", est_config->active_sensors.vsys?   "On":"Off");
         printf("8) CPU Temp     : %s\n\n", est_config->active_sensors.cpu_temp?"On":"Off");
 
         if(est_config->leds_on) printf("L) LEDs state   : ON (not recommended)\n");
@@ -254,7 +254,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
             case '4': est_config->active_sensors.lux      = !est_config->active_sensors.lux;      break;
             case '5':                                                                             break;
             case '6':                                                                             break;
-            case '7':                                                                             break;
+            case '7': est_config->active_sensors.vsys     = !est_config->active_sensors.vsys;     break;
             case '8': est_config->active_sensors.cpu_temp = !est_config->active_sensors.cpu_temp; break;
 
             case 'C': stored_data_clear_all(); break;

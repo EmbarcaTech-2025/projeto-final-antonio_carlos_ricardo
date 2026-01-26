@@ -10,6 +10,9 @@
 #include "include/wcm.h"
 
 
+#include "include/aq_data_bmep280.h"
+
+
 #define MAIN_ST_INIT            LED_YELLOW      // inicializando o sistema
 #define MAIN_ST_MENU            LED_RED         // MENU mode
 #define MAIN_ST_MENU_AFTER      LED_CYAN
@@ -44,7 +47,7 @@ int main(){
     gpio_set_function(17, GPIO_FUNC_UART);
     gpio_set_function(16, GPIO_FUNC_UART);
 #endif
-    
+
     buttons_and_leds_init();
     buttons_and_leds_set_color(MAIN_ST_INIT);
     wcm_init();
@@ -66,9 +69,17 @@ int main(){
 
     if(ret = aqdata_init_power_on(&aq_data)){
         loop_printf("Init Power sensors fail: %d\n", ret);
+        while(1){
+            buttons_and_leds_set_color(LED_BLACK);
+            sleep_ms(200);
+            buttons_and_leds_set_color(LED_RED);
+            sleep_ms(200);
+        }
     }
 
-    hw_sleep_init(est_config.usb_mode, est_config.active_sensors.cpu_temp,  est_config.sleep_time_min);
+    //aqdatabmep280_teste();
+
+    hw_sleep_init(est_config.usb_mode, est_config.active_sensors.cpu_temp || est_config.active_sensors.vsys,  est_config.sleep_time_min);
     
     buttons_and_leds_set_color(LED_BLACK);
     

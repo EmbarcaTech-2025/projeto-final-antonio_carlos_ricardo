@@ -4,28 +4,6 @@
 
 
 int aqdata_init_power_on( AqData *value){
-    if(value == NULL) return 0xFFFF;
-    int ret = 0;
-    if(value->active_sensors.battery){
-        if(aqdatabat_init_power_on()) ret |= AQ_ITEM_BAT_VALUE;
-    }
-    if(value->active_sensors.bme280){
-        if(aqdatabme280_init_power_on()) ret |= AQ_ITEM_BME280;
-    }
-    if(value->active_sensors.gps){
-        if(aqdatagps_init_power_on()) ret |= AQ_ITEM_GPS;
-    }
-    if(value->active_sensors.lux){
-        if(aqdatalux_init_power_on()) ret |= AQ_ITEM_LUX;
-    }
-
-    if(aqdatacpu_temp_power_on()) ret |= AQ_ITEM_LUX;
-
-    return ret;
-}
-
-int aqdata_init_aq( AqData *value){
-    // Inicializar I2Cs
     i2c_init(         I2C_MAIN_BUS,      I2C_MAIN_BAUDRATE);
     gpio_pull_up(     I2C_MAIN_GPIO_SDA);
     gpio_pull_up(     I2C_MAIN_GPIO_SCL);
@@ -35,10 +13,42 @@ int aqdata_init_aq( AqData *value){
     if(value == NULL) return 0xFFFF;
     int ret = 0;
     if(value->active_sensors.battery){
+        if(aqdatabat_init_power_on()) ret |= AQ_ITEM_BAT_VALUE;
+    }
+    if(value->active_sensors.bme280){
+        //if(aqdatabme280_init_power_on()) ret |= AQ_ITEM_BME280;
+        if(aqdatabmep280_init_power_on()) ret |= AQ_ITEM_BME280;
+    }
+    if(value->active_sensors.gps){
+        if(aqdatagps_init_power_on()) ret |= AQ_ITEM_GPS;
+    }
+    if(value->active_sensors.lux){
+        if(aqdatalux_init_power_on()) ret |= AQ_ITEM_LUX;
+    }
+ 
+    if(aqdataad_init_power_on(value->active_sensors.vsys, value->active_sensors.cpu_temp)) ret |= AQ_ITEM_CPU_TEMP | AQ_ITEM_VSYS;
+    
+    return ret;
+}
+
+int aqdata_init_aq( AqData *value){
+    // Inicializar I2Cs
+    /*
+    i2c_init(         I2C_MAIN_BUS,      I2C_MAIN_BAUDRATE);
+    gpio_pull_up(     I2C_MAIN_GPIO_SDA);
+    gpio_pull_up(     I2C_MAIN_GPIO_SCL);
+    gpio_set_function(I2C_MAIN_GPIO_SDA, GPIO_FUNC_I2C);
+    gpio_set_function(I2C_MAIN_GPIO_SCL, GPIO_FUNC_I2C);
+    */
+
+    if(value == NULL) return 0xFFFF;
+    int ret = 0;
+    if(value->active_sensors.battery){
         if(aqdatabat_init_aq()) ret |= AQ_ITEM_BAT_VALUE;
     }
     if(value->active_sensors.bme280){
-        if(aqdatabme280_init_aq()) ret |= AQ_ITEM_BME280;
+        //if(aqdatabme280_init_aq()) ret |= AQ_ITEM_BME280;
+        if(aqdatabmep280_init_aq()) ret |= AQ_ITEM_BME280;
     }
     if(value->active_sensors.gps){
         if(aqdatagps_init_aq()) ret |= AQ_ITEM_GPS;
@@ -46,8 +56,9 @@ int aqdata_init_aq( AqData *value){
     if(value->active_sensors.lux){
         if(aqdatalux_init_aq()) ret |= AQ_ITEM_LUX;
     }
-    if(value->active_sensors.cpu_temp){
-        if(aqdatacpu_temp_init_aq()) ret |= AQ_ITEM_CPU_TEMP;
+
+    if(value->active_sensors.vsys || value->active_sensors.cpu_temp){
+        if(aqdataad_init_aq(value->active_sensors.vsys, value->active_sensors.cpu_temp)) ret |= AQ_ITEM_VSYS | AQ_ITEM_CPU_TEMP;
     }
     return ret;
 }
@@ -58,7 +69,8 @@ int aqdata_read( AqData *value){
         if(aqdatabat_read(&value->battery)) ret |= AQ_ITEM_BAT_VALUE;
     }
     if(value->active_sensors.bme280){
-        if(aqdatabme280_read(&value->bme280)) ret |= AQ_ITEM_BME280;
+        //if(aqdatabme280_read(&value->bme280)) ret |= AQ_ITEM_BME280;
+        if(aqdatabmep280_read_i(&value->bmep280)) ret |= AQ_ITEM_BME280;
     }
     if(value->active_sensors.gps){
         if(aqdatagps_read(&value->gps)) ret |= AQ_ITEM_GPS;
@@ -66,8 +78,12 @@ int aqdata_read( AqData *value){
     if(value->active_sensors.lux){
         if(aqdatalux_read(&value->lux)) ret |= AQ_ITEM_LUX;
     }
+
+    if(value->active_sensors.vsys){
+        if(aqdataad_read_vsys(&value->vsys)) ret |= AQ_ITEM_VSYS;
+    }
     if(value->active_sensors.cpu_temp){
-        if(aqdatacpu_temp_read(&value->cpu_temp_deci)) ret |= AQ_ITEM_CPU_TEMP;
+        if(aqdataad_read_temp(&value->cpu_temp_deci)) ret |= AQ_ITEM_CPU_TEMP;
     }
     return ret;
 }
@@ -78,7 +94,8 @@ int aqdata_sleep(AqData *value){
         if(aqdatabat_sleep()) ret |= AQ_ITEM_BAT_VALUE;
     }
     if(value->active_sensors.bme280){
-        if(aqdatabme280_sleep()) ret |= AQ_ITEM_BME280;
+        //if(aqdatabme280_sleep()) ret |= AQ_ITEM_BME280;
+        if(aqdatabmep280_sleep()) ret |= AQ_ITEM_BME280;
     }
     if(value->active_sensors.gps){
         if(aqdatagps_sleep()) ret |= AQ_ITEM_GPS;
@@ -86,8 +103,10 @@ int aqdata_sleep(AqData *value){
     if(value->active_sensors.lux){
         if(aqdatalux_sleep()) ret |= AQ_ITEM_LUX;
     }
-    if(value->active_sensors.cpu_temp){
-        if(aqdatacpu_temp_sleep()) ret |= AQ_ITEM_CPU_TEMP;
+
+    if(value->active_sensors.vsys || value->active_sensors.cpu_temp){
+        if(aqdataad_sleep(value->active_sensors.vsys, value->active_sensors.cpu_temp)) ret |= AQ_ITEM_VSYS | AQ_ITEM_CPU_TEMP;
     }
+    
     return ret;
 }

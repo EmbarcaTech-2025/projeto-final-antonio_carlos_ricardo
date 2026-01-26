@@ -36,18 +36,18 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
 #ifdef SEND_FIX_DATA
     if(count < 5){
         aq_data->battery.bat_level =        153;    // 76.5 %
-        aq_data->bme280.humidity   =         69;    // 34.5 %
-        aq_data->bme280.temp       =       2543;    // 25.43 Celsius
-        aq_data->bme280.press      =       9338;    // 1013.24 hPa
+        aq_data->bmep280.humidity  =         69;    // 34.5 %
+        aq_data->bmep280.temp      =       2543;    // 25.43 Celsius
+        aq_data->bmep280.press     =       9338;    // 1013.24 hPa
         aq_data->gps.latitude      = -191405737;    // -22,817341924
         aq_data->gps.longitude     = -394864185;    // -47,071478963
         aq_data->gps.altitude      =       4321;    // 432.1 m
         aq_data->cpu_temp_deci     =        -20;    // -2 C
 
         aq_data->battery.bat_level += count;
-        aq_data->bme280.humidity   += count;
-        aq_data->bme280.temp       += count;
-        aq_data->bme280.press      += count;
+        aq_data->bmep280.humidity  += count;
+        aq_data->bmep280.temp      += count;
+        aq_data->bmep280.press     += count;
         aq_data->gps.latitude      += count;
         aq_data->gps.longitude     += count;
         aq_data->gps.altitude      += count;
@@ -73,7 +73,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     if(aq_data->active_sensors.lux)      control1 |= AQ_ITEM_LUX;
     if(aq_data->active_sensors.uv)       control1 |= AQ_ITEM_UV;
     if(aq_data->active_sensors.wind)     control1 |= AQ_ITEM_WIND;
-    if(aq_data->active_sensors.rain)     control1 |= AQ_ITEM_RAIN;
+    if(aq_data->active_sensors.vsys)     control1 |= AQ_ITEM_VSYS;
     if(aq_data->active_sensors.cpu_temp) control1 |= AQ_ITEM_CPU_TEMP;   //AQ_ITEM_TBD;
     payload[payload_pos++] = control1;
 
@@ -87,27 +87,27 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     }else loop_printf("- NO Battery sensor\n");
 
     if(aq_data->active_sensors.bme280){
-        if(aq_data->bme280.humidity == 0xFF) loop_printf("- ERROR BME280 Humidity sensor\n");
+        if(aq_data->bmep280.humidity == 0xFF) loop_printf("- ERROR BME280 Humidity sensor\n");
         else{
-            loop_printf("- BME280 Humidity    = %.1f %%\n", aq_data->bme280.humidity * 0.5);
+            loop_printf("- BME280 Humidity    = %.1f %%\n", aq_data->bmep280.humidity * 0.5);
         }
-        payload[payload_pos++] = aq_data->bme280.humidity;
+        payload[payload_pos++] = aq_data->bmep280.humidity;
 
 
-        if(aq_data->bme280.temp == 0x7FFF) loop_printf("- ERROR BME280 Temperature sensor\n");
+        if(aq_data->bmep280.temp == 0x7FFF) loop_printf("- ERROR BME280 Temperature sensor\n");
         else{
-            loop_printf("- BME280 Temperature = %.2f Celsius\n", aq_data->bme280.temp * 0.01);
+            loop_printf("- BME280 Temperature = %.2f Celsius\n", aq_data->bmep280.temp * 0.01);
         }
-        payload[payload_pos++] = aq_data->bme280.temp >> 8; 
-        payload[payload_pos++] = aq_data->bme280.temp & 0x00FF;
+        payload[payload_pos++] = aq_data->bmep280.temp >> 8; 
+        payload[payload_pos++] = aq_data->bmep280.temp & 0x00FF;
 
 
-        if(aq_data->bme280.press == 0xFFFF) loop_printf("- ERROR BME280 Pressure sensor\n");
+        if(aq_data->bmep280.press == 0xFFFF) loop_printf("- ERROR BME280 Pressure sensor\n");
         else{
-            loop_printf("- BME280 pressure    = %.2f hPa\n", (60000 - aq_data->bme280.press) * 0.02);
+            loop_printf("- BME280 pressure    = %.2f hPa\n", (60000 - aq_data->bmep280.press) * 0.02);
         }
-        payload[payload_pos++] = aq_data->bme280.press >> 8; 
-        payload[payload_pos++] = aq_data->bme280.press & 0x00FF;
+        payload[payload_pos++] = aq_data->bmep280.press >> 8; 
+        payload[payload_pos++] = aq_data->bmep280.press & 0x00FF;
     }else loop_printf("- NO BME280 sensor\n");
 
     if(aq_data->active_sensors.gps){
@@ -147,6 +147,15 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         payload[payload_pos++] = aq_data->lux.lux_level >> 8; 
         payload[payload_pos++] = aq_data->lux.lux_level & 0x00FF;
     }else loop_printf("- NO Lux Meter sensor\n");
+
+
+    if(aq_data->active_sensors.vsys){
+        if(aq_data->vsys == 0xFF) loop_printf("- ERROR VSys sensor\n");
+        else{
+            loop_printf("- VSys     = %4d mV\n", aq_data->cpu_temp_deci * 20);
+        }
+        payload[payload_pos++] = aq_data->vsys;
+    }else loop_printf("- NO VSys sensor\n");
 
     if(aq_data->active_sensors.cpu_temp){
         if(aq_data->cpu_temp_deci == 0x7F) loop_printf("- ERROR CPU Temp sensor\n");

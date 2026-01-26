@@ -47,8 +47,9 @@ static uint8_t config_data_error_check(EstConfig * est_config, bool set){
     if(xor                 != est_config->xor)     ret |= 0x04;
 
     if(set){
-        est_config->sum = sum;
-        est_config->xor = xor;
+        est_config->version = CONFIG_DATA_VERSION;
+        est_config->sum     = sum;
+        est_config->xor     = xor;
     }
 
     return ret;
@@ -118,8 +119,8 @@ void est_config_default(EstConfig * est_config){
     est_config->active_sensors.lux      = false;
     est_config->active_sensors.uv       = false;   // not implemented
     est_config->active_sensors.wind     = false;   // not implemented
-    est_config->active_sensors.rain     = false;   // not implemented
-    est_config->active_sensors.cpu_temp = true;      // CPU temp
+    est_config->active_sensors.vsys     = true;
+    est_config->active_sensors.cpu_temp = true;
 
     est_config->usb_mode = USB_MODE_OFF;
     est_config->leds_on  = false;
