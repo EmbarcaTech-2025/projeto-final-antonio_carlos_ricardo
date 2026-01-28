@@ -3,10 +3,10 @@
 
 #define NAME            "Weather Station"
 #define VERSION         "0.00.01"
-#define VERSION_DATA    "2026/01/24"
-#define BUILD           "0019build"
+#define VERSION_DATA    "2026/01/28"
+#define BUILD           "0021"
 
-#define CONFIG_DATA_VERSION         3   // uint32_t version;
+#define CONFIG_DATA_VERSION         4   // uint32_t version;
 
 
 #define DEBUG_ON                true
@@ -14,6 +14,7 @@
 #define DEBUG_ON_BMP280         (DEBUG_ON || true)
 #define DEBUG_ON_BMEP280        (DEBUG_ON || true)
 #define DEBUG_ON_HW_SPEED       (DEBUG_ON || true)
+#define DEBUG_ON_LUXIMETER      (DEBUG_ON || true)
 //#define DEB_PR_CORE1_GPS        (DEBUG_ON || false)
 
 
@@ -21,9 +22,16 @@
 //#define BOARD_BITDOG_LAB_V63
 //#define BOARD_ESP32_C3
 
-//#define BITDOGLAB_WITH_DEBUG_PROBE
+#define BITDOGLAB_WITH_DEBUG_PROBE
 
+
+#ifdef BITDOGLAB_WITH_DEBUG_PROBE
+#define HW_SLEEP_LOW_POWER false
+#else
 #define HW_SLEEP_LOW_POWER true
+#endif
+
+
 #define ENABLE_LOOP_PRINTF
 #define SEND_FIX_DATA
 
@@ -78,6 +86,8 @@
 #define I2C_MAIN_BUS                i2c1
 
 #define I2C_TIMEOUT_US_BMEP280     10000
+
+#define I2C_TIMEOUT_US_BH1750        100
 
 
 #endif // CODE_CONFIG_H

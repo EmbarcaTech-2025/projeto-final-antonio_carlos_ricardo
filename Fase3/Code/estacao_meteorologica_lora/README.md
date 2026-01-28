@@ -1,19 +1,37 @@
 # Estação Meteorológica LoRa/LoRaWAN
 ## Next:
-- Compartilhar código com esp32-c3
 - Melhorar estrutura do loop_printf quando o USB está off
-- Manter histórico na flash do fcnt
-- Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
 - Implementar watch-dog
+- Manter histórico na flash do fcnt
+
+- Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
+
 - gps rever printf para loop_print
 - rever funcionamento GPS, principalmente durante sleep
 
+- Compartilhar código com esp32-c3
 
 
-## Build:0019 - /01/2026
+
+## Build:0021 - /01/2026
+
+
+## Build:0021 - 28/01/2026
+- Adicionado no menu/sistema um parâmetro de calibração vsys_k_10000
+- removido antigos src do bmp280
+- rotinas i2c do luximetro revisto o blocking por timeout
+
+## Build:0020 - 28/01/2026
+- Luximetro:
+    - foi reduzida a sensibilidade para 31/69 para poder suportar incidencias diretas do sol
+    - foi adicionado no menu/sistema um parâmetro de calibração lux_k_10000
+    - removido o antigo driver bh1750
+- Correções no WCM.c para o VSys
+
+## Build:0019 - 27/01/2026
 - correção: Não salvava a versão da configuração
 - Unificada as rotinas de ad: cpu temp e vsys
-
+- corrigido a falta de? adc_gpio_init(ADC_VSYS_GPIO);
 
 ## Build:0018 - 24/01/2026
 - Add aq_data_bmep280.h

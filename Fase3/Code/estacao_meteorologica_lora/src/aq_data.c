@@ -3,7 +3,7 @@
 #include "../include/code_config.h"
 
 
-int aqdata_init_power_on( AqData *value){
+int aqdata_init_power_on( AqData *value, uint16_t lux_k_10000, uint16_t vsys_k_10000){
     i2c_init(         I2C_MAIN_BUS,      I2C_MAIN_BAUDRATE);
     gpio_pull_up(     I2C_MAIN_GPIO_SDA);
     gpio_pull_up(     I2C_MAIN_GPIO_SCL);
@@ -23,10 +23,10 @@ int aqdata_init_power_on( AqData *value){
         if(aqdatagps_init_power_on()) ret |= AQ_ITEM_GPS;
     }
     if(value->active_sensors.lux){
-        if(aqdatalux_init_power_on()) ret |= AQ_ITEM_LUX;
+        if(aqdatalux_init_power_on(lux_k_10000)) ret |= AQ_ITEM_LUX;
     }
  
-    if(aqdataad_init_power_on(value->active_sensors.vsys, value->active_sensors.cpu_temp)) ret |= AQ_ITEM_CPU_TEMP | AQ_ITEM_VSYS;
+    if(aqdataad_init_power_on(value->active_sensors.vsys, value->active_sensors.cpu_temp, vsys_k_10000)) ret |= AQ_ITEM_CPU_TEMP | AQ_ITEM_VSYS;
     
     return ret;
 }

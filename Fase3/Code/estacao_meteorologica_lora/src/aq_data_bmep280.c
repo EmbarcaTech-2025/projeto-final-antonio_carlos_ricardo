@@ -3,7 +3,7 @@
 #include "../include/aq_data_bmep280.h"
 #include "../include/code_config.h"
 
-#include "src/bmp280/bmp280.h"
+
 #include "../include/loop_printf.h"
 
 

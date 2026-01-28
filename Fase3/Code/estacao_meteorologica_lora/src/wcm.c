@@ -42,6 +42,8 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         aq_data->gps.latitude      = -191405737;    // -22,817341924
         aq_data->gps.longitude     = -394864185;    // -47,071478963
         aq_data->gps.altitude      =       4321;    // 432.1 m
+        aq_data->lux.lux_level_x4  =      12345;
+        aq_data->vsys              =        100;    // 2000mv
         aq_data->cpu_temp_deci     =        -20;    // -2 C
 
         aq_data->battery.bat_level += count;
@@ -51,6 +53,8 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         aq_data->gps.latitude      += count;
         aq_data->gps.longitude     += count;
         aq_data->gps.altitude      += count;
+        aq_data->lux.lux_level_x4  += count * 1000;
+        aq_data->vsys              += count;
         aq_data->cpu_temp_deci     += count * 10;
 
         count++;
@@ -140,19 +144,19 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     }else loop_printf("- NO GPS\n");
 
     if(aq_data->active_sensors.lux){
-        if(aq_data->lux.lux_level == 0xFFFF) loop_printf("- ERROR Lux Meter sensor\n");
+        if(aq_data->lux.lux_level_x4 == 0xFFFF) loop_printf("- ERROR Lux Meter sensor\n");
         else{
-            loop_printf("- Lux Meter = %u lux\n", aq_data->lux);
+            loop_printf("- Lux Meter = %u lux\n", aq_data->lux.lux_level_x4 * 4);
         }
-        payload[payload_pos++] = aq_data->lux.lux_level >> 8; 
-        payload[payload_pos++] = aq_data->lux.lux_level & 0x00FF;
+        payload[payload_pos++] = aq_data->lux.lux_level_x4 >> 8; 
+        payload[payload_pos++] = aq_data->lux.lux_level_x4 & 0x00FF;
     }else loop_printf("- NO Lux Meter sensor\n");
 
 
     if(aq_data->active_sensors.vsys){
         if(aq_data->vsys == 0xFF) loop_printf("- ERROR VSys sensor\n");
         else{
-            loop_printf("- VSys     = %4d mV\n", aq_data->cpu_temp_deci * 20);
+            loop_printf("- VSys     = %4d mV\n", aq_data->vsys * 20);
         }
         payload[payload_pos++] = aq_data->vsys;
     }else loop_printf("- NO VSys sensor\n");

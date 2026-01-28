@@ -4,7 +4,6 @@
 #include "pico/stdlib.h"
 #include "aq_data_ad.h"
 #include "aq_data_bat.h"
-#include "aq_data_bme280.h"
 #include "aq_data_bmep280.h"
 #include "aq_data_gps.h"
 #include "aq_data_lux.h"
@@ -34,9 +33,9 @@ typedef struct{
     // add futuros
 } AqData;
 
-int aqdata_init_power_on( AqData *value);
-int aqdata_init_aq( AqData *value);
-int aqdata_read( AqData *value);
-int aqdata_sleep(AqData *value);
+int aqdata_init_power_on(AqData *value, uint16_t lux_k_10000, uint16_t vsys_k_10000);
+int aqdata_init_aq(      AqData *value);
+int aqdata_read(         AqData *value);
+int aqdata_sleep(        AqData *value);
 
 #endif // AQ_DATA_H

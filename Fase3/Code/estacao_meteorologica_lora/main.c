@@ -67,7 +67,7 @@ int main(){
     buttons_and_leds_set_color(MAIN_ST_MENU_AFTER);
     aq_data.active_sensors = est_config.active_sensors;
 
-    if(ret = aqdata_init_power_on(&aq_data)){
+    if(ret = aqdata_init_power_on(&aq_data, est_config.lux_k_10000, est_config.vsys_k_10000)){
         loop_printf("Init Power sensors fail: %d\n", ret);
         while(1){
             buttons_and_leds_set_color(LED_BLACK);

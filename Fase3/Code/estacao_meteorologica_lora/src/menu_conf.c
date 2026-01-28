@@ -51,6 +51,34 @@ static void input_hex(uint8_t * array, int array_size){
     }
 }
 
+
+static uint16_t input_number(){
+    uint16_t ret_val = 0;
+    int pos = 0;
+    while(1){
+        char c = getchar();
+        if(c == '\r') return ret_val;
+        if(c == '\n') return ret_val;
+        if(c == 0x7F) { // back space
+            if(pos){
+                printf("\b");
+                pos--;
+                ret_val = ret_val / 10;
+            }
+        }else{
+            if((c >= '0')&&(c <= '9')){
+                printf("%c", c);
+                uint32_t r = (uint32_t)ret_val * 10 + (c-'0');
+                if (r > 0x00FFFF) return 0xFFFF;
+                ret_val = (uint16_t)r;
+                pos++;
+                if(pos >= 5) return ret_val;
+            }
+        }
+    }
+}
+
+
 void menu_conf(EstConfig * est_config, bool valid_flash_data){
     bool fim = false;
     while(!fim){
@@ -65,7 +93,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 printf("LoRa\n");
                 printf("  H) cHannel        : %02d\n", est_config->lora_par.channel);
                 printf("  F) sF             : %02d\n", est_config->lora_par.sf);
-                printf("  D) Device Address : ");
+                printf("  D) Device address : ");
                 print_hex_array(est_config->lora_par.device_address, 4);
                 printf("\n\n\n\n");
                 break;
@@ -76,7 +104,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 if(est_config->lorawan_abp_par.sf      == 0xFF) printf("  F) sF             : AUTO\n");
                                                            else printf("  F) sF             : %02d\n",   est_config->lorawan_abp_par.sf);
                 printf("  T) fcnT           : 0x%04x\n", est_config->lorawan_abp_par.fcnt);
-                printf("  D) Device Address : ");
+                printf("  D) Device address : ");
                 print_hex_array(est_config->lorawan_abp_par.device_address, 4);
                 printf("\n");
                 printf("  A) App_s_key      : ");
@@ -92,13 +120,13 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                                                             else printf("  H) cHannel : %02d\n", est_config->lorawan_otaa_par.channel);
                 if(est_config->lorawan_otaa_par.sf      == 0xFF) printf("  F) sF      : AUTO\n");
                                                             else printf("  F) sF      : %02d\n", est_config->lorawan_otaa_par.sf);
-                printf("  D) Dev EUI : ");
+                printf("  D) Dev eui : ");
                 print_hex_array(est_config->lorawan_otaa_par.dev_eui, 8);
                 printf("\n");
-                printf("  A) App EUI : ");
+                printf("  A) App eui : ");
                 print_hex_array(est_config->lorawan_otaa_par.app_eui, 8);
                 printf("\n");
-                printf("  K) App Key : ");
+                printf("  P) aPp key : ");
                 print_hex_array(est_config->lorawan_otaa_par.app_key, 16);
                 printf("\n\n");
                 break;
@@ -108,21 +136,23 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
         if(est_config->sleep_time_min) printf("S) Sampling time: %d minutes\n\n", est_config->sleep_time_min);
                                   else printf("S) Sampling time: 10 seconds (To Test only)\n\n");
 
-        printf("1) Battery level: %s\n", est_config->active_sensors.battery?"On":"Off");
-        printf("2) BME280       : %s\n", est_config->active_sensors.bme280? "On":"Off");
-        printf("3) GPS          : %s\n", est_config->active_sensors.gps?    "On":"Off");
-        printf("4) Luximeter    : %s\n", est_config->active_sensors.lux?    "On":"Off");
-        printf("5) UV Index     : NOT implemented\n");
-        printf("6) Wind         : NOT implemented\n");
-        printf("7) VSys         : %s\n", est_config->active_sensors.vsys?   "On":"Off");
-        printf("8) CPU Temp     : %s\n\n", est_config->active_sensors.cpu_temp?"On":"Off");
+        printf("1) battery level: %s\n", est_config->active_sensors.battery?"On":"Off");
+        printf("2) bme280       : %s\n", est_config->active_sensors.bme280? "On":"Off");
+        printf("3) gps          : %s\n", est_config->active_sensors.gps?    "On":"Off");
+        printf("4) luximeter    : %s\n", est_config->active_sensors.lux?    "On":"Off");
+        printf("   K) factor    : %d (K = %.4f)\n", est_config->lux_k_10000, est_config->lux_k_10000 * 0.0001);
+        printf("5) uv index     : NOT implemented\n");
+        printf("6) wind         : NOT implemented\n");
+        printf("7) vsys         : %s\n", est_config->active_sensors.vsys?   "On":"Off");
+        printf("   Q) factor    : %d (K = %.4f)\n", est_config->vsys_k_10000, est_config->vsys_k_10000 * 0.0001);
+        printf("8) mpu temp     : %s\n\n", est_config->active_sensors.cpu_temp?"On":"Off");
 
-        if(est_config->leds_on) printf("L) LEDs state   : ON (not recommended)\n");
-                           else printf("L) LEDs state   : OFF\n");
+        if(est_config->leds_on) printf("L) Leds state   : On (not recommended)\n");
+                           else printf("L) Leds state   : Off\n");
         switch(est_config->usb_mode){
-            case USB_MODE_OFF   : printf("U) USB : OFF\n\n\n");           break;
-            case USB_MODE_ON    : printf("U) USB : ON (not recommended)\n\n\n");            break;
-            case USB_MODE_OFF_ON: printf("U) USB : OFF-ON Auto (not recommended)\n\n\n"); break;
+            case USB_MODE_OFF   : printf("U) Usb : Off\n\n\n");           break;
+            case USB_MODE_ON    : printf("U) Usb : On (not recommended)\n\n\n");            break;
+            case USB_MODE_OFF_ON: printf("U) Usb : On-Off (not recommended)\n\n\n"); break;
         }
 
         printf("C) Clear all data\n");
@@ -144,6 +174,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                         break;
                 }
                 break;
+            case 'C': stored_data_clear_all(); break;
             case 'D':
                 switch(est_config->lora_mode){
                     case LORA_MODE_LORA:
@@ -189,14 +220,8 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 }
                 break;
             case 'K':
-                switch(est_config->lora_mode){
-                    case LORA_MODE_LORA: break;
-                    case LORA_MODE_LORAWAN_ABP: break;
-                    case LORA_MODE_LORAWAN_OTAA:
-                        printf("LoRaWAN OTAA App Key : ");
-                        input_hex(est_config->lorawan_otaa_par.app_key, 16);
-                        break;
-                }
+                printf("Luximeter factor : ");
+                est_config->lux_k_10000 = input_number();
                 break;
             case 'L':
                 est_config->leds_on = !est_config->leds_on;
@@ -214,6 +239,21 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                     case LORA_MODE_LORAWAN_OTAA: break;
                 }
                 break;
+            case 'P':
+                switch(est_config->lora_mode){
+                    case LORA_MODE_LORA: break;
+                    case LORA_MODE_LORAWAN_ABP: break;
+                    case LORA_MODE_LORAWAN_OTAA:
+                        printf("LoRaWAN OTAA App Key : ");
+                        input_hex(est_config->lorawan_otaa_par.app_key, 16);
+                        break;
+                }
+                break;
+            case 'Q':
+                printf("VSys factor : ");
+                est_config->vsys_k_10000 = input_number();
+                break;
+            case 'R': est_config_default(est_config); break;
             case 'S': 
                 switch(est_config->sleep_time_min){
                     case  0: est_config->sleep_time_min =  1; break;
@@ -247,7 +287,11 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
             case 'U':
                 if(++est_config->usb_mode >= USB_MODE_COUNT) est_config->usb_mode = 0;
                 break;
-                
+
+            
+            case 'W': est_config_storage_write(est_config); break;
+            case 'X': fim = true; break;                
+
             case '1': est_config->active_sensors.battery  = !est_config->active_sensors.battery;  break;
             case '2': est_config->active_sensors.bme280   = !est_config->active_sensors.bme280;   break;
             case '3': est_config->active_sensors.gps      = !est_config->active_sensors.gps;      break;
@@ -256,11 +300,6 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
             case '6':                                                                             break;
             case '7': est_config->active_sensors.vsys     = !est_config->active_sensors.vsys;     break;
             case '8': est_config->active_sensors.cpu_temp = !est_config->active_sensors.cpu_temp; break;
-
-            case 'C': stored_data_clear_all(); break;
-            case 'R': est_config_default(est_config); break;
-            case 'W': est_config_storage_write(est_config); break;
-            case 'X': fim = true; break;
         }
     }   
 }

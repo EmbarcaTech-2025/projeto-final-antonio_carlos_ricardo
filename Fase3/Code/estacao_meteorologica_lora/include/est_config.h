@@ -64,6 +64,8 @@ typedef struct {
     ActiveSensors  active_sensors;
     UsbMode        usb_mode;
     bool           leds_on;
+    uint16_t       lux_k_10000;
+    uint16_t       vsys_k_10000;
 
     uint32_t       sum;
     uint32_t       xor;

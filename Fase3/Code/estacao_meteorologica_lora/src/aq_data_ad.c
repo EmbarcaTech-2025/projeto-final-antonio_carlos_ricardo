@@ -6,17 +6,21 @@
 
 
 #define ADC_VSYS_CHANNEL_NUM    2
+#define ADC_VSYS_GPIO           28
 
 #define R1  100
 #define R2  100
-#define KRV     (3.3/4095*R2/(R1+R2))
+#define KRV     (3.3/4095*(R1+R2)/R2) * 50      // *50 ==> 20mV por step
 
-int aqdataad_init_power_on(bool vsys, bool temp){
+static uint16_t aqdataad_vsys_k_10000;
+
+int aqdataad_init_power_on(bool vsys, bool temp, uint16_t vsys_k_10000){
+    aqdataad_vsys_k_10000 = vsys_k_10000;
     adc_set_temp_sensor_enabled(false);
+    if(vsys) adc_gpio_init(ADC_VSYS_GPIO);
     adc_run(false);
     clock_stop(clk_adc);
 
-    gpio_init
     return 0;
 }
 int aqdataad_init_aq(bool vsys, bool temp){
@@ -50,7 +54,7 @@ int aqdataad_read_vsys(uint8_t *value){
     uint16_t ad =  adc_read();
 
     //vsys = (3.3 * ad / 4095) * Kr = KRV * ad
-    ad = KRV * ad;
+    ad = KRV * (uint64_t)ad * aqdataad_vsys_k_10000 / 10000;
     if(ad > 0xFE) *value = 0xFE;
              else *value = ad;
 
