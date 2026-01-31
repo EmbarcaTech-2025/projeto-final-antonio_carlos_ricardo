@@ -86,8 +86,30 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
 
         printf("********** %s **********\n\n", NAME);
         printf("Version: %s - %s - Build: %s\n", VERSION, VERSION_DATA, BUILD);
+        printf("Board: ");
+        #ifdef BOARD_BITDOG_LAB_V7
+        printf("BDL V7");
+        #endif
+        #ifdef BOARD_BITDOG_LAB_V63
+        printf("BDL V63");
+        #endif
+
+        printf(", Low Power mode: ");
+        #if HW_SLEEP_LOW_POWER
+        printf("ON");
+        #else
+        printf("OFF");
+        #endif
+
+        printf(" , Debug Probe: ");
+        #ifdef BITDOGLAB_WITH_DEBUG_PROBE
+        printf("ON, ");
+        #else
+        printf("OFF, ");
+        #endif
+
         printf(valid_flash_data?"Flash: Valid Data\n\n\n":"Flash: Invalid Data\n\n\n");
-        printf("M) LoRa Mode: ");
+        printf("M) lora Mode: ");
         switch(est_config->lora_mode){
             case LORA_MODE_LORA:
                 printf("LoRa\n");
@@ -156,6 +178,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
         }
 
         printf("C) Clear all data\n");
+        printf("Y) it alwaYs starts up showing the menu : %s (only for test)\n", est_config->always_menu?"On":"Off");
         printf("R) Reset Configuration\n\n");
         printf("W) Write configuration\n\n");
         printf("X) eXit\n\n");
@@ -227,7 +250,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 est_config->leds_on = !est_config->leds_on;
                 break;
             case 'M':
-                if(++est_config->lora_mode >= LORA_MODE_COUNT) est_config->lora_mode = 0;
+                if(++est_config->lora_mode >= LORA_MODE_COUNT) est_config->lora_mode = LORA_MODE_LORAWAN_ABP;
                 break;
             case 'N':
                 switch(est_config->lora_mode){
@@ -290,7 +313,10 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
 
             
             case 'W': est_config_storage_write(est_config); break;
-            case 'X': fim = true; break;                
+            case 'X': fim = true; break;
+            case 'Y':
+                est_config->always_menu = !est_config->always_menu;
+                break;                                
 
             case '1': est_config->active_sensors.battery  = !est_config->active_sensors.battery;  break;
             case '2': est_config->active_sensors.bme280   = !est_config->active_sensors.bme280;   break;

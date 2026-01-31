@@ -8,6 +8,7 @@
 #include "include/loop_printf.h"
 #include "include/menu_conf.h"
 #include "include/wcm.h"
+#include "include/wrap_watchdog.h"
 
 
 #include "include/aq_data_bmep280.h"
@@ -26,10 +27,15 @@ static AqData    aq_data;
 static EstConfig est_config;
 
 
+void wrap_watchdog_disable();
+void wrap_watchdog_enable();
+void wrap_watchdog_update();
+
 int main(){
     int ret;
 
     stdio_init_all();
+    wrap_watchdog_disable();
 
     #ifdef ENABLE_GPIO_TEST
     gpio_set_dir(     GPIO_TEST_0, GPIO_OUT);
@@ -59,7 +65,9 @@ int main(){
     // se houver erro na leitura ou o botão A estiver prescionado entrar no menu
     bool valid_flash_data = est_config_storage_read(&est_config);
     printf(valid_flash_data?"Flash: Valid Data\n\n\n":"Flash: Invalid Data\n\n\n");
-    if((!valid_flash_data) || buttons_and_leds_button_a_pressed()){
+    if((!valid_flash_data) || 
+       (  buttons_and_leds_button_a_pressed()  && (!est_config.always_menu)) || 
+       ((!buttons_and_leds_button_a_pressed()) &&   est_config.always_menu)){
         buttons_and_leds_set_color(MAIN_ST_MENU);
         menu_conf(&est_config, valid_flash_data);
     }
@@ -83,7 +91,10 @@ int main(){
     
     buttons_and_leds_set_color(LED_BLACK);
     
+    wrap_watchdog_enable();
     while (true) {
+        wrap_watchdog_update();
+        
         // Avisa que vai iniciar a aquisição
         if(est_config.leds_on) buttons_and_leds_set_color(MAIN_ST_AQUISITION);
         

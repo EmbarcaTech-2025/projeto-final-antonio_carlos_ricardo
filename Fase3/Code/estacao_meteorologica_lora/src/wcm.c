@@ -5,6 +5,7 @@
 #include "../include/code_config.h"
 #include "../include/loop_printf.h"
 #include "../include/wcm.h"
+#include "../include/wrap_watchdog.h"
 
 static uint8_t payload[128];
 static char    msg[256];
@@ -230,8 +231,10 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     loop_printf("Enviou comando\n");
 
 
-    uint64_t t_timeout = time_us_64() + 10000000;
-    while((!uart_is_readable(WCM_UART_ID))&&(t_timeout > time_us_64()));
+    uint64_t t_timeout = time_us_64() + WCM_TIMEOUT_US;
+    while((!uart_is_readable(WCM_UART_ID))&&(t_timeout > time_us_64())){
+        wrap_watchdog_update();
+    }
     if(uart_is_readable(WCM_UART_ID)){
         char ret_c = uart_getc(WCM_UART_ID);
         loop_printf("Teve resposta: %c\n", ret_c);

@@ -10,6 +10,8 @@
 
 #include "../include/code_config.h"
 #include "../include/hw_sleep.h"
+#include "../include/wrap_watchdog.h"
+
 
 static bool     hw_pll_usb_on = true;
 static bool     hw_ad_on;
@@ -17,6 +19,9 @@ static UsbMode  hw_usb_mode;
 static uint16_t hw_sleep_minutes;
 static uint64_t t_end;
 static uint64_t t_now;
+static uint32_t t_now_h = 0;
+static uint32_t t_now_l;
+static uint32_t t_now_l_old = 0;
 
 
 
@@ -46,8 +51,17 @@ static void __not_in_flash_func(my_delay_s)(uint32_t delay_s) {
 
 
 
+static void get_t_now(){
+    t_now_l = timer_hw->timerawl;
+    if(t_now_l < t_now_l_old) t_now_h++;
+    t_now_l_old = t_now_l;
+    t_now = t_now_h;
+    t_now = t_now << 32;
+    t_now = t_now | t_now_l;
+}
 
 static void hw_set_speed_full(){
+    if(!HW_SLEEP_LOW_POWER) return;
     pll_init(
         pll_sys,
         1,          // refdiv
@@ -99,7 +113,12 @@ static void hw_set_speed_full(){
             usb_hw->sie_ctrl &= ~USB_SIE_CTRL_PULLUP_EN_BITS;
             sleep_ms(50);   // Original era 10
             usb_hw->sie_ctrl |= USB_SIE_CTRL_PULLUP_EN_BITS;
-            sleep_ms(5000); // original não tinha
+            for(int i=0;i<5;i++){
+                wrap_watchdog_update();
+                sleep_ms(1000); // original não tinha
+            }
+            wrap_watchdog_update();
+            //sleep_ms(5000); // original não tinha
             
             
             
@@ -126,6 +145,7 @@ static void hw_set_speed_full(){
 }
 
 static void hw_set_speed_low(){
+    if(!HW_SLEEP_LOW_POWER) return;
     switch(hw_usb_mode){
         case USB_MODE_OFF:  // não desliga pois já esta desliga
         case USB_MODE_ON:   // não desliga
@@ -198,37 +218,35 @@ void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
 
 
 void hw_sleep(){
+    bool st = true;
+
     sleep_ms(100);
 
-    #ifdef ENABLE_GPIO_TEST
-    gpio_put(GPIO_TEST_0, true);
-    #endif
-    if(!HW_SLEEP_LOW_POWER){
-        t_now = timer_hw->timerawl;
-        while(t_end > t_now)t_now = timer_hw->timerawl;
-    }else{
-        hw_set_speed_low();
+    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_0, true);
+        
+    hw_set_speed_low();
 
-        bool st = false;
-        #ifdef ENABLE_GPIO_TEST
-        gpio_put(GPIO_TEST_1, st);
-        #endif
-        t_now = timer_hw->timerawl;
-        while(t_end > t_now){
-            t_now = timer_hw->timerawl;
+    // Delay
+    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_1, st);
+    
+    //t_now = timer_hw->timerawl;
+    get_t_now();
+    while(t_end > t_now){
+        wrap_watchdog_update();
+        //t_now = timer_hw->timerawl;
+        get_t_now();
+        if(GPIO_TEST_ENABLE) {
             gpio_put(GPIO_TEST_1, st);
             st = !st;
         }
-        #ifdef ENABLE_GPIO_TEST
-        gpio_put(GPIO_TEST_1, false);
-        #endif
-
-        hw_set_speed_full();
     }
-    #ifdef ENABLE_GPIO_TEST
-    gpio_put(GPIO_TEST_0, false);
-    #endif
+    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_1, false);
+
+    hw_set_speed_full();
+
 
     if(hw_sleep_minutes) t_end += 60000000 * hw_sleep_minutes;
                     else t_end += 10000000;
+
+    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_0, false);
 }

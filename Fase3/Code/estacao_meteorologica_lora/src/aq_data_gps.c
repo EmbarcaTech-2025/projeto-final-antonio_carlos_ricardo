@@ -1,4 +1,6 @@
 #include "../include/aq_data_gps.h"
+#include "../include/code_config.h"
+#include "../include/wrap_watchdog.h"
 #include "gps/gy_neo6mv2.h"
 
 int aqdatagps_init_power_on(){
@@ -11,10 +13,11 @@ int aqdatagps_init_aq(){
 int aqdatagps_read(AqDataGps_Value *value){
     int32_t lat, lon, alt;
 
-    uint64_t t0 = time_us_64() + 10000000;
+    uint64_t t0 = time_us_64() + GPS_TIMEOUT_US;
     GpsGgaError ret;
     bool fim = false;
     while(!fim){
+        wrap_watchdog_update();
         ret = gps_read(&lat, &lon, &alt);
         if(!ret) fim = true;
         else{

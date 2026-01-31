@@ -3,8 +3,8 @@
 
 #define NAME            "Weather Station"
 #define VERSION         "0.00.01"
-#define VERSION_DATA    "2026/01/28"
-#define BUILD           "0021"
+#define VERSION_DATA    "2026/01/21"
+#define BUILD           "0023"
 
 #define CONFIG_DATA_VERSION         4   // uint32_t version;
 
@@ -22,20 +22,24 @@
 //#define BOARD_BITDOG_LAB_V63
 //#define BOARD_ESP32_C3
 
-#define BITDOGLAB_WITH_DEBUG_PROBE
+//#define BITDOGLAB_WITH_DEBUG_PROBE
 
 
 #ifdef BITDOGLAB_WITH_DEBUG_PROBE
-#define HW_SLEEP_LOW_POWER false
+//#define HW_SLEEP_LOW_POWER false
+#define HW_SLEEP_LOW_POWER true
 #else
 #define HW_SLEEP_LOW_POWER true
 #endif
 
 
+#define WATCHDOG_ENABLED    true
+
 #define ENABLE_LOOP_PRINTF
 #define SEND_FIX_DATA
 
-//#define ENABLE_GPIO_TEST
+#define GPIO_TEST_ENABLE true
+#define ENABLE_GPIO_TEST
 #define GPIO_TEST_0     18  // 8
 #define GPIO_TEST_1     19  // 9
 
@@ -53,6 +57,7 @@
 #define GPS_UART_BAUD_RATE  9600
 #define GPS_UART_TX_PIN     8
 #define GPS_UART_RX_PIN     9
+#define GPS_TIMEOUT_US     10000000
 
 #define GPIO_BUTTON_A        5
 #define GPIO_BUTTON_B        6
@@ -75,6 +80,7 @@
 #define WCM_UART_TX_PIN     0       // 0
 #define WCM_UART_RX_PIN     1       // 1
 #define WCM_UART_BAUD_RATE  115200
+#define WCM_TIMEOUT_US      5000000   // 10000000
 
 
 #define LED_INIT_DELAY_MS   400
@@ -87,7 +93,7 @@
 
 #define I2C_TIMEOUT_US_BMEP280     10000
 
-#define I2C_TIMEOUT_US_BH1750        100
+#define I2C_TIMEOUT_US_BH1750      10000
 
 
 #endif // CODE_CONFIG_H

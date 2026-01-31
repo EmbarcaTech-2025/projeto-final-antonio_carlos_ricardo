@@ -1,20 +1,22 @@
 # Estação Meteorológica LoRa/LoRaWAN
 ## Next:
 - Melhorar estrutura do loop_printf quando o USB está off
-- Implementar watch-dog
 - Manter histórico na flash do fcnt
-
 - Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
-
 - gps rever printf para loop_print
 - rever funcionamento GPS, principalmente durante sleep
-
 - Compartilhar código com esp32-c3
 
+## Build:0023 - 31/01/20
+- Correções do watchdog
 
-
-## Build:0021 - /01/2026
-
+## Build:0022 - 30/01/2026
+- Opção de sempre ativar o menu após reset (util para detectar resets/travamentos)
+- Add prints de parâmetros de compilação
+- criação da rotina get_t_now() para que timer_hw->timerawl se transforme em uma variável de 64 bits
+- Menu_conf: revisão de testos, limitado o modo LoRa em ABP e OTAA
+- Botão Config, inverte a função do always menu
+- Add Watchdog
 
 ## Build:0021 - 28/01/2026
 - Adicionado no menu/sistema um parâmetro de calibração vsys_k_10000

@@ -122,9 +122,11 @@ void est_config_default(EstConfig * est_config){
     est_config->active_sensors.vsys     = true;
     est_config->active_sensors.cpu_temp = true;
 
+    est_config->usb_mode                = USB_MODE_OFF;
+    est_config->leds_on                 = false;
+
     est_config->lux_k_10000             = 10000;    // k = lux_k_10000 / 10000 = 1
     est_config->vsys_k_10000            = 10000;    // k = lux_k_10000 / 10000 = 1
 
-    est_config->usb_mode = USB_MODE_OFF;
-    est_config->leds_on  = false;
+    est_config->always_menu             = false;
 }
