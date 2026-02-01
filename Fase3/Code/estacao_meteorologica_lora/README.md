@@ -7,7 +7,11 @@
 - rever funcionamento GPS, principalmente durante sleep
 - Compartilhar código com esp32-c3
 
-## Build:0023 - 31/01/20
+## Build:0024 - 01/02/2026
+- USB TurnOn parametrizado
+- Correção do calculo da pressão de bme280
+
+## Build:0023 - 31/01/2026
 - Correções do watchdog
 
 ## Build:0022 - 30/01/2026

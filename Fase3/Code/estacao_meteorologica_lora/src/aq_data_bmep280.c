@@ -253,13 +253,15 @@ int aqdatabmep280_read_i(AqDataBmep280_Value_I *value){
 
     if(DEBUG_ON_BMEP280){
         loop_printf("BMP280-Temp     = %.2f Celsius\n", t * 0.01);
-        loop_printf("BMP280-press    = %.2f hPa\n",     p / 256.0);
+        loop_printf("BMP280-press    = %.2f hPa\n",     p / 256.0 / 100.0);
         loop_printf("BMP280-Humi     = %.1f %%\n",      u * 0.5);
     }
 
     value->humidity = u;     // resolução 0,5%
     value->temp     = t;
-    value->press    = 60000 - (p * 100 / 256 / 2);    //resolução 0,02 hpa
+    //value->press    = 60000 - (p * 50 / 256 / 100);    //resolução 0,02 hpa
+    //value->press    = 60000 - (p / 512);    //resolução 0,02 hpa
+    value->press    = 60000 - (p >> 9);    //resolução 0,02 hpa
 
     return 0;
 }

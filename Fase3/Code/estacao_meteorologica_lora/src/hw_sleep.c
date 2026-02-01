@@ -113,7 +113,7 @@ static void hw_set_speed_full(){
             usb_hw->sie_ctrl &= ~USB_SIE_CTRL_PULLUP_EN_BITS;
             sleep_ms(50);   // Original era 10
             usb_hw->sie_ctrl |= USB_SIE_CTRL_PULLUP_EN_BITS;
-            for(int i=0;i<5;i++){
+            for(int i=0;i<USB_TURN_ON_TIME_S;i++){
                 wrap_watchdog_update();
                 sleep_ms(1000); // original não tinha
             }
