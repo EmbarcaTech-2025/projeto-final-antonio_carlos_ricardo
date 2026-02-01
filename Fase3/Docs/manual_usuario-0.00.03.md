@@ -1,4 +1,4 @@
-# 📖 Manual do Usuário – Estação Meteorológica para o Agronegócio e a Agricultura Familiar
+# 📖 Manual do Usuário – Estação Meteorológica IoT com LoRaWAN
 
 ![Capa](assets/capa.png)
 
@@ -8,7 +8,7 @@ Versão: 0.00.03 de 25/01/2026
 
 ## Índice
 
-- [📖 Manual do Usuário – Estação Meteorológica para o Agronegócio e a Agricultura Familiar](#-manual-do-usuário--estação-meteorológica-para-o-agronegócio-e-a-agricultura-familiar)
+- [📖 Manual do Usuário – Estação Meteorológica IoT com LoRaWAN](#-manual-do-usuário--estação-meteorológica-iot-com-lorawan)
   - [Índice](#índice)
   - [1. Apresentação do Sistema](#1-apresentação-do-sistema)
   - [2. O que você recebeu](#2-o-que-você-recebeu)
