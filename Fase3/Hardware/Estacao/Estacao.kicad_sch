@@ -3990,6 +3990,16 @@
 	)
 	(wire
 		(pts
+			(xy 33.02 146.05) (xy 35.56 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "78d72d7c-b1cb-45bf-a1e6-d1eeddda2c8d")
+	)
+	(wire
+		(pts
 			(xy 146.05 21.59) (xy 146.05 29.21)
 		)
 		(stroke
@@ -4220,16 +4230,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 80.01) (xy 161.29 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a1106c0c-fe6d-4c7d-af9c-c647816a3e39")
-	)
-	(wire
-		(pts
 			(xy 115.57 123.19) (xy 115.57 120.65)
 		)
 		(stroke
@@ -4237,16 +4237,6 @@
 			(type default)
 		)
 		(uuid "a5406102-8ae2-4a4d-b3cb-6d5d35e38dd6")
-	)
-	(wire
-		(pts
-			(xy 177.8 77.47) (xy 163.83 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a94045cc-cdd5-4b26-af6c-6f21e7d8ed4c")
 	)
 	(wire
 		(pts
@@ -4270,13 +4260,13 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 80.01) (xy 161.29 36.83)
+			(xy 33.02 148.59) (xy 62.23 148.59)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b839a19e-91dc-437e-a8aa-dd08289aa088")
+		(uuid "af5e3f80-8cfe-411a-89d0-f9a5ec9a09c5")
 	)
 	(wire
 		(pts
@@ -4327,6 +4317,16 @@
 			(type default)
 		)
 		(uuid "c0521b8b-a5a2-4e5b-97b6-bc93c1ba135d")
+	)
+	(wire
+		(pts
+			(xy 177.8 80.01) (xy 163.83 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0c4db0f-dd86-4b04-9478-dec354bc7456")
 	)
 	(wire
 		(pts
@@ -4400,6 +4400,16 @@
 	)
 	(wire
 		(pts
+			(xy 163.83 80.01) (xy 163.83 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d0a72a07-cc6e-4544-bdfd-e5269f97d17c")
+	)
+	(wire
+		(pts
 			(xy 227.33 115.57) (xy 227.33 119.38)
 		)
 		(stroke
@@ -4410,16 +4420,6 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 146.05) (xy 35.56 146.05)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d47f71b0-4524-4eef-820d-23e8e2d748c9")
-	)
-	(wire
-		(pts
 			(xy 86.36 148.59) (xy 88.9 148.59)
 		)
 		(stroke
@@ -4427,6 +4427,26 @@
 			(type default)
 		)
 		(uuid "d4816631-a091-4252-bf04-eda154d6ce93")
+	)
+	(wire
+		(pts
+			(xy 161.29 77.47) (xy 177.8 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8ebb5a0-bfbb-4571-8a00-d274487d3122")
+	)
+	(wire
+		(pts
+			(xy 161.29 36.83) (xy 161.29 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da1834f4-2388-4632-923e-40af1ab12c22")
 	)
 	(wire
 		(pts
@@ -4447,16 +4467,6 @@
 			(type default)
 		)
 		(uuid "dc7d3ef6-0203-46f1-b1ee-3816be40c46c")
-	)
-	(wire
-		(pts
-			(xy 33.02 148.59) (xy 62.23 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "de7c723a-d9b4-4339-8c8b-b104fef7f32c")
 	)
 	(wire
 		(pts
@@ -4547,16 +4557,6 @@
 			(type default)
 		)
 		(uuid "ed425066-4b2c-4f12-aabe-aaf628f12cb4")
-	)
-	(wire
-		(pts
-			(xy 163.83 77.47) (xy 163.83 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "edd989ea-aa4a-423c-98ba-5692d06b2028")
 	)
 	(wire
 		(pts
@@ -4710,7 +4710,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm"
 			(at 126.6952 146.05 0)
 			(effects
 				(font
@@ -5092,7 +5092,8 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 27.94 148.59 180)
+		(at 27.94 146.05 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5100,7 +5101,7 @@
 		(dnp no)
 		(uuid "19aaf5b3-9d67-4ba1-881a-8357aa562941")
 		(property "Reference" "J6"
-			(at 25.4 148.5901 0)
+			(at 25.4 146.0499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5109,7 +5110,7 @@
 			)
 		)
 		(property "Value" "Photo Cel"
-			(at 25.4 146.0501 0)
+			(at 25.4 148.5899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5117,8 +5118,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PcbLibrary:Molex_SL_171971-0002_1x02_P2.54mm_Vertical_b"
-			(at 27.94 148.59 0)
+		(property "Footprint" "PcbLibrary:BorneBatSolar"
+			(at 27.94 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5127,7 +5128,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 27.94 148.59 0)
+			(at 27.94 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5136,7 +5137,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 27.94 148.59 0)
+			(at 27.94 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5608,7 +5609,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PcbLibrary:switch_3p_2mm_e_2.54mm"
+		(property "Footprint" "PcbLibrary:switch_3p_2.54mm_on_off"
 			(at 52.07 138.43 0)
 			(effects
 				(font
@@ -6845,7 +6846,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PcbLibrary:switch_3p_2mm_e_2.54mm"
+		(property "Footprint" "PcbLibrary:switch_3p_2.54mm_on_off"
 			(at 139.7 134.62 0)
 			(effects
 				(font
@@ -7196,7 +7197,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PcbLibrary:switch_3p_2mm_e_2.54mm"
+		(property "Footprint" "PcbLibrary:switch_3p_2.54mm_on_off"
 			(at 113.03 115.57 0)
 			(effects
 				(font
@@ -7335,7 +7336,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm"
 			(at 215.5952 54.61 0)
 			(effects
 				(font
@@ -7547,7 +7548,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D7.5mm_P2.50mm"
 			(at 190.1952 54.61 0)
 			(effects
 				(font
