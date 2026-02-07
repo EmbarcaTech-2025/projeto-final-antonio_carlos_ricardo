@@ -1,188 +1,141 @@
-# Estação Meteorológica LoRa/LoRaWAN
-## Next:
-- Melhorar estrutura do loop_printf quando o USB está off
-- Manter histórico na flash do fcnt
-- Verificar se e possivel melhorar a estabilidade da USB no modo OFF-ON
-- gps rever printf para loop_print
-- rever funcionamento GPS, principalmente durante sleep
-- Compartilhar código com esp32-c3
+# Descrição do Código da Estação Meteorológica IoT
+Rev: Beta01   Data: 07/02/2026
 
-## Build:0024 - 01/02/2026
-- USB TurnOn parametrizado
-- Correção do calculo da pressão de bme280
+## Configurações pelo usuário
+Os parâmetros configuráveis pelo usuário são feitos apenas através do monitor serial e está descrito claramente no manual do usuário. Resumidamente as principais são:
+- Modo LoRa e seus parâmetros
+- Sensores ativos na estação
+- Definição do tempo para cada leitura
+- Configuração de recursos de log, LEDs e USB (Obs. eles afetam o consumo da estação).
 
-## Build:0023 - 31/01/2026
-- Correções do watchdog
-
-## Build:0022 - 30/01/2026
-- Opção de sempre ativar o menu após reset (util para detectar resets/travamentos)
-- Add prints de parâmetros de compilação
-- criação da rotina get_t_now() para que timer_hw->timerawl se transforme em uma variável de 64 bits
-- Menu_conf: revisão de testos, limitado o modo LoRa em ABP e OTAA
-- Botão Config, inverte a função do always menu
-- Add Watchdog
-
-## Build:0021 - 28/01/2026
-- Adicionado no menu/sistema um parâmetro de calibração vsys_k_10000
-- removido antigos src do bmp280
-- rotinas i2c do luximetro revisto o blocking por timeout
-
-## Build:0020 - 28/01/2026
-- Luximetro:
-    - foi reduzida a sensibilidade para 31/69 para poder suportar incidencias diretas do sol
-    - foi adicionado no menu/sistema um parâmetro de calibração lux_k_10000
-    - removido o antigo driver bh1750
-- Correções no WCM.c para o VSys
-
-## Build:0019 - 27/01/2026
-- correção: Não salvava a versão da configuração
-- Unificada as rotinas de ad: cpu temp e vsys
-- corrigido a falta de? adc_gpio_init(ADC_VSYS_GPIO);
-
-## Build:0018 - 24/01/2026
-- Add aq_data_bmep280.h
-Obs.: - roda só o bmep280 para testes e está com prints de debug
-      - Está com o debug ativo e só em flash
-
-## Build:0017 - 22/01/2026
-- Add VSys
-
-## Build:0016 - 17/01/2026
-- Add ao Payload lux
-- Add no estado original da flash, no printf e no menu_conf
-- Refactore sensor tbo por cpu_temp
-- Change default channel to 8
-
-## Build:0015 - 15/01/2026
-- Add no log das chamadas ao WCM o char que retornou
-- Add driver do luximetro bh1750
-- Add Timeout de transmissão
-
-## Build:0014 - 14/01/2026
-- Rotina de on-off do PLL USB agora leva em conta não só a USB mas também se o AD está On ou Off
-- Implementada rotinas para comunicação LoRa e LoRaWANa OTAA
-- Corrigido ordem do address no ABP
-
-## Build:0013 - 14/01/2026
-- Removido arquivos flash .h e .c
-
-## Build:0012 - 14/01/2026
-- Migrado da estação original as rotinas storage.h .c
-- Add Funcionalidade no menu para Read Write configuração e clear all
-
-## Build:0011unic - 13/01/2026
-- Códigos default da instalação da Unicamp
-
-## Build:0011 - 13/01/2026
-- Correções no sensor CPU temp
-
-## Build:0010 - 13/01/2026
-- Criado: int aqdata_init_power_on( AqData *value)
-- Transformado em parâmetro a interrupção da UART do GPS
-- No menu:
-  - Add CPU temp
-  - Mudança de "Sleep time" para "Sampling time"
-
-## Build:0009 - 11/01/2026
-- Pequenas melhorias no menu_conf.c
-- Adicionado controle de log(ativação) da USB: OFF, ON, OFF-ON
-- Adicionado controle de LEDs acessos para reduzir consumo
-- Obs.: wcm_send está documentado
-
-## Build:0008- 10/01/2026
-- replace printf por loop_printf para printf s que são acessados dentro do loop, para poder desativar a USB
-
-## Build:0007- 10/01/2026
-- Refactory variáveis de configuração
-- Add Mode Lora
-- Revisto menu
-
-## Build:0006- 10/01/2026
-- Transmitindo LoRaWAM ABP
-- Baixo consumo quando em idle 
-
-## Build:0004- 04/01/2026
-- Menu parcialmente funcional para LoRaWAN ABP variaveis do lorawan
-- Rotinas com sensores de:
-    - Bateria
-    - Pressão, temperatura (BMP280)
-    - GPS
-- Sleep mode
-- Comunicação com WCM para envio LoRaWAN ABP
+Estes parâmetros podem ser salvos em flash (no menu de configuração) assim sendo desnecessário a reconfiguração quando se reenergiza a estação.
 
 
-## Build:0002- 08/12/2025
-- Add simple Sleep mode
-- Add simple Bat    Driver
-- Add simple Bmp280 Driver
-- Add simple GPS    Driver
-- Add print do que deve ser enviado pelo loRa
-- Add Debug Mode
-
-## Build:0001- 05/12/2025
-- inicio do menu
-- estrutura do main e todos os arquivos necessários
-- Estrutura básica da configuração
-- Estrutura básica dos dados
-- Definição do payload físico:
-[Byte de controle] [dados....] [Byte de controle] [dados....] [Byte de controle] [dados....]
-
-BC[0] ==> Byte de controle 1 define o que está presente e o tamanho de cada item
-
-Bit 0 ==> Battery Level, Add 1 Byte no Payload
-    Add 1 Byte: Batery Level 0-100 %, 0xFF ==> erro no sensor
-
-Bit 1 ==> Bme280, Add 5 Bytes no Payload,
-    Add 1 Byte:  Umidade:       0 -  100 %,       Resolução  0.5 %
-        0xFF ==> erro no sensor
-        0x00 ==>   0.0 %
-        0x01 ==>   0.5 %
-        0x02 ==>   1.0 %
-        0xC8 ==> 100.0 %
-        Umidade(em %) = Valor * 0.5;
-
-    Add 2 Bytes: Temperatura: -40 -  +85 Celsius, Resolução 0.01 C
-        0x7FFF ==> erro no sensor
-        0xD8F0
-        -10000 ==> -100.00 C
-        0xFFFF ==>   -0.01 C
-        0x0000 ==>    0.00 C
-        0x0001 ==>    0.01 C
-        0x2710
-         10000 ==> +100 0.00 C
-        Temperatura (em Celsius) = Valor * 0.01
-        T = V / 100
-
-    Add 2 Bytes: Pressão:     300 - 1100 hPa,     Resolução 0.02 hPa
-        0xFFFF ==> erro no sensor
-        0x0000 ==> 1200.00 hPa
-        0x0001 ==> 1199.98 hPa
-        0xAFC8
-         45000 ==>  300.00 hPa
-        Pressão(em hPa) = (60000 - Valor) * 0.02
-    
-Bit 2 ==> GPS, Add 10 Bytes
-    Add x 4 Bytes Latitude
-        0x7FFF FFFF ==> erro no sensor
-        latitude em graus = valor * 512 /(2^32)
-    Add x 4 Bytes Longitude
-        0x7FFF FFFF ==> erro no sensor
-        latitude em graus = valor * 512 /(2^32)
-    Add x 2 Bytes Altitude
-        0x7FFF ==> erro no sensor
-        atitude em metros = valor * 0.1
+## Configurações pelo programador
+Os parâmetros de configuração de compilação ficam em:
+- CMakeLists.txt
+Utilizado para definir configurações específicas para debug
+- code_config.h
+Arquivo que concentra todas as principais configurações do código, destacando-se:
+    - PICO_WITH_DEBUG_PROBE, se definido habilita o uso do debug probe reconfigurando as portas UART a serem utilizadas
+    - DEBUG_ON e derivados, habilitam printf de log para depuração
+    - WATCHDOG_ENABLED, se definido ativa o funcionamento do watchdog
+    - START_SEND_WITH_FIX_DATA, se definido faz com que as 5 primeiras transmissões sejam valores conhecidos independentes do valor lido, útil para debug
+    - SLEEP_STATE_BY_GPIO, se definido faz que durante os períodos de sleep os gpio reflitam o funcionamento do Sleep mode, util para debug
+    - INITIAL_DELAY_MS, define o tempo, em milissegundos, de espera inicial para rodar o programa, permitindo assim conectar a interface serial (USB) antes do programa iniciar
+    - USB_TURN_ON_TIME_S, define o tempo, em segundos, que vai esperar a USB ligar quando no modo de log ON-OFF
 
 
-A serem definidos:
-Bit 3 ==> Luxímetro (2 bytes)
-Bit 4 ==> UV índex (1 Byte)
-Bit 5 ==> vento(direção (1byte, 2 graus de resolução) e velocidade (1byte, resolução de 0,2 m/s para vMax  51m/2 ou 0,72km/h com Vmax 183 km/h)) 
-Bit 6 ==> Pluviômetro
-Bit 7 ==> 
+## Funcionamento do código
+A estrutura do código foi definida visão o baixo consumo da estação. Para isso foi utilizado os recursos de colocar os sensores em sleep-mode e desativar ao máximo os recursos não utilizados da rp2040 bem como reduzir seu clock nos momentos de sleep-mode, o que reduz expressivamente seu consumo.
+
+**Obs.: Os fluxogramas são versões simplificadas do código com intuito de mostrar os pontos principais do código. Tratamento de erros e timeout geralmente não estão incluídos.**
 
 
-BC[1] ==> Byte de controle 2, pode ou não existir para definir outros campos com o byte de controle 1
+### main.c
+A rotina main tem como função inicializar todos os dispositivos após o power on e manter o main-loop.
+
+![Fluxograma do main](assets/EML-SW-Main.png)
 
 
-## Build:0000-Base 05/12/2025
-Wizard Raspberry Pi Pico para Pico 
+### aq_data
+Neste arquivo há:
+- A definição de uma variável que armazena os dados de todos os sensores;
+- Um grupo de funções que tem como objetivo chamar as funções equivalentes de cada sensor quando este está ativo (Obs.: O sensor é definido como ativo pelo usuário na configuração do sistema).
+
+Funções:
+- aqdata_init_power_on: Utilizada apenas após o power-on/reset do software;
+- aqdata_init_aq: chamada no main-loop após o MPU acordar e tem como função acordar os sensores e inicializar as aquisições dos mesmos;
+- aqdata_read: chamada após a aqdata_init_aq, le os dados dos sensores;
+- aqdata_sleep: chamada após a aqdata_read, tem como objetivo colocar os sensores em sleep-mode quando for o caso.
+
+
+### aq_data_ad
+Driver do AD para leitura da MPU Temperature e VSys.
+Desliga e liga quando não necessários:
+- Sensor de temperatura
+- O AD
+- O Clock do AD
+
+![Fluxograma das rotinas do conversor AD](assets/EML-SW-Sensor-AD.png)
+
+
+### aq_data_bmep280
+Obs.: O sensor de: temperatura, pressão, e umidade é o bme280, mas caso se utilize o bmp280, que não tem o módulo de umidade, ele será reconhecido e tratado corretamente, apenas o dado de umidade será reportado como ERRO.
+
+Funcionamento
+- A rotina após o reset lê qual CI está instalado e lê os dados de calibração presentes no CI
+- Para cada leitura é necessário:
+    - Setar o mode de oversample de cada unidade.
+    - Disparar o modo de  aquisição, no caso se está usando o Forced Mode que inicia uma aquisição e após ela estar concluida faz o CI entrar em sleepo-mode
+    - Para fazer a leitura correta é necessário:
+        - Aguardar o flag de em aquisição true
+        e após
+        - Aguardar o flag de em aquisição false
+        Obs.: O flag demora uns 450us para ficar true, caso não se aguarde ele ficar true e só se verifique que ele esta false, pode-se estar lendo a aquisição anterior.
+    - Fazer as compensações com os parâmetros de calibração.
+
+![Fluxograma das rotinas do conversor AD](assets/EML-SW-Sensor-BMEP280.png)
+
+
+### aq_data_gps
+
+
+
+
+
+### aq_data_lux
+O sensor de luminosidade, luxímetro, é o BH1750.
+Como a leitura dele é afetada pela proteção que o envolve há um fator de correção configurável pelo usuário (detalhes no manual do usuário).
+O sensor BH1750 consome algo em torno de:
+- 115 uA quando ativo
+- 3.7 uA quando em sleep-mode
+Por isso está sendo setado o modo em que ele faz uma leitura e já entra em sleep-mode, reduzindo o consumo.
+
+![Fluxograma das rotinas do Luximetro](assets/EML-SW-Sensor-Lux.png)
+
+
+### buttons_and_leds
+Configura o Driver dos LEDs e botão
+- A porta do botão é configurada como input e com um pullup
+- A porta dos LEDs serão configuradas como output e como zero
+- Obs.: durante a inicialização cada LED fica aceso por: LED_INIT_DELAY_MS
+
+
+### est_config
+Define as estruturas utilizadas para a configuração da estação
+Possui funções para manipular a configuração:
+- Ler da flash
+- Salvar na flash
+- Definir valores default
+Obs.: Os valores que são salvos e lidos na flash possuem um "HASH-like" para verificação da integridade
+
+
+### hw_sleep
+
+
+### loop_printf
+ Rotina que "embrulha" o printf em loop_printf
+ Funciona como o printf só que:
+ - a função loop_printf é chamada no lugar do printf pelas rotinas que são executadas dentro do main-loop
+ - Foi criada pensando em futuras melhorias, para ser usada quando o USB está off ==> inativar o printf
+
+
+### menu_conf
+O menu de configuração funciona enviando e recebendo caracteres txt para o terminal;
+Para gerar a tela é iniciado com uma sequencia de caracteres que faz "ir" para o topo da tela. Ai são enviadas todas as linhas formatadas.
+O programa aguarda um caractere que será tratado como comando. Este comando é executado e o processo se repete.
+Obs.: Caso o comando seja Exit a rotina é encerrada, voltando para a execução do programa principal.
+
+![Fluxograma do Menu de Configuração](assets/EML-SW-MenuConf.png)
+
+
+### storage
+
+
+### wcm
+
+
+### wrap_watchdog
+Rotinas que embrulham (wrap) as rotinas originais do wathdog
+Permitindo assim serem facilmente habilitadas ou desabilitadas: WATCHDOG_ENABLED

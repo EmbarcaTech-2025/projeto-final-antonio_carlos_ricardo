@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 #include "../include/aq_data_bat.h"

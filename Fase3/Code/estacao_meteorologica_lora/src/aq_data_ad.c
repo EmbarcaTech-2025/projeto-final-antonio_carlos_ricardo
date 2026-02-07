@@ -1,6 +1,15 @@
+/**
+ * @file    aq_data_ad.c
+ * @author  your name (you@domain.com)
+ * @brief   Driver do AD para leitura da MPU Temperature e VSys
+ * @version 0.1
+ * @date    2026-02-07
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include "hardware/adc.h"
 #include "hardware/clocks.h" 
-
 #include "../include/aq_data_ad.h"
 #include "../include/loop_printf.h"
 
@@ -8,8 +17,8 @@
 #define ADC_VSYS_CHANNEL_NUM    2
 #define ADC_VSYS_GPIO           28
 
-#define R1  100
-#define R2  100
+#define R1      100
+#define R2      100
 #define KRV     (3.3/4095*(R1+R2)/R2) * 50      // *50 ==> 20mV por step
 
 static uint16_t aqdataad_vsys_k_10000;
@@ -42,9 +51,11 @@ int aqdataad_read_temp(int16_t *value){
     sleep_us(10);
     uint16_t ad  = adc_read();
 
-    //t=27 - (ADC_Voltage - 0.706)/0.001721
-    *value = (27.0 - ((3.3*ad/4095) - 0.706)/0.001721) * 10.0;
-    loop_printf("CPU Temp = %3.1f Celsius\n", *value * 0.1);   
+    // t   =  27   -    (ADC_Voltage - 0.706)/0.001721
+    *value = (27.0 - (((3.3*ad/4095) - 0.706)/0.001721)) * 10.0;
+    if(DEBUG_ON_AD){
+        loop_printf("- MPU Tempetature    = %3.1f Celsius\n", *value * 0.1);   
+    }
     return 0;
 }
 int aqdataad_read_vsys(uint8_t *value){
@@ -58,10 +69,11 @@ int aqdataad_read_vsys(uint8_t *value){
     if(ad > 0xFE) *value = 0xFE;
              else *value = ad;
 
-    loop_printf("VSys     = %d mV\n", *value * 20);   
+    if(DEBUG_ON_AD){
+        loop_printf("- VSys               = %d mV\n", *value * 20);   
+    }
     return 0;
 }
-
 
 int aqdataad_sleep(bool vsys, bool temp){
     if(temp) adc_set_temp_sensor_enabled(false);

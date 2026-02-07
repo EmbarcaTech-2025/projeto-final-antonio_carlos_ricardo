@@ -1,3 +1,13 @@
+/**
+ * @file    est_config.c
+ * @author  Antonio-Carlos-Ricardo
+ * @brief   Define a estrutura de configuração e as manipula
+ * @version 0.1
+ * @date    2026-02-07
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <string.h>
 #include "../include/code_config.h"
 #include "../include/est_config.h"
@@ -25,8 +35,12 @@ static const uint8_t app_key[16]   = {0xFF, 0xEE, 0xDD, 0xCC, 0xBB, 0xAA, 0x99, 
 /**
  * @brief Calcula e/ou verifica os HASHs dos dados de configuração
  * 
- * @param set, se true salva os HASH, se false só verifica 
- * @return uint8_t, retorna != 0 se houve erro na verificação do HASH 
+ * @param set 
+ *        - true calcula e salva o HASH
+ *        - false calcula e verifica o HASH
+ * @return uint8_t, Código de erro:
+ *         - 0: HASH OK
+ *         - diferente de 0: HASH ERRO
  */
 static uint8_t config_data_error_check(EstConfig * est_config, bool set){
     int       size = sizeof(EstConfig) - 8;
@@ -57,12 +71,7 @@ static uint8_t config_data_error_check(EstConfig * est_config, bool set){
 
 
 
-/**
- * @brief Lê a configuração que está na memória flash.
- * 
- * @return true, conseguiu ler e os dados são válidos
- * @return false, não conseguiu ler ou os dados são inválidos
- */
+
 bool     est_config_storage_read(EstConfig * est_config){
     stored_conf_read((uint8_t *)est_config, sizeof(EstConfig));
     if(config_data_error_check(est_config, false)){
@@ -73,22 +82,11 @@ bool     est_config_storage_read(EstConfig * est_config){
     }
 }
 
-/**
- * @brief Salva a configuração na memória flash.
- * 
- */
 void     est_config_storage_write(EstConfig * est_config){
     est_config->version = CONFIG_DATA_VERSION;
     config_data_error_check(est_config, true);
     stored_conf_write((uint8_t *)est_config, sizeof(EstConfig));
 }
-
-
-
-
-
-
-
 
 void est_config_default(EstConfig * est_config){
     est_config->lora_mode = LORA_MODE_LORAWAN_ABP;

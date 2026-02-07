@@ -1,3 +1,13 @@
+/**
+ * @file    menu_conf.h
+ * @author  Antonio-Carlos-Ricardo
+ * @brief   Ativa o menu de configuração da estação via USB
+ * @version 0.1
+ * @date    2026-02-07
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,12 +18,26 @@
 #include "../include/menu_conf.h"
 #include "../include/storage.h"
 
+/**
+ * @brief Rotina para mostrar valores hexadecimais
+ * 
+ * @param array Array de valores
+ * @param array_size Número de bytes
+ */
 static void print_hex_array(uint8_t * array, int array_size){
     for(int i=0;i<array_size;i++){
         printf("%02x ", array[i]);
     }
 }
 
+/**
+ * @brief Converte um caractere em um valor hexadecimal de 0 a F
+ * 
+ * @param c Caractere que será convertido
+ * @return uint8_t Valor do caractere:
+ *         - de 0x00 à 0x0F se for um caractere válido
+ *         - 0xFF se for um caractere inválid
+ */
 static uint8_t char_to_uint8(char c){
     if((c >= '0') && (c <= '9')) return c - '0';
     if((c >= 'A') && (c <= 'F')) return c - 'A' + 10;
@@ -22,6 +46,13 @@ static uint8_t char_to_uint8(char c){
 }
 
 static uint8_t inp_v[32];
+
+/**
+ * @brief "Entra" os caracteres digitados em um array de bytes
+ * 
+ * @param array Array a onde os dados serão gravados
+ * @param array_size Tamanho do array
+ */
 static void input_hex(uint8_t * array, int array_size){
     int pos = 0;
     while(1){
@@ -52,6 +83,11 @@ static void input_hex(uint8_t * array, int array_size){
 }
 
 
+/**
+ * @brief "Entra" os caracteres digitados e os transforma em um uint16_t
+ * 
+ * @return uint16_t Valor correspondente ao valor digitado
+ */
 static uint16_t input_number(){
     uint16_t ret_val = 0;
     int pos = 0;
@@ -86,13 +122,6 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
 
         printf("********** %s **********\n\n", NAME);
         printf("Version: %s - %s - Build: %s\n", VERSION, VERSION_DATA, BUILD);
-        printf("Board: ");
-        #ifdef BOARD_BITDOG_LAB_V7
-        printf("BDL V7");
-        #endif
-        #ifdef BOARD_BITDOG_LAB_V63
-        printf("BDL V63");
-        #endif
 
         printf(", Low Power mode: ");
         #if HW_SLEEP_LOW_POWER
@@ -102,7 +131,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
         #endif
 
         printf(" , Debug Probe: ");
-        #ifdef BITDOGLAB_WITH_DEBUG_PROBE
+        #ifdef PICO_WITH_DEBUG_PROBE
         printf("ON, ");
         #else
         printf("OFF, ");

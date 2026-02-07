@@ -1,9 +1,9 @@
-#include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
 #include "hardware/uart.h"
 #include "gy_neo6mv2.h"
 #include "../../include/code_config.h"
+#include "../../include/loop_printf.h"
 
 
 #define GPS_NMEA_GPGGA_MINIMUM_SIZE     24  // $GPGGA,,,,,,,,,,,,,,*47<cr>
@@ -61,7 +61,7 @@ void gps_isr_uart_rx() {
 }
 
 void gps_init(){
-    printf("gps_init()\n");
+    loop_printf("gps_init()\n");
     // Inicializa UART
     uart_init(GPS_UART_ID, GPS_UART_BAUD_RATE);
     gpio_set_function(GPS_UART_TX_PIN, GPIO_FUNC_UART);
@@ -73,7 +73,7 @@ void gps_init(){
         sleep_ms(10);
     }
     
-    // limpa buffer;
+    // limpa uart buffer;
     while (uart_is_readable(GPS_UART_ID)) uart_getc(GPS_UART_ID);
     gps_buffer_out[0] = 0;
 
@@ -81,8 +81,8 @@ void gps_init(){
     //gps_buffer_int_idx = 0;
     //gps_received_lines = 0;
     irq_set_exclusive_handler(GPS_UART_UART_IRQ, gps_isr_uart_rx);
-    irq_set_enabled(GPS_UART_UART_IRQ, true);
-    uart_set_irq_enables(GPS_UART_ID, true, false);  // RX on, TX off
+    irq_set_enabled(          GPS_UART_UART_IRQ, true);
+    uart_set_irq_enables(     GPS_UART_ID, true, false);  // RX on, TX off
 }
 
 
@@ -121,7 +121,7 @@ GpsGgaError gps_read(int32_t * lat, int32_t * lon, int32_t * alt){
     irq_set_enabled(GPS_UART_UART_IRQ, false);
 
 #if (DEB_PR_CORE1_GPS == true)   
-    printf("Line=%d, %s\n", gps_received_lines, gps_buffer_out);
+    loop_printf("Line=%d, %s\n", gps_received_lines, gps_buffer_out);
 #endif    
 
     
@@ -141,7 +141,7 @@ GpsGgaError gps_read(int32_t * lat, int32_t * lon, int32_t * alt){
     }
 
     if(!error){       
-        printf("GPS NMEA: %s\n", gps_buffer_out);
+        loop_printf("GPS NMEA: %s\n", gps_buffer_out);
  
         // separa itens
         token_NMEA = strtok(gps_buffer_out, ",");
@@ -223,27 +223,25 @@ GpsGgaError gps_read(int32_t * lat, int32_t * lon, int32_t * alt){
     *alt = f_alt * 0x00010000;
 
     
+    loop_printf("\n");
+    loop_printf("token_NMEA    :%s\n", token_NMEA    );
+    loop_printf("token_time    :%s\n", token_time    );
+    loop_printf("token_lat     :%s\n", token_lat     );
+    loop_printf("token_lat_ind :%s\n", token_lat_ind );
+    loop_printf("token_long    :%s\n", token_long    );
+    loop_printf("token_long_ind:%s\n", token_long_ind);
+    loop_printf("token_fix     :%s\n", token_fix     );
+    loop_printf("token_n_sate  :%s\n", token_n_sate  );
+    loop_printf("token_hdop    :%s\n", token_hdop    );
+    loop_printf("token_alti    :%s\n", token_alti    );
 
-    
-    printf("\n");
-    printf("token_NMEA    :%s\n", token_NMEA    );
-    printf("token_time    :%s\n", token_time    );
-    printf("token_lat     :%s\n", token_lat     );
-    printf("token_lat_ind :%s\n", token_lat_ind );
-    printf("token_long    :%s\n", token_long    );
-    printf("token_long_ind:%s\n", token_long_ind);
-    printf("token_fix     :%s\n", token_fix     );
-    printf("token_n_sate  :%s\n", token_n_sate  );
-    printf("token_hdop    :%s\n", token_hdop    );
-    printf("token_alti    :%s\n", token_alti    );
+    loop_printf("f_lat : %f\n", f_lat    );
+    loop_printf("f_lon : %f\n", f_lon    );
+    loop_printf("f_alt : %f\n", f_alt    );
 
-    printf("f_lat : %f\n", f_lat    );
-    printf("f_lon : %f\n", f_lon    );
-    printf("f_alt : %f\n", f_alt    );
-
-    printf("lat : %ld\n", *lat    );
-    printf("lon : %ld\n", *lon    );
-    printf("alt : %ld\n", *alt    );
+    loop_printf("lat : %ld\n", *lat    );
+    loop_printf("lon : %ld\n", *lon    );
+    loop_printf("alt : %ld\n", *alt    );
 
 
     return GPS_GGA_NO_ERROR;    // Sinal é válido

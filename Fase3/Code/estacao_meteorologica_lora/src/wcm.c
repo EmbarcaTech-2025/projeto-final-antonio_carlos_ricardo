@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
 #include "../include/aq_data.h"
@@ -34,7 +33,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     gpio_set_function(WCM_UART_RX_PIN, GPIO_FUNC_UART);
     sleep_ms(10);
 
-#ifdef SEND_FIX_DATA
+#ifdef START_SEND_WITH_FIX_DATA
     if(count < 5){
         aq_data->battery.bat_level =        153;    // 76.5 %
         aq_data->bmep280.humidity  =         69;    // 34.5 %
@@ -83,99 +82,106 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     payload[payload_pos++] = control1;
 
     loop_printf("----- Inicio da transmissão LoRa -----\n");
+    loop_printf("- Battery            = ");
     if(aq_data->active_sensors.battery){
-        if(aq_data->battery.bat_level == 0xFF) loop_printf("- ERROR Battery sensor\n");
+        if(aq_data->battery.bat_level == 0xFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- Battery Level = %.1f %%\n", aq_data->battery.bat_level * 0.5);
+            loop_printf("%.1f %%\n", aq_data->battery.bat_level * 0.5);
         }
         payload[payload_pos++] = aq_data->battery.bat_level;
-    }else loop_printf("- NO Battery sensor\n");
+    }else loop_printf("NO Sensor\n");
+
 
     if(aq_data->active_sensors.bme280){
-        if(aq_data->bmep280.humidity == 0xFF) loop_printf("- ERROR BME280 Humidity sensor\n");
+        loop_printf("- BME280 Humidity    = ");
+        if(aq_data->bmep280.humidity == 0xFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- BME280 Humidity    = %.1f %%\n", aq_data->bmep280.humidity * 0.5);
+            loop_printf("%.1f %%\n", aq_data->bmep280.humidity * 0.5);
         }
         payload[payload_pos++] = aq_data->bmep280.humidity;
 
-
-        if(aq_data->bmep280.temp == 0x7FFF) loop_printf("- ERROR BME280 Temperature sensor\n");
+        loop_printf("- BME280 Temperature = ");
+        if(aq_data->bmep280.temp == 0x7FFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- BME280 Temperature = %.2f Celsius\n", aq_data->bmep280.temp * 0.01);
+            loop_printf("%.2f Celsius\n", aq_data->bmep280.temp * 0.01);
         }
         payload[payload_pos++] = aq_data->bmep280.temp >> 8; 
         payload[payload_pos++] = aq_data->bmep280.temp & 0x00FF;
 
-
-        if(aq_data->bmep280.press == 0xFFFF) loop_printf("- ERROR BME280 Pressure sensor\n");
+        loop_printf("- BME280 Pressure    = ");
+        if(aq_data->bmep280.press == 0xFFFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- BME280 pressure    = %.2f hPa\n", (60000 - aq_data->bmep280.press) * 0.02);
+            loop_printf("%.2f hPa\n", (60000 - aq_data->bmep280.press) * 0.02);
         }
         payload[payload_pos++] = aq_data->bmep280.press >> 8; 
         payload[payload_pos++] = aq_data->bmep280.press & 0x00FF;
-    }else loop_printf("- NO BME280 sensor\n");
+    }else loop_printf("- BME280             = NO Sensor\n");
 
     if(aq_data->active_sensors.gps){
-        if(aq_data->gps.latitude == 0x7FFFFFFF) loop_printf("- ERROR GPS latitude\n");
+        loop_printf("- GPS latitude       = ");
+        if(aq_data->gps.latitude == 0x7FFFFFFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- GPS latitude  = %f degrees\n", aq_data->gps.latitude / 8388608.0);
+            loop_printf("%f degrees\n", aq_data->gps.latitude / 8388608.0);
         }
         payload[payload_pos++] =  aq_data->gps.latitude >> 24;
         payload[payload_pos++] = (aq_data->gps.latitude >> 16) & 0x000000FF;  
         payload[payload_pos++] = (aq_data->gps.latitude >>  8) & 0x000000FF;  
         payload[payload_pos++] =  aq_data->gps.latitude        & 0x000000FF;
 
-
-        if(aq_data->gps.longitude == 0x7FFFFFFF) loop_printf("- ERROR GPS longitude\n");
+        loop_printf("- GPS longitude      = ");
+        if(aq_data->gps.longitude == 0x7FFFFFFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- GPS longitude = %f degrees\n", aq_data->gps.longitude / 8388608.0);
+            loop_printf("%f degrees\n", aq_data->gps.longitude / 8388608.0);
         }
         payload[payload_pos++] =  aq_data->gps.longitude >> 24;
         payload[payload_pos++] = (aq_data->gps.longitude >> 16) & 0x000000FF;  
         payload[payload_pos++] = (aq_data->gps.longitude >>  8) & 0x000000FF;  
         payload[payload_pos++] =  aq_data->gps.longitude        & 0x000000FF;
         
-
-        if(aq_data->gps.altitude == 0x7FFF) loop_printf("- ERROR GPS altitude\n");
+        loop_printf("- GPS altitude       = ");
+        if(aq_data->gps.altitude == 0x7FFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- GPS altitude  = %.1f meters\n", aq_data->gps.altitude * 0.1);
+            loop_printf("%.1f meters\n", aq_data->gps.altitude * 0.1);
         }
         payload[payload_pos++] = aq_data->gps.altitude >> 8; 
         payload[payload_pos++] = aq_data->gps.altitude & 0x00FF;
-    }else loop_printf("- NO GPS\n");
+    }else loop_printf("- GPS                = NO Sensor\n");
 
+    loop_printf("- Lux Meter          = ");
     if(aq_data->active_sensors.lux){
-        if(aq_data->lux.lux_level_x4 == 0xFFFF) loop_printf("- ERROR Lux Meter sensor\n");
+        if(aq_data->lux.lux_level_x4 == 0xFFFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- Lux Meter = %u lux\n", aq_data->lux.lux_level_x4 * 4);
+            loop_printf("%u lux\n", aq_data->lux.lux_level_x4 * 4);
         }
         payload[payload_pos++] = aq_data->lux.lux_level_x4 >> 8; 
         payload[payload_pos++] = aq_data->lux.lux_level_x4 & 0x00FF;
-    }else loop_printf("- NO Lux Meter sensor\n");
+    }else loop_printf("NO Sensor\n");
 
-
+    loop_printf("- VSys               = ");
     if(aq_data->active_sensors.vsys){
-        if(aq_data->vsys == 0xFF) loop_printf("- ERROR VSys sensor\n");
+        if(aq_data->vsys == 0xFF) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- VSys     = %4d mV\n", aq_data->vsys * 20);
+            loop_printf("%4d mV\n", aq_data->vsys * 20);
         }
         payload[payload_pos++] = aq_data->vsys;
-    }else loop_printf("- NO VSys sensor\n");
+    }else loop_printf("NO Sensor\n");
 
+    loop_printf("- MPU Tempetature    = ");
     if(aq_data->active_sensors.cpu_temp){
-        if(aq_data->cpu_temp_deci == 0x7F) loop_printf("- ERROR CPU Temp sensor\n");
+        if(aq_data->cpu_temp_deci == 0x7F) loop_printf("Sensor ERROR\n");
         else{
-            loop_printf("- CPU Temp = %.1f Celsius\n", ((aq_data->cpu_temp_deci / 5)) * 0.5);
+            loop_printf("%.1f Celsius\n", aq_data->cpu_temp_deci * 0.1);
         }
         //payload[payload_pos++] = (aq_data->cpu_temp_deci / 5);
-        payload[payload_pos++] = (aq_data->cpu_temp_deci / 10);
-    }else loop_printf("- NO CPU Temp sensor\n");
+        payload[payload_pos++] = (int8_t)(aq_data->cpu_temp_deci * 0.1);
+    }else loop_printf("NO Sensor\n");
 
     //  Payload gerado
-    loop_printf("\nPayload len=%d: 0x", payload_pos);
+    loop_printf("\nPayload len=%d\n", payload_pos);
+    loop_printf("\nPayload: 0x", payload_pos);
     for(int i=0;i<payload_pos;i++)
     loop_printf(" %02x", payload[i]);
-    loop_printf("\n");
+    loop_printf("\n\n");
 
     switch(est_config->lora_mode){
         case LORA_MODE_LORA:
@@ -214,7 +220,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
             break;    
     }
 
-    loop_printf("CMD: %s\n", msg);
+    loop_printf("CMD: %s\n\n", msg);
 
     // Acordar WCM
     uart_putc_raw(WCM_UART_ID, ' ');
@@ -242,6 +248,5 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         loop_printf("Time OUT\n");
     }
     
-
     loop_printf("----- Fim da transmissão LoRa -----\n\n");    
 }

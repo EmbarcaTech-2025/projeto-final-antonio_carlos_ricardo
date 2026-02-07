@@ -50,7 +50,11 @@ static void __not_in_flash_func(my_delay_s)(uint32_t delay_s) {
 }
 
 
-
+/**
+ * @brief Converte o timerawl que é 32 bits em t_now que é 64 bits
+ *        - cada vez que timerawl for menor que o timerawl anterior quer dizer que houve o overflow do contador
+ *        assim o t_now_h deverá ser incrementado de 1
+ */
 static void get_t_now(){
     t_now_l = timer_hw->timerawl;
     if(t_now_l < t_now_l_old) t_now_h++;
@@ -93,14 +97,6 @@ static void hw_set_speed_full(){
         case USB_MODE_ON:   // já está ligada
             break;
         case USB_MODE_OFF_ON:   // Religa a USB
-        /*
-            pll_init(       // Liga o PLL
-                pll_usb,
-                1,          // refdiv (12 MHz / 1)
-                480 * MHZ,  // VCO = 480 MHz
-                5,          // postdiv1
-                2           // postdiv2
-            );*/
             clock_configure(clk_usb,    // seta o clock para o do PLL
                 0,                  // src (não usado)
                 CLOCKS_CLK_USB_CTRL_AUXSRC_VALUE_CLKSRC_PLL_USB,
@@ -118,29 +114,6 @@ static void hw_set_speed_full(){
                 sleep_ms(1000); // original não tinha
             }
             wrap_watchdog_update();
-            //sleep_ms(5000); // original não tinha
-            
-            
-            
-            /*sleep_ms(50); // original não tinha
-
-
-            for(int i=0;i<50;i++){
-                tud_task();
-                sleep_ms(10);
-            }
-            // Aguarda enumeração
-            while (!tud_ready()) {
-                tud_task();
-                sleep_ms(10);
-            }
-
-            // Aguarda terminal serial (opcional, mas comum)
-            while (!tud_cdc_connected()) {
-                tud_task();
-                sleep_ms(10);
-            }
-            break;*/
     }
 }
 
@@ -182,7 +155,7 @@ void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
 
     if(!HW_SLEEP_LOW_POWER) return;
 
-    // Desativar clk_gpio
+    // Desativa clocks dos gpios
     clock_stop(clk_gpout0);
     clock_stop(clk_gpout1);
     clock_stop(clk_gpout2);
@@ -206,9 +179,7 @@ void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
     }
 
     //clock_stop(clk_peri);
-
-    // lock_stop(clk_rtc);
-
+    //lock_stop(clk_rtc);
     //rosc_disable();
     //rosc_hw->ctrl = ROSC_CTRL_ENABLE_VALUE_DISABLE;
 
@@ -222,25 +193,28 @@ void hw_sleep(){
 
     sleep_ms(100);
 
-    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_0, true);
+    #ifdef SLEEP_STATE_BY_GPIO
+        gpio_put(SLEEP_STATE_GPIO_0, true);
+    #endif
         
     hw_set_speed_low();
 
-    // Delay
-    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_1, st);
+    #ifdef SLEEP_STATE_BY_GPIO
+        gpio_put(SLEEP_STATE_GPIO_1, st);
+    #endif
     
-    //t_now = timer_hw->timerawl;
     get_t_now();
     while(t_end > t_now){
         wrap_watchdog_update();
-        //t_now = timer_hw->timerawl;
         get_t_now();
-        if(GPIO_TEST_ENABLE) {
-            gpio_put(GPIO_TEST_1, st);
+        #ifdef SLEEP_STATE_BY_GPIO
+            gpio_put(SLEEP_STATE_GPIO_1, st);
             st = !st;
-        }
+        #endif
     }
-    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_1, false);
+    #ifdef SLEEP_STATE_BY_GPIO
+        gpio_put(SLEEP_STATE_GPIO_1, false);
+    #endif
 
     hw_set_speed_full();
 
@@ -248,5 +222,7 @@ void hw_sleep(){
     if(hw_sleep_minutes) t_end += 60000000 * hw_sleep_minutes;
                     else t_end += 10000000;
 
-    if(GPIO_TEST_ENABLE) gpio_put(GPIO_TEST_0, false);
+    #ifdef SLEEP_STATE_BY_GPIO
+        gpio_put(SLEEP_STATE_GPIO_0, false);
+    #endif
 }
