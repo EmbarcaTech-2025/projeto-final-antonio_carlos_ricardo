@@ -1,12 +1,9 @@
 #include <stdio.h>
-
 #include "hardware/adc.h"
 #include "hardware/clocks.h" 
 #include "hardware/pll.h" 
 #include "hardware/regs/usb.h"
 #include "hardware/structs/usb.h"
-
-#include "tusb.h"
 
 #include "../include/code_config.h"
 #include "../include/hw_sleep.h"
@@ -23,31 +20,6 @@ static uint32_t t_now_h = 0;
 static uint32_t t_now_l;
 static uint32_t t_now_l_old = 0;
 
-
-
-
-//clock_stop(clk_usb);
-static void __not_in_flash_func(my_delay_s)(uint32_t delay_s) {
-    clock_configure(clk_sys,
-        CLOCKS_CLK_SYS_CTRL_SRC_VALUE_CLKSRC_CLK_SYS_AUX,
-        CLOCKS_CLK_SYS_CTRL_AUXSRC_VALUE_XOSC_CLKSRC,
-        12 * MHZ,      // entrada = XOSC
-        //2 * MHZ       // saída desejada 4,5mA
-         4 * MHZ       // saída desejada 5,0mA
-        //12 * MHZ       // saída desejada 6,3mA
-    );
-
-    uint64_t t_end = timer_hw->timerawl + (delay_s * 1000000);
-    uint64_t t     = timer_hw->timerawl;
-    while(t < t_end) t = timer_hw->timerawl;
-
-    clock_configure(clk_sys,
-        CLOCKS_CLK_SYS_CTRL_SRC_VALUE_CLKSRC_CLK_SYS_AUX,
-        CLOCKS_CLK_SYS_CTRL_AUXSRC_VALUE_CLKSRC_PLL_SYS,
-        125 * MHZ,   // entrada = PLL_SYS estável em 125 MHz
-        125 * MHZ    // saída desejada
-    );
-}
 
 
 /**
@@ -117,6 +89,10 @@ static void hw_set_speed_full(){
     }
 }
 
+/**
+ * @brief Reduz o clock sys e desativa plls
+ * 
+ */
 static void hw_set_speed_low(){
     if(!HW_SLEEP_LOW_POWER) return;
     switch(hw_usb_mode){
@@ -141,7 +117,11 @@ static void hw_set_speed_low(){
         12000000,
         12000000
     );
+
+    // faltou desligar o pll_sys
+    pll_deinit(pll_sys);
 }
+
 
 void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
     hw_usb_mode      = usb_mode;
@@ -160,10 +140,6 @@ void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
     clock_stop(clk_gpout1);
     clock_stop(clk_gpout2);
     clock_stop(clk_gpout3);
-
-//    adc_run(false);
-//    adc_set_temp_sensor_enabled(false);
-//    clock_stop(clk_adc);
 
     switch(hw_usb_mode){
         case USB_MODE_OFF:
@@ -185,8 +161,6 @@ void hw_sleep_init(UsbMode usb_mode, bool ad_on, uint16_t sleep_minutes){
 
     sleep_ms(100);
 }
-
-
 
 void hw_sleep(){
     bool st = true;

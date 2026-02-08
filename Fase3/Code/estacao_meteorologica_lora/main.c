@@ -2,8 +2,8 @@
  * @file    main.c
  * @author  Antonio-Carlos-Ricardo
  * @brief   Inicialização do sistema e main loop
- * @version 0.1
- * @date    2026-02-07
+ * @version 0.2
+ * @date    2026-02-08
  * 
  * @copyright Copyright (c) 2026
  */
@@ -21,7 +21,8 @@
 #include "include/wrap_watchdog.h"
 
 
-#define MAIN_ST_INIT            LED_YELLOW      // LED Red e Green, indica inicializando o sistema
+#define MAIN_ST_INIT            LED_GREEN       // LED Green, indica inicializando o sistema, tempo para conectar USB
+#define MAIN_ST_WAIT_BUTTON     LED_YELLOW      // LED Red e Green, indica que botão será reconhecido
 #define MAIN_ST_MENU            LED_RED         // Indica que o menu de configuração esta ativo
 #define MAIN_ST_MENU_AFTER      LED_CYAN        // Indica que a estação já passo pelo menu
 #define MAIN_ST_AQUISITION      LED_BLUE        // Indica que está fazendo aquisição dos dados
@@ -73,6 +74,16 @@ int main(){
     printf("********** %s **********\n\n", NAME);
     printf("Version: %s - %s - Build: %s\n", VERSION, VERSION_DATA, BUILD);
 
+    // Janela para pressionar o botão
+    bool button_pressed = false;
+    for(int i=0;i<25;i++){
+        buttons_and_leds_set_color(i&0x01?MAIN_ST_INIT:MAIN_ST_WAIT_BUTTON);
+        for(int j=0;j<100;j++){
+            if(buttons_and_leds_button_pressed()) button_pressed = true;
+            sleep_us(2000);
+        }
+    }
+
     
     bool valid_flash_data = est_config_storage_read(&est_config);
     printf(valid_flash_data?"Flash: Valid Data\n\n\n":"Flash: Invalid Data\n\n\n");
@@ -83,8 +94,8 @@ int main(){
     //    - (Botão solto        e always_menu == true )
     //    Obs.: O Botão pressionado inverte o funcionamento do parâmetro always_menu
     if((!valid_flash_data) || 
-       (  buttons_and_leds_button_pressed()  && (!est_config.always_menu)) || 
-       ((!buttons_and_leds_button_pressed()) &&   est_config.always_menu)){
+       (  button_pressed  && (!est_config.always_menu)) || 
+       ((!button_pressed) &&   est_config.always_menu)){
         buttons_and_leds_set_color(MAIN_ST_MENU);
         menu_conf(&est_config, valid_flash_data);
     }

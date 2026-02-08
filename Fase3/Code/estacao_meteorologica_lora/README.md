@@ -24,6 +24,7 @@ Arquivo que concentra todas as principais configurações do código, destacando
     - SLEEP_STATE_BY_GPIO, se definido faz que durante os períodos de sleep os gpio reflitam o funcionamento do Sleep mode, util para debug
     - INITIAL_DELAY_MS, define o tempo, em milissegundos, de espera inicial para rodar o programa, permitindo assim conectar a interface serial (USB) antes do programa iniciar
     - USB_TURN_ON_TIME_S, define o tempo, em segundos, que vai esperar a USB ligar quando no modo de log ON-OFF
+    - ADD_CHECKSUM_ON_PAYLOAD, adiciona uma sum e xor dos bytes do payload com objetivo de verificar a integridade do mesmo (util para debug)
 
 
 ## Funcionamento do código
@@ -112,6 +113,17 @@ Obs.: Os valores que são salvos e lidos na flash possuem um "HASH-like" para ve
 
 
 ### hw_sleep
+Para que o sistema consuma o mínimo de energia é necessario desativar módulos desnecessarios.
+Entre uma aquisição e outra o número de recurso necessários e muito baixo podendo a maioria ser desligado, mas que devem ser ligados quando se for efetuar a aquisição e transmissão dos dados,
+O Clock da CPU tem um grande impacto no consumo sendo que sua redução durante o periodo entre aquisições é relevante.
+Temos duas funções:
+- init, que desativa tudo que não será utilizado permanentemente
+- sleep, que:
+    - desativa tudo que não for necessário entre aquisições;
+    - aguarda até o momento da próxima aquisição
+    - ativa tudo o que é necessário para a próxima aquisição
+
+![Fluxograma das rotinas de Sleep](assets/EML-SW-HwSleep.png)
 
 
 ### loop_printf
@@ -131,9 +143,23 @@ Obs.: Caso o comando seja Exit a rotina é encerrada, voltando para a execução
 
 
 ### storage
+Obs.: Este arquivo é uma simplificação do utilizado na fase2.
+
+O ponto mais relevante é que para que se escrever na flash tem que ser garantido que não ocorrerá nenhum outro acesso a flash até que a operação de escrita seja feita.
+Para isso normalmente todas as interrupções devem estar inativas e o programa de escrita rodar a partir da RAM. Para isso utiliza-se na definição da função a expressão: __not_in_flash_func
 
 
 ### wcm
+A rotina de envio do WCM consta de:
+- Criar o comando
+    - Monta a parte que depende apenas da configuração
+    - Adiciona o payload dos dados recém adquiridos
+- Enviar o comando
+    - Ativar o WCM para receber dados
+    - Enviar o comando
+    - Aguardar a resposta
+
+![Fluxograma das rotinas de comunicação com o WCM](assets/EML-SW-WCM.png)
 
 
 ### wrap_watchdog

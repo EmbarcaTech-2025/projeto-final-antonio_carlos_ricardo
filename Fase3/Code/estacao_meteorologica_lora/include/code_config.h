@@ -16,8 +16,8 @@
 
 #define NAME                        "Weather Station"
 #define VERSION                     "0.00.01"
-#define VERSION_DATA                "2026/02/07"
-#define BUILD                       "0027"
+#define VERSION_DATA                "2026/02/08"
+#define BUILD                       "0032"
 #define CONFIG_DATA_VERSION         4   // uint32_t version;
 
 
@@ -26,7 +26,7 @@
 
 //#define PICO_WITH_DEBUG_PROBE                         // habilita o uso do debug probe reconfigurando as portas UART a serem utilizadas
 
-#define DEBUG_ON                true                    // habilita printf de log para depuração
+#define DEBUG_ON                false   // true         // habilita printf de log para depuração
 #define DEBUG_ON_AD             (DEBUG_ON && true)      // habilita printf de log do módulo aq_data_ad, VSys e MPU Temp
 #define DEBUG_ON_BAT            (DEBUG_ON && true)      // habilita printf de log do módulo aq_data_bat
 #define DEBUG_ON_BMEP280        (DEBUG_ON && false)     // habilita printf de log do módulo aq_data_bmep280
@@ -38,6 +38,7 @@
 #define SLEEP_STATE_BY_GPIO                             // se definido faz que durante os períodos de sleep os gpio reflitam o funcionamento do Sleep mode, util para debug
 #define INITIAL_DELAY_MS        10000                   // define o tempo, em milissegundos, de espera inicial para rodar o programa, permitindo assim conectar a interface serial (USB) antes do programa iniciar
 #define USB_TURN_ON_TIME_S      5
+//#define ADD_CHECKSUM_ON_PAYLOAD                       // adiciona um CHECKSUM no final do payload
 
 
 

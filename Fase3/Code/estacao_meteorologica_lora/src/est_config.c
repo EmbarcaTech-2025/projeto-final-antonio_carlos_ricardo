@@ -91,7 +91,7 @@ void     est_config_storage_write(EstConfig * est_config){
 void est_config_default(EstConfig * est_config){
     est_config->lora_mode = LORA_MODE_LORAWAN_ABP;
 
-    est_config->lora_par.channel        = 5;
+    est_config->lora_par.channel        = 8;
     est_config->lora_par.sf             = 7;
     memcpy(est_config->lora_par.device_address, dev_add, 4);
 

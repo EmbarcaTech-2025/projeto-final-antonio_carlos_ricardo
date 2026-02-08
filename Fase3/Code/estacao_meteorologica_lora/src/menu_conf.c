@@ -279,7 +279,8 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 est_config->leds_on = !est_config->leds_on;
                 break;
             case 'M':
-                if(++est_config->lora_mode >= LORA_MODE_COUNT) est_config->lora_mode = LORA_MODE_LORAWAN_ABP;
+                //if(++est_config->lora_mode >= LORA_MODE_COUNT) est_config->lora_mode = LORA_MODE_LORAWAN_ABP;
+                if(++est_config->lora_mode >= LORA_MODE_COUNT) est_config->lora_mode = LORA_MODE_LORA;
                 break;
             case 'N':
                 switch(est_config->lora_mode){

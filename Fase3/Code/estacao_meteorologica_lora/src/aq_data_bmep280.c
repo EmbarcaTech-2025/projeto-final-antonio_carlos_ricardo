@@ -284,7 +284,7 @@ static int aqdatabmep280_read_raw_values(){
 
 // ********** From BME280 datasheet pag. 25 **********
 
-BME280_S32_t t_fine;    // t_fine carries fine temperature as global value
+static BME280_S32_t t_fine;     // t_fine carries fine temperature as global value
 
 // Returns temperature in DegC, resolution is 0.01 DegC. Output value of “5123” equals 51.23 DegC.
 BME280_S32_t BME280_compensate_T_int32(BME280_S32_t adc_T)
@@ -436,7 +436,8 @@ int aqdatabmep280_sleep(){
 
 // Returns temperature in DegC, double precision. Output value of “51.23” equals 51.23 DegC.
 // t_fine carries fine temperature as global value
-static BME280_S32_t t_fine;
+
+
 static double BME280_compensate_T_double(BME280_S32_t adc_T)
 {
     double var1, var2, T;

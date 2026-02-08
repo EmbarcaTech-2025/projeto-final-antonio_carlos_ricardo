@@ -6,11 +6,31 @@
 - rever funcionamento GPS, principalmente durante sleep
 - Compartilhar código com esp32-c3
 
+- wcm melhorar protocolo de envio/recebimento dos dados para o WCM
+    - Aguardar OK de acordado
+    - Criar Tipos de Mensagem de retorno
+- Remover driver ina
 - Doxigen pendentes:
     - aq_data_gps
+
+
+## Build:0033 - 08/02/2026
+- Doxigen:
     - hw_sleep
-    - storage
+
+## Build:0032 - 08/02/2026
+- Correção, faltava desligar o pll_sys no sleep
+
+## Build:0030 - 08/02/2026
+- refactory da rotina de geração do CMD do arquivo wcm.c
+- Add opção de adicionar checksum ao payload
+- Add janela para pressionar botão
+- Doxigen:
     - wcm
+    - storage
+
+## Build:0029 - 07/02/2026
+- Move conteudo das rotinas que estavam dentro do dir src/gps para aq_data_gps
 
 ## Build:0028 - 07/02/2026
 - Doxigen:

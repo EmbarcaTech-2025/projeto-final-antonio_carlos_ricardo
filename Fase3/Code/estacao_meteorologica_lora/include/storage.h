@@ -31,11 +31,13 @@
  * 
  */
 void stored_conf_clear();
+
 /**
  * @brief Lê a configuração que está na flash e coloca em config_data
  * 
  */
 void stored_conf_read(uint8_t *data, int size);
+
 /**
  * @brief Limpa a área da memória referente a configuração e grava nela os dados que estão em config_data
  * 
@@ -46,43 +48,14 @@ void stored_conf_write(uint8_t *data, int size);
  * @brief Limpa um bloco de aquisições
  * 
  */
-//void    stored_data_clear(int32_t index);
+void    stored_data_clear(int32_t index);
+
 /**
  * @brief Limpa todos os blocos/dados de aquisições da Flash
  * 
  */
 void    stored_data_clear_all();
-/**
- * @brief Lê uma aquisição especificada pelo seu index e coloca no buffer estation_data
- * 
- * @param index 
- * @param estation_data 
- */
-//void    stored_data_read( int32_t index, EstationData * estation_data);
-/**
- * @brief Lê os primeiros 3 uint64_t da aquisição(numero, data/hora da aquisição, data/hora envio servidor) definida pelo index
- * 
- * @param index 
- * @param buf_3_uint64_t 
- */
-//void    stored_data_read_3_uint64(int32_t index, uint64_t * buf_3_uint64_t);
-/**
- * @brief Salva o dado na Flash, limpando o bloco se necessário
- * - ATENÇÃO:
- *   -As interrupções de ambos os cores devem estar desabilitadas
- *   -Os COREs só podem estar rodando na RAM
- * @param index 
- * @param estation_data 
- * @param update, quando true ==> não limpa a flash só sobre escreve
- */
-//void    stored_data_write(int32_t index, EstationData * estation_data, bool update);
 
-/**
- * @brief Faz o DUMP da memória flash em Hexa, via printf
- * 
- * @param include_conf 
- */
-//void stored_printf(bool include_conf);
 
 
 #endif // STORAGE_H
