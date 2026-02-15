@@ -22,9 +22,9 @@ int aqdata_init_power_on( AqData *value, uint16_t lux_k_10000, uint16_t vsys_k_1
 
     if(value == NULL) return 0xFFFF;
     int ret = 0;
-    if(value->active_sensors.battery){
+/*    if(value->active_sensors.battery){
         if(aqdatabat_init_power_on())            ret |= AQ_ITEM_BAT_VALUE;
-    }
+    }*/
     if(value->active_sensors.bme280){
         if(aqdatabmep280_init_power_on())        ret |= AQ_ITEM_BME280;
     }
@@ -44,9 +44,9 @@ int aqdata_init_power_on( AqData *value, uint16_t lux_k_10000, uint16_t vsys_k_1
 int aqdata_init_aq( AqData *value){
     if(value == NULL) return 0xFFFF;
     int ret = 0;
-    if(value->active_sensors.battery){
+/*    if(value->active_sensors.battery){
         if(aqdatabat_init_aq())     ret |= AQ_ITEM_BAT_VALUE;
-    }
+    }*/
     if(value->active_sensors.bme280){
         if(aqdatabmep280_init_aq()) ret |= AQ_ITEM_BME280;
     }
@@ -67,9 +67,9 @@ int aqdata_init_aq( AqData *value){
 int aqdata_read( AqData *value){
     if(value == NULL) return 0xFFFF;
     int ret = 0;
-    if(value->active_sensors.battery){
+/*    if(value->active_sensors.battery){
         if(aqdatabat_read(&value->battery))           ret |= AQ_ITEM_BAT_VALUE;
-    }
+    }*/
     if(value->active_sensors.bme280){;
         if(aqdatabmep280_read_i(&value->bmep280))     ret |= AQ_ITEM_BME280;
     }
@@ -91,9 +91,9 @@ int aqdata_read( AqData *value){
 int aqdata_sleep(AqData *value){
     if(value == NULL) return 0xFFFF;
     int ret = 0;
-    if(value->active_sensors.battery){
+/*    if(value->active_sensors.battery){
         if(aqdatabat_sleep()) ret |= AQ_ITEM_BAT_VALUE;
-    }
+    }*/
     if(value->active_sensors.bme280){
         //if(aqdatabme280_sleep()) ret |= AQ_ITEM_BME280;
         if(aqdatabmep280_sleep()) ret |= AQ_ITEM_BME280;

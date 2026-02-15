@@ -1,0 +1,13 @@
+<map id="src/est_config.c" name="src/est_config.c">
+<area shape="rect" id="Node000001" title="Define a estrutura de configuração e as manipula." alt="" coords="222,5,345,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,76,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,33,90,79,88,73,244,28"/>
+<area shape="rect" id="Node000003" href="$code__config_8h.html" title="Parâmetros de configuração de compilação." alt="" coords="100,79,275,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="269,33,216,72,213,68,266,29"/>
+<area shape="rect" id="Node000004" href="$est__config_8h.html" title="Define a estrutura de configuração e as manipula." alt="" coords="299,79,462,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="301,29,355,68,352,72,297,33"/>
+<area shape="rect" id="Node000006" href="$storage_8h.html" title="Rotinas para leitura e escrita na Flash Obs.: O outro core tem que estar rodando em RAM,..." alt="" coords="486,79,633,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="328,28,502,73,501,78,327,33"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="330,152,431,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="383,104,383,138,378,138,378,104"/>
+</map>

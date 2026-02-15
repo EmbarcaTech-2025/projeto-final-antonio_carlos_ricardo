@@ -1,0 +1,5 @@
+<map id="include/hw_sleep.h" name="include/hw_sleep.h">
+<area shape="rect" id="Node000001" title="Administra o sleep&#45;mode do rp2040 para reduzir o consumo." alt="" coords="5,5,152,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title="Inicialização do sistema e main loop." alt="" coords="45,79,112,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
+</map>

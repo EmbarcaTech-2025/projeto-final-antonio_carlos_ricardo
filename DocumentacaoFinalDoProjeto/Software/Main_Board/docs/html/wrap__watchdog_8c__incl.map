@@ -1,0 +1,9 @@
+<map id="src/wrap_watchdog.c" name="src/wrap_watchdog.c">
+<area shape="rect" id="Node000001" title="Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habili..." alt="" coords="201,5,359,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,168,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,33,132,76,130,71,248,28"/>
+<area shape="rect" id="Node000003" href="$code__config_8h.html" title="Parâmetros de configuração de compilação." alt="" coords="193,79,367,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,31,283,65,277,65,277,31"/>
+<area shape="rect" id="Node000004" href="$wrap__watchdog_8h.html" title="Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habili..." alt="" coords="391,79,590,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="315,28,445,72,443,77,313,33"/>
+</map>

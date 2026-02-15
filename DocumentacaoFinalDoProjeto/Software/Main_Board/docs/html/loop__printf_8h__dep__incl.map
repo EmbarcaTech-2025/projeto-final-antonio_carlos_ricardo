@@ -1,0 +1,11 @@
+<map id="include/loop_printf.h" name="include/loop_printf.h">
+<area shape="rect" id="Node000001" title="Rotina que &quot;embrulha&quot; o printf em loop_printf Funciona como o printf só que a função loop_printf é ch..." alt="" coords="163,5,317,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title="Inicialização do sistema e main loop." alt="" coords="5,79,72,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,38,72,81,71,76,194,33"/>
+<area shape="rect" id="Node000003" href="$aq__data__ad_8c.html" title="Driver do AD para leitura da MPU Temperature e VSys." alt="" coords="96,79,227,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,42,176,80,172,76,215,38"/>
+<area shape="rect" id="Node000004" href="$aq__data__gps_8c.html" title="Driver do módulo de GPS neo6mv." alt="" coords="251,79,389,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="265,38,309,76,305,80,261,42"/>
+<area shape="rect" id="Node000005" href="$aq__data__lux_8c.html" title="Driver do sensor de luminosidade BH1750." alt="" coords="414,79,549,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="293,32,443,76,442,81,291,37"/>
+</map>

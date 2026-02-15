@@ -1,0 +1,24 @@
+<map id="include/code_config.h" name="include/code_config.h">
+<area shape="rect" id="Node000001" title="Parâmetros de configuração de compilação." alt="" coords="335,5,497,31"/>
+<area shape="rect" id="Node000002" href="$loop__printf_8h.html" title="Rotina que &quot;embrulha&quot; o printf em loop_printf Funciona como o printf só que a função loop_printf é ch..." alt="" coords="128,79,283,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="370,37,240,81,239,76,369,32"/>
+<area shape="rect" id="Node000003" href="$main_8c.html" title="Inicialização do sistema e main loop." alt="" coords="5,152,72,177"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="321,26,272,32,219,42,167,58,117,81,95,97,75,117,48,153,43,150,71,113,91,93,115,76,165,53,218,37,271,27,321,20"/>
+<area shape="rect" id="Node000005" href="$aq__data__gps_8c.html" title="Driver do módulo de GPS neo6mv." alt="" coords="251,152,389,177"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="403,44,330,153,325,150,398,41"/>
+<area shape="rect" id="Node000006" href="$aq__data__lux_8c.html" title="Driver do sensor de luminosidade BH1750." alt="" coords="414,152,549,177"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="405,44,396,73,395,88,400,103,410,118,424,131,455,150,452,154,421,135,406,121,395,105,390,89,391,72,400,42"/>
+<area shape="rect" id="Node000007" href="$aq__data_8c.html" title="Chama todos os drivers dos sensores." alt="" coords="409,79,517,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="433,41,457,77,453,80,429,44"/>
+<area shape="rect" id="Node000008" href="$buttons__and__leds_8c.html" title="Configura o Driver dos LEDs e do botão." alt="" coords="541,79,712,104"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="463,32,593,76,592,81,462,37"/>
+<area shape="rect" id="Node000009" href="$est__config_8c.html" title="Define a estrutura de configuração e as manipula." alt="" coords="736,79,859,104"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="491,31,736,76,735,81,490,36"/>
+<area shape="rect" id="Node000010" href="$wrap__watchdog_8c.html" title="Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habili..." alt="" coords="883,79,1042,104"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="512,29,883,77,883,82,511,34"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,112,67,154,65,149,165,107"/>
+<area shape="rect" id="Node000004" href="$aq__data__ad_8c.html" title="Driver do AD para leitura da MPU Temperature e VSys." alt="" coords="96,152,227,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,117,171,153,166,150,189,114"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="237,109,303,150,300,154,234,113"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="264,105,437,149,436,154,262,110"/>
+</map>

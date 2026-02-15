@@ -13,6 +13,7 @@
 #include "include/aq_data.h"
 #include "include/buttons_and_leds.h"
 #include "include/code_config.h"
+#include "include/fcnt.h"
 #include "include/est_config.h"
 #include "include/hw_sleep.h"
 #include "include/loop_printf.h"
@@ -66,6 +67,7 @@ int main(){
 
     buttons_and_leds_init();
     buttons_and_leds_set_color(MAIN_ST_INIT);
+    fcnt_init();
     wcm_init();
 
     // Dar tempo para conectar a interface serial
@@ -145,6 +147,9 @@ int main(){
         loop_printf("Station sending data\n");
         if(est_config.leds_on) buttons_and_leds_set_color(MAIN_ST_TRANSMISSION);
         wcm_send(&est_config, &aq_data);
+
+        // salva o último fcnt
+        fcnt_update();
         
         // Coloca o rp2040 em "sleep-mode" e o ativa para o modo normal quando for fazer o novo ciclo de leitura e aquisição
         loop_printf("Station sleeping\n");

@@ -13,7 +13,7 @@
 
 #include "pico/stdlib.h"
 #include "aq_data_ad.h"
-#include "aq_data_bat.h"
+//#include "aq_data_bat.h"
 #include "aq_data_bmep280.h"
 #include "aq_data_gps.h"
 #include "aq_data_lux.h"
@@ -24,7 +24,7 @@
  * 
  */
 typedef enum{
-    AQ_ITEM_BAT_VALUE = 0x01,
+//    AQ_ITEM_BAT_VALUE = 0x01,
     AQ_ITEM_BME280    = 0x02,
     AQ_ITEM_GPS       = 0x04,
     AQ_ITEM_LUX       = 0x08,
@@ -40,7 +40,7 @@ typedef enum{
  */
 typedef struct{
     ActiveSensors         active_sensors;
-    AqDataBat_Value       battery;
+//    AqDataBat_Value       battery;
     AqDataBmep280_Value_I bmep280;
     AqDataGps_Value       gps;
     AqDataLux_Value       lux;

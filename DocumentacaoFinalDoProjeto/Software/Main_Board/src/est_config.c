@@ -97,7 +97,7 @@ void est_config_default(EstConfig * est_config){
 
     est_config->lorawan_abp_par.channel        = 8 ;
     est_config->lorawan_abp_par.sf             = 7;
-    est_config->lorawan_abp_par.fcnt           = 0x0123;
+//    est_config->lorawan_abp_par.fcnt           = 0x0123;
     memcpy(est_config->lorawan_abp_par.device_address, dev_add,    4);
     memcpy(est_config->lorawan_abp_par.app_s_key,      app_s_key, 16);   // AppSKey	16 bytes	Chave da aplicação
     memcpy(est_config->lorawan_abp_par.nwk_s_key,      nwk_s_key, 16);   // NwkSKey	16 bytes	Chave de r
@@ -111,8 +111,8 @@ void est_config_default(EstConfig * est_config){
     est_config->sleep_time_min = 0;     // teste a cada 10 segundos
 
 
-    est_config->active_sensors.battery  = true;
-    est_config->active_sensors.bme280   = true;
+//    est_config->active_sensors.battery  = true;
+    est_config->active_sensors.bme280   = false;
     est_config->active_sensors.gps      = false;
     est_config->active_sensors.lux      = false;
     est_config->active_sensors.uv       = false;   // not implemented

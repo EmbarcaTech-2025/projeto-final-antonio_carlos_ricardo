@@ -6,8 +6,6 @@
  * Obs.: As rotinas aqui só administram o Core corrente
  * @version 0.1
  * @date    2025-09-16
- * @version 0.2
- * @date    2026-01-14
  * 
  * @copyright Copyright (c) 2025
  */
@@ -56,6 +54,24 @@ void    stored_data_clear(int32_t index);
  */
 void    stored_data_clear_all();
 
+/**
+ * @brief Lê uma aquisição especificada pelo seu index e coloca no buffer estation_data
+ * 
+ * @param index 
+ * @param estation_data 
+ */
+void    stored_data_read( int32_t index, uint8_t * value);
+
+/**
+ * @brief Salva o dado na Flash, limpando o bloco se necessário
+ * - ATENÇÃO:
+ *   -As interrupções de ambos os cores devem estar desabilitadas
+ *   -Os COREs só podem estar rodando na RAM
+ * @param index 
+ * @param value uint8_t[256] 
+ * @param update, quando true ==> não limpa a flash só sobre escreve
+ */
+void    stored_data_write(int32_t index, uint8_t * value, bool update);
 
 
 #endif // STORAGE_H

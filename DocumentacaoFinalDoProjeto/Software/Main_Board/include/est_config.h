@@ -41,7 +41,7 @@ typedef struct {
 typedef struct {
     uint8_t  channel;           // 0xFF ==> AUTO
     uint8_t  sf;                // 0xFF ==> AUTO
-    uint16_t fcnt;
+//    uint16_t fcnt;
     uint8_t  device_address[4];    // DevAddr	4 bytes     Endereço do dispositivo
     uint8_t  app_s_key[16];     // AppSKey	16 bytes	Chave da aplicação
     uint8_t  nwk_s_key[16];     // NwkSKey	16 bytes	Chave de rede
@@ -77,7 +77,7 @@ typedef enum{
  * 
  */
 typedef struct {
-    bool battery;
+//    bool battery;
     bool bme280;
     bool gps;
     bool lux;

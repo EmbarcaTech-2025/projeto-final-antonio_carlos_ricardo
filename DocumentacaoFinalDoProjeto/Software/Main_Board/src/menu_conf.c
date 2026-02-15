@@ -14,6 +14,7 @@
 #include "pico/stdlib.h"
 #include "../include/aq_data.h"
 #include "../include/code_config.h"
+#include "../include/fcnt.h"
 #include "../include/est_config.h"
 #include "../include/menu_conf.h"
 #include "../include/storage.h"
@@ -154,7 +155,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                                                            else printf("  H) cHannel        : %02d\n",   est_config->lorawan_abp_par.channel);
                 if(est_config->lorawan_abp_par.sf      == 0xFF) printf("  F) sF             : AUTO\n");
                                                            else printf("  F) sF             : %02d\n",   est_config->lorawan_abp_par.sf);
-                printf("  T) fcnT           : 0x%04x\n", est_config->lorawan_abp_par.fcnt);
+                printf("  T) fcnT           : 0x%08x\n", fcnt_get_next());
                 printf("  D) Device address : ");
                 print_hex_array(est_config->lorawan_abp_par.device_address, 4);
                 printf("\n");
@@ -187,7 +188,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
         if(est_config->sleep_time_min) printf("S) Sampling time: %d minutes\n\n", est_config->sleep_time_min);
                                   else printf("S) Sampling time: 10 seconds (To Test only)\n\n");
 
-        printf("1) battery level: %s\n", est_config->active_sensors.battery?"On":"Off");
+//        printf("1) battery level: %s\n", est_config->active_sensors.battery?"On":"Off");
         printf("2) bme280       : %s\n", est_config->active_sensors.bme280? "On":"Off");
         printf("3) gps          : %s\n", est_config->active_sensors.gps?    "On":"Off");
         printf("4) luximeter    : %s\n", est_config->active_sensors.lux?    "On":"Off");
@@ -226,7 +227,9 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                         break;
                 }
                 break;
-            case 'C': stored_data_clear_all(); break;
+            case 'C':
+                fcnt_clear(0);
+                break;
             case 'D':
                 switch(est_config->lora_mode){
                     case LORA_MODE_LORA:
@@ -328,10 +331,19 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                     case LORA_MODE_LORAWAN_ABP:
                         printf("LoRaWAN fcnt : ");
                         uint8_t fcnt[4];
-                        fcnt[0] = (uint8_t)(est_config->lorawan_abp_par.fcnt >> 8);
-                        fcnt[1] = (uint8_t)(est_config->lorawan_abp_par.fcnt & 0X00FF);
-                        input_hex(fcnt, 2);
-                        est_config->lorawan_abp_par.fcnt = ((uint16_t)fcnt[0] << 8) | fcnt[1];
+                        //fcnt[0] = (uint8_t)(est_config->lorawan_abp_par.fcnt >> 8);
+                        //fcnt[1] = (uint8_t)(est_config->lorawan_abp_par.fcnt & 0X00FF);
+                        //input_hex(fcnt, 2);
+                        //est_config->lorawan_abp_par.fcnt = ((uint16_t)fcnt[0] << 8) | fcnt[1];
+                        //uint16_t n_fcnt = ((uint16_t)fcnt[0] << 8) | fcnt[1];
+
+                        input_hex(fcnt, 4);
+                        uint32_t n_fcnt = 0;
+                        for(int i=0;i<4;i++){
+                            n_fcnt = (n_fcnt << 8) | fcnt[i];
+                        }
+
+                        fcnt_clear(n_fcnt);
                         break;
                     case LORA_MODE_LORAWAN_OTAA: break;
                 }
@@ -348,7 +360,7 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 est_config->always_menu = !est_config->always_menu;
                 break;                                
 
-            case '1': est_config->active_sensors.battery  = !est_config->active_sensors.battery;  break;
+//            case '1': est_config->active_sensors.battery  = !est_config->active_sensors.battery;  break;
             case '2': est_config->active_sensors.bme280   = !est_config->active_sensors.bme280;   break;
             case '3': est_config->active_sensors.gps      = !est_config->active_sensors.gps;      break;
             case '4': est_config->active_sensors.lux      = !est_config->active_sensors.lux;      break;

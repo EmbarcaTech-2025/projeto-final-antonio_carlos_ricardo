@@ -1,0 +1,9 @@
+<map id="include/wrap_watchdog.h" name="include/wrap_watchdog.h">
+<area shape="rect" id="Node000001" title="Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habili..." alt="" coords="72,5,259,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title="Inicialização do sistema e main loop." alt="" coords="5,79,72,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,40,61,81,58,76,132,35"/>
+<area shape="rect" id="Node000003" href="$aq__data__gps_8c.html" title="Driver do módulo de GPS neo6mv." alt="" coords="96,79,235,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,44,168,79,163,79,163,44"/>
+<area shape="rect" id="Node000004" href="$wrap__watchdog_8c.html" title="Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habili..." alt="" coords="259,79,418,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,33,311,76,309,81,205,38"/>
+</map>

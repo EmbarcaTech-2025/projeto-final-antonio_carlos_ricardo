@@ -42,12 +42,12 @@ pico_sdk_init()
 add_executable(estacao_meteorologica_lora
         main.c
         src/aq_data_ad.c
-        src/aq_data_bat.c
         src/aq_data_bmep280.c
         src/aq_data_gps.c
         src/aq_data_lux.c
         src/aq_data.c
         src/buttons_and_leds.c
+        src/fcnt.c
         src/est_config.c
         src/hw_sleep.c
         src/menu_conf.c
@@ -90,8 +90,8 @@ pico_add_extra_outputs(estacao_meteorologica_lora)
 # === GENERATE AUTOMATIC DOCUMENTATION (OPTIONAL) ===
 
 # Creates an option for the user to decide whether to generate documentation
-option(GENERATE_DOCUMENTATION "Generate project documentation using Doxygen" OFF)
-# option(GENERATE_DOCUMENTATION "Generate project documentation using Doxygen" ON)
+# option(GENERATE_DOCUMENTATION "Generate project documentation using Doxygen" OFF)
+option(GENERATE_DOCUMENTATION "Generate project documentation using Doxygen" ON)
 
 
 # Try to find Doxygen installed

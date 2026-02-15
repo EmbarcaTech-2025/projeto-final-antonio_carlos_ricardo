@@ -2,6 +2,7 @@
 #include "pico/stdlib.h"
 #include "../include/aq_data.h"
 #include "../include/code_config.h"
+#include "../include/fcnt.h"
 #include "../include/loop_printf.h"
 #include "../include/wcm.h"
 #include "../include/wrap_watchdog.h"
@@ -89,7 +90,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     // Define valores fixos para as 5 primeiras transmissões
     static int count = 0;
     if(count < 5){
-        aq_data->battery.bat_level =        153;    // 76.5 %
+//        aq_data->battery.bat_level =        153;    // 76.5 %
         aq_data->bmep280.humidity  =         69;    // 34.5 %
         aq_data->bmep280.temp      =       2543;    // 25.43 Celsius
         aq_data->bmep280.press     =       9338;    // 1013.24 hPa
@@ -100,7 +101,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         aq_data->vsys              =        100;    // 2000 mv
         aq_data->cpu_temp_deci     =        -20;    // -2 C
 
-        aq_data->battery.bat_level += count;
+//        aq_data->battery.bat_level += count;
         aq_data->bmep280.humidity  += count;
         aq_data->bmep280.temp      += count;
         aq_data->bmep280.press     += count;
@@ -127,7 +128,9 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
             break;
         case LORA_MODE_LORAWAN_ABP:
             // Example  : A ch sf devaddr  fcnt ------------appskey------------- ------------nwkskey------------- -Message--\n
-            // Example 1: A 05 07 12345678 4321 00112233445566778899AABBCCDDEEFF FFEEDDCCBBAA99887766554433221100 0987654321\n
+            // Example 1: A 05 07 12345678 87654321 00112233445566778899AABBCCDDEEFF FFEEDDCCBBAA99887766554433221100 0987654321\n
+            //cmd_pos = sprintf(cmd, "A %02x %02x %02X%02X%02X%02X %04X",
+            #ifdef LORAWAN_ABP_FCNT_4BYTES
             cmd_pos = sprintf(cmd, "A %02x %02x %02X%02X%02X%02X %04X",
                 est_config->lorawan_abp_par.channel,
                 est_config->lorawan_abp_par.sf,
@@ -135,7 +138,17 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
                 est_config->lorawan_abp_par.device_address[1],
                 est_config->lorawan_abp_par.device_address[2],
                 est_config->lorawan_abp_par.device_address[3],
-                est_config->lorawan_abp_par.fcnt++);
+                (uint16_t)(fcnt_get_next() & 0x0000FFFF));    
+            #else
+            cmd_pos = sprintf(cmd, "A %02x %02x %02X%02X%02X%02X %08X",
+                est_config->lorawan_abp_par.channel,
+                est_config->lorawan_abp_par.sf,
+                est_config->lorawan_abp_par.device_address[0],
+                est_config->lorawan_abp_par.device_address[1],
+                est_config->lorawan_abp_par.device_address[2],
+                est_config->lorawan_abp_par.device_address[3],
+                fcnt_get_next());
+            #endif
             cmd_add_array(est_config->lorawan_abp_par.app_s_key, 16);
             cmd_add_array(est_config->lorawan_abp_par.nwk_s_key, 16);
             break;
@@ -161,7 +174,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     // ----- Adiciona o payload de dados -----
     // Control byte
     uint8_t control1 = 0;
-    if(aq_data->active_sensors.battery)  control1 |= AQ_ITEM_BAT_VALUE;
+//    if(aq_data->active_sensors.battery)  control1 |= AQ_ITEM_BAT_VALUE;
     if(aq_data->active_sensors.bme280)   control1 |= AQ_ITEM_BME280;
     if(aq_data->active_sensors.gps)      control1 |= AQ_ITEM_GPS;
     if(aq_data->active_sensors.lux)      control1 |= AQ_ITEM_LUX;
@@ -172,6 +185,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     cmd_hex_byte(control1);
     loop_printf("- Control Byte       = 0x%02X\n", control1);
 
+    /*
     // Battery Level
     loop_printf("- Battery            = ");
     if(aq_data->active_sensors.battery){
@@ -181,6 +195,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
         }
         cmd_hex_byte(aq_data->battery.bat_level);
     }else loop_printf("NO Sensor\n");
+    */
 
     // BMEP280
     if(aq_data->active_sensors.bme280){
@@ -300,7 +315,7 @@ void wcm_send(EstConfig *est_config, AqData *aq_data){
     // ----- Envio e resposta do comando -----
 
     // Acordar WCM
-    uart_putc_raw(WCM_UART_ID, ' ');
+    uart_putc_raw(WCM_UART_ID, ' ');    // 0x3F == ?
     sleep_ms(100);
 
     sleep_ms(200);

@@ -12,9 +12,43 @@
 - Remover driver ina
 - Doxigen pendentes:
     - aq_data_gps
+    - fcnt
+    - store
 
 
-## Build:0033 - 08/02/2026
+## Build:0033ex01-00 - 11/02/2026
+1-avaliar payload de 32 bits
+3-melhoria comunicação esp32
+mudar fcnt de 16 para 32bits? menu e wcm
+Corrigir o build:0037 para funcionar no debug
+
+
+## Build:0039 - 15/02/2026
+- Correção do número da versão
+
+## Build:0038 - 15/02/2026
+- Ativado doxigen
+
+## Build:0037 - 15/02/2026
+- Add config para transmitir fcnt do ABP com 4 ou 8 Bytes
+
+## Build:0036 - 12/02/2026
+- Desativado NoFlash, pois é necessário para funcionar o storage
+- write flash com 8 bytes travava, usando 256 bytes
+
+## Build:0035 - 12/02/2026
+- Add file fcnt
+- Removido: LorawanAbpPar.fcnt
+
+## Build:0034 - 12/02/2026 - Rev02
+- Version = 0.00.02
+- removido:
+    ActiveSensors.battery
+    AqData.battery
+    files aq_data_bat
+
+
+## Build:0033 - 11/02/2026
 - Doxigen:
     - hw_sleep
 

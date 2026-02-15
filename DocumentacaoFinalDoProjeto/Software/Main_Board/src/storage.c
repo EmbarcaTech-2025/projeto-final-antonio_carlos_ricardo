@@ -6,8 +6,6 @@
  * Obs.: As rotinas aqui só administram o Core corrente
  * @version 0.1
  * @date    2025-09-16
- * @version 0.2
- * @date    2026-01-14
  * 
  * @copyright Copyright (c) 2025
  */
@@ -56,6 +54,33 @@ void    stored_data_clear_all(){
     }
 }
 
+/**
+ * @brief Lê uma aquisição especificada pelo seu index e coloca no buffer estation_data
+ * 
+ * @param index 
+ * @param value uint32_t[2] 
+ */
+void    stored_data_read( int32_t index, uint8_t * value){
+    memcpy(value, (const uint8_t *)(XIP_BASE + STORAGE_OFFSET_DATA_FIRST + (index * STORAGE_ADDRESS_DATA_SIZE)), 8);
+}
 
+/**
+ * @brief Salva o dado na Flash, limpando o bloco se necessário
+ * - ATENÇÃO:
+ *   -As interrupções de ambos os cores devem estar desabilitadas
+ *   -Os COREs só podem estar rodando na RAM
+ * @param index 
+ * @param estation_data 
+ * @param update, quando true ==> não limpa a flash só sobre escreve
+ */
+void __not_in_flash_func(stored_data_write)(int32_t index, uint8_t * value, bool update){
+    uint32_t ints = save_and_disable_interrupts();
+    if((!(index & 0x000F))&&(!update)) {
+        //stored_data_clear(index);
+        flash_range_erase(STORAGE_OFFSET_DATA_FIRST + ((index >> 4) * STORAGE_CLEAR_BLOCK_SIZE), STORAGE_CLEAR_BLOCK_SIZE);
+    }
 
+    flash_range_program(STORAGE_OFFSET_DATA_FIRST + (index * STORAGE_ADDRESS_DATA_SIZE), (uint8_t *) value, 256);
+    restore_interrupts(ints);
+}
 

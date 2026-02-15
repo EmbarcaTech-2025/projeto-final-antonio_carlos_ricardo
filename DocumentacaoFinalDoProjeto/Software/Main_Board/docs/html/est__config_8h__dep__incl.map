@@ -1,0 +1,22 @@
+<map id="include/est_config.h" name="include/est_config.h">
+<area shape="rect" id="Node000001" title="Define a estrutura de configuração e as manipula." alt="" coords="293,5,444,31"/>
+<area shape="rect" id="Node000002" href="$aq__data_8h.html" title="Chama todos os drivers dos sensores." alt="" coords="152,79,289,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="334,39,246,81,244,76,332,34"/>
+<area shape="rect" id="Node000003" href="$wcm_8h.html" title="Comunica com o WCM enviado os comandos para envio das mensagens por LoRa." alt="" coords="5,152,121,177"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="280,33,209,50,174,64,141,81,119,97,100,117,73,153,68,150,96,113,115,93,138,76,172,59,208,45,279,27"/>
+<area shape="rect" id="Node000004" href="$main_8c.html" title="Inicialização do sistema e main loop." alt="" coords="310,225,377,251"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="368,45,347,225,342,225,363,45"/>
+<area shape="rect" id="Node000006" href="$hw__sleep_8h.html" title="Administra o sleep&#45;mode do rp2040 para reduzir o consumo." alt="" coords="381,152,527,177"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="385,42,449,150,445,153,380,44"/>
+<area shape="rect" id="Node000007" href="$menu__conf_8h.html" title="Ativa o menu de configuração da estação via USB." alt="" coords="432,79,588,104"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="405,34,488,76,486,81,402,39"/>
+<area shape="rect" id="Node000008" href="$est__config_8c.html" title="Define a estrutura de configuração e as manipula." alt="" coords="613,79,735,104"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="432,31,625,76,624,81,430,36"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,112,90,154,88,149,182,107"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="202,116,184,146,182,162,187,176,212,201,245,217,279,227,310,232,310,237,278,232,243,222,209,205,182,179,177,162,179,145,197,114"/>
+<area shape="rect" id="Node000005" href="$aq__data_8c.html" title="Chama todos os drivers dos sensores." alt="" coords="197,152,305,177"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="234,116,249,151,244,153,229,118"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="122,178,311,226,309,231,121,183"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="426,187,363,227,360,223,423,183"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="531,114,546,145,548,163,542,179,525,196,506,210,462,229,416,238,377,240,377,235,416,232,460,224,503,206,522,192,537,176,543,162,541,147,526,116"/>
+</map>
