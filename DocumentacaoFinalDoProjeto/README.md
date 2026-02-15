@@ -23,10 +23,3 @@ Campinas 15, fevereiro de 2026.
 - The `pico_sdk_import.cmake` file was **automatically generated** during project creation by the **Raspberry Pi Pico plugin**.
 - The `CMakeLists.txt` file was initially **automatically generated** during project creation by the **Raspberry Pi Pico plugin**, and later edited as needed for the project.
 
-## How to Build/Compile the Code
-
-This software was developed for the **BitDogLab V6.3** board. This board uses the **Raspberry Pi Pico** board (which contains the **RP2040 microcontroller**).
-
-For development, the **Visual Studio Code IDE** was used along with the **Raspberry Pi Pico plugin**. The SDK version used was **2.2.0**.
-
----
