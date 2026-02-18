@@ -16,8 +16,8 @@
 
 #define NAME                        "Weather Station"
 #define VERSION                     "0.00.02"
-#define VERSION_DATA                "2026/02/15"
-#define BUILD                       "0039"
+#define VERSION_DATA                "2026/02/18"
+#define BUILD                       "0040"
 #define CONFIG_DATA_VERSION         5   // uint32_t version;
 
 
@@ -34,11 +34,11 @@
 #define DEBUG_ON_LUXIMETER      (DEBUG_ON && true)      // habilita printf de log do módulo aq_data_lux
 
 #define WATCHDOG_ENABLED                                // se definido ativa o funcionamento do watchdog
-#define START_SEND_WITH_FIX_DATA                      // se definido faz com que as 5 primeiras transmissões sejam valores conhecidos independentes do valor lido, útil para debug
+// #define START_SEND_WITH_FIX_DATA                      // se definido faz com que as 5 primeiras transmissões sejam valores conhecidos independentes do valor lido, útil para debug
 #define SLEEP_STATE_BY_GPIO                             // se definido faz que durante os períodos de sleep os gpio reflitam o funcionamento do Sleep mode, util para debug
 #define INITIAL_DELAY_MS        10000                   // define o tempo, em milissegundos, de espera inicial para rodar o programa, permitindo assim conectar a interface serial (USB) antes do programa iniciar
 #define USB_TURN_ON_TIME_S      5
-//#define ADD_CHECKSUM_ON_PAYLOAD                       // adiciona um CHECKSUM no final do payload
+// #define ADD_CHECKSUM_ON_PAYLOAD                       // adiciona um CHECKSUM no final do payload
 #define LORAWAN_ABP_FCNT_4BYTES
 
 

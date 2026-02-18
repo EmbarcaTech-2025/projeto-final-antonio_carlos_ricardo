@@ -14,14 +14,17 @@
     - aq_data_gps
     - fcnt
     - store
-
-
-## Build:0033ex01-00 - 11/02/2026
+    
 1-avaliar payload de 32 bits
 3-melhoria comunicação esp32
 mudar fcnt de 16 para 32bits? menu e wcm
 Corrigir o build:0037 para funcionar no debug
 
+
+## Build:0040 - 18/02/2026
+- Atualização do README.md para o WCM
+- desativado START_SEND_WITH_FIX_DATA
+- Correção, em caso de falha na leitura i2c do bh1750, repetia o último valor, não reportava o erro;
 
 ## Build:0039 - 15/02/2026
 - Correção do número da versão

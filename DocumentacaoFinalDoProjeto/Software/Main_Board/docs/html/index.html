@@ -225,12 +225,116 @@ wcm</h2>
 <li>Aguardar a resposta</li>
 </ul>
 </li>
+<li>Obs.: o payload é formado por números inteiros (bytes, não ASCII) e será convertido ao ser utilizado com a grandeza e resolução abaixo:</li>
 </ul>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Grandeza   </th><th class="markdownTableHeadRight">Resolução   </th><th class="markdownTableHeadNone">Unidade   </th><th class="markdownTableHeadCenter">Casas<br  />
+decimais   </th><th class="markdownTableHeadRight">Exemplo    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">BME280<br  />
+Temperatura   </td><td class="markdownTableBodyRight">0,01   </td><td class="markdownTableBodyNone">Celsius   </td><td class="markdownTableBodyCenter">2   </td><td class="markdownTableBodyRight">23.45    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">BME280<br  />
+Pressão   </td><td class="markdownTableBodyRight">0,02   </td><td class="markdownTableBodyNone">hPa   </td><td class="markdownTableBodyCenter">2   </td><td class="markdownTableBodyRight">12.34    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">BME280<br  />
+Umidade   </td><td class="markdownTableBodyRight">0,5   </td><td class="markdownTableBodyNone">%   </td><td class="markdownTableBodyCenter">1   </td><td class="markdownTableBodyRight">12.5    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">Luminonidade   </td><td class="markdownTableBodyRight">4   </td><td class="markdownTableBodyNone">lx   </td><td class="markdownTableBodyCenter">0   </td><td class="markdownTableBodyRight">123456    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">GPS-Latitude<br  />
+GPS-Longitude   </td><td class="markdownTableBodyRight">0,000000119   </td><td class="markdownTableBodyNone">graus   </td><td class="markdownTableBodyCenter">7   </td><td class="markdownTableBodyRight">-42.1234567    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">GPS-Altitude   </td><td class="markdownTableBodyRight">0,1   </td><td class="markdownTableBodyNone">m   </td><td class="markdownTableBodyCenter">1   </td><td class="markdownTableBodyRight">432.1    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">VSys   </td><td class="markdownTableBodyRight">20<br  />
+0,02   </td><td class="markdownTableBodyNone">mV<br  />
+V   </td><td class="markdownTableBodyCenter">0<br  />
+2   </td><td class="markdownTableBodyRight">3220<br  />
+3.22    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">MPU-temp   </td><td class="markdownTableBodyRight">1   </td><td class="markdownTableBodyNone">Celsius   </td><td class="markdownTableBodyCenter">0   </td><td class="markdownTableBodyRight">25   </td></tr>
+</table>
 <div class="image">
 <img src="EML-SW-WCM.png" alt=""/>
 <div class="caption">
 Fluxograma das rotinas de comunicação com o WCM</div></div>
-    <h2><a class="anchor" id="autotoc_md17"></a>
+    <h3><a class="anchor" id="autotoc_md17"></a>
+Descrição do Payload</h3>
+<h4><a class="anchor" id="autotoc_md18"></a>
+O Primeiro byte, byte de controle BC, descreve os bytes seguintes.</h4>
+<p>Cada um dos bits do BC representa a presença ou não de um valor no payload:</p><ul>
+<li>bit 0 ==&gt; Battery, 1 byte (Deprecated) <br  />
+</li>
+<li>bit 1 ==&gt; BME280, 5 bytes <br  />
+</li>
+<li>bit 2 ==&gt; GPS, 10 bytes <br  />
+</li>
+<li>bit 3 ==&gt; BH1750, 2 bytes <br  />
+</li>
+<li>bit 4 ==&gt; Reserved <br  />
+</li>
+<li>bit 5 ==&gt; Reserved <br  />
+</li>
+<li>bit 6 ==&gt; VSys, 1 byte <br  />
+</li>
+<li>bit 7 ==&gt; MPU Temp, 1 byte <br  />
+</li>
+</ul>
+<h4><a class="anchor" id="autotoc_md19"></a>
+Tamanho e descrição de cada valor:</h4>
+<ul>
+<li>Bit 0 – Battery (Deprecated)<ul>
+<li>Utiliza um byte</li>
+<li>Corresponde a carga da bateria em %, passos de 0,5%</li>
+<li>Valor real = byte * 0.5</li>
+<li>Quando o byte for 0xFF ==&gt; ERRO</li>
+</ul>
+</li>
+<li>Bit 1 – BME280<ul>
+<li>Utiliza 5 bytes, sendo:<ul>
+<li>Byte 0 ==&gt; Umidade, passos de 0.5% Quando o byte for 0xFF ==&gt; ERRO</li>
+<li>Bytes 1 e 2 ==&gt; Temperatura, passos de 0,01 °C Quando a word for 0x7FFF ==&gt; ERRO</li>
+<li>Bytes 3 e 4 ==&gt; Pressão, passos de 0,02 hPa Quando a word for 0xFFFF ==&gt; ERRO</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bit 2 – GPS<ul>
+<li>Utiliza 10 bytes, sendo:<ul>
+<li>Bytes 0 a 3 ==&gt; Latitude, passos de 1 / (2^23) graus Quando a long word for 0x7FFFFFFF ==&gt; ERRO</li>
+<li>Bytes 4 a 7 ==&gt; Longitude, passos de 1 / (2^23) graus Quando a long word for 0x7FFFFFFF ==&gt; ERRO</li>
+<li>Bytes 8 a 9 ==&gt; Altitude, passos de 0,1 metro Quando a word for 0x7FFF ==&gt; ERRO</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bit 3 – Lux Meter<ul>
+<li>Utiliza 2 bytes, sendo:<ul>
+<li>Bytes 0 e 1 ==&gt; luminosidade, passos de 4 lux Quando a word for 0xFFFF ==&gt; ERRO</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bit 4 – Reserved</li>
+<li>Bit 5 – Reserved</li>
+<li>Bit 6 – Vsys<ul>
+<li>Utiliza um byte</li>
+<li>Corresponde a tensão VSys, passos de 20 mV</li>
+<li>Valor real(em mV) = byte * 20</li>
+<li>Quando o byte for 0xFF ==&gt; ERRO</li>
+</ul>
+</li>
+<li>Bit 7 – CPU Temp<ul>
+<li>Utiliza um byte</li>
+<li>Corresponde a temperatura da MPU, passos de 1 Celsius</li>
+<li>Valor real = byte tratado como signed</li>
+<li>Quando o byte for 0x7F ==&gt; ERRO</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md20"></a>
 wrap_watchdog</h2>
 <p>Rotinas que embrulham (wrap) as rotinas originais do wathdog Permitindo assim serem facilmente habilitadas ou desabilitadas: WATCHDOG_ENABLED </p>
 </div></div><!-- PageDoc -->

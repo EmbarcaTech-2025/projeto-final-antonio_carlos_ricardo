@@ -159,7 +159,73 @@ A rotina de envio do WCM consta de:
     - Enviar o comando
     - Aguardar a resposta
 
+- Obs.: o payload é formado por números inteiros (bytes, não ASCII) e será convertido ao ser utilizado com a grandeza e resolução abaixo:
+
+|            Grandeza           |  Resolução  | Unidade | Casas<br>decimais | Exemplo |
+| :---------------------------: | ----------: | ------- | :-: | ------: |
+| BME280<br>Temperatura         |        0,01 | Celsius |  2  |     23.45 |
+| BME280<br>Pressão             |        0,02 |     hPa |  2  |     12.34 |
+| BME280<br>Umidade             |         0,5 |       % |  1  |     12.5  |
+| Luminonidade                  |           4 |      lx |  0  | 123456    |
+| GPS-Latitude<br>GPS-Longitude | 0,000000119 |   graus |  7  | -42.1234567 |
+| GPS-Altitude                  |         0,1 |       m |  1  |    432.1  |
+| VSys                          |  20<br>0,02 | mV<br>V | 0<br>2 |3220<br>3.22 |
+| MPU-temp                      |           1 | Celsius |  0  |     25    |
+
 ![Fluxograma das rotinas de comunicação com o WCM](assets/EML-SW-WCM.png)
+
+
+#### Descrição do Payload
+               
+##### O Primeiro byte, byte de controle BC, descreve os bytes seguintes.       
+Cada um dos bits do BC representa a presença ou não de um valor no payload:
+- bit 0 ==> Battery,  1 byte (Deprecated)                                
+- bit 1 ==> BME280,   5 bytes                                            
+- bit 2 ==> GPS,     10 bytes                                            
+- bit 3 ==> BH1750,   2 bytes                                            
+- bit 4 ==> Reserved                                                     
+- bit 5 ==> Reserved                                                     
+- bit 6 ==> VSys,     1 byte                                             
+- bit 7 ==> MPU Temp, 1 byte                                             
+                                                                           
+##### Tamanho e descrição de cada valor:                                       
+- Bit 0 – Battery (Deprecated)
+    - Utiliza um byte
+    - Corresponde a carga da bateria em %, passos de 0,5%
+    - Valor real = byte * 0.5
+    - Quando o byte for 0xFF ==> ERRO
+- Bit 1 – BME280
+    - Utiliza 5 bytes, sendo:
+      - Byte  0                  ==> Umidade, passos de 0.5%
+        Quando o byte for 0xFF   ==> ERRO
+      - Bytes 1 e 2              ==> Temperatura, passos de 0,01 °C
+        Quando a word for 0x7FFF ==> ERRO
+      - Bytes 3 e 4              ==> Pressão, passos de 0,02 hPa
+        Quando a word for 0xFFFF ==> ERRO
+- Bit 2 – GPS
+    - Utiliza 10 bytes, sendo:
+      - Bytes 0 a 3              ==> Latitude,  passos de 1 / (2^23) graus
+        Quando a long word for 0x7FFFFFFF ==> ERRO
+      - Bytes 4 a 7              ==> Longitude, passos de 1 / (2^23) graus
+        Quando a long word for 0x7FFFFFFF ==> ERRO
+      - Bytes 8 a 9              ==> Altitude,  passos de 0,1 metro
+        Quando a word for 0x7FFF ==> ERRO
+- Bit 3 – Lux Meter
+    - Utiliza 2 bytes, sendo:
+        - Bytes 0 e 1              ==> luminosidade, passos de 4 lux
+        Quando a word for 0xFFFF ==> ERRO
+- Bit 4 – Reserved
+- Bit 5 – Reserved
+- Bit 6 – Vsys
+    - Utiliza um byte
+    - Corresponde a tensão VSys, passos de 20 mV
+    - Valor real(em mV) = byte * 20
+    - Quando o byte for 0xFF ==> ERRO
+- Bit 7 – CPU Temp
+    - Utiliza um byte
+    - Corresponde a temperatura da MPU, passos de 1 Celsius
+    - Valor real = byte tratado como signed
+    - Quando o byte for 0x7F ==> ERRO
 
 
 ### wrap_watchdog
