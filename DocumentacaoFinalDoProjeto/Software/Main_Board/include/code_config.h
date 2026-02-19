@@ -16,8 +16,8 @@
 
 #define NAME                        "Weather Station"
 #define VERSION                     "0.00.02"
-#define VERSION_DATA                "2026/02/18"
-#define BUILD                       "0040"
+#define VERSION_DATA                "2026/02/19"
+#define BUILD                       "0041"
 #define CONFIG_DATA_VERSION         5   // uint32_t version;
 
 

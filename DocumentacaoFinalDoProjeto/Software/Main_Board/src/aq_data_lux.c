@@ -94,7 +94,7 @@ int aqdatalux_read(AqDataLux_Value *value){
 
     if(i2c_read_timeout_us(I2C_MAIN_BUS, BH1750_ADDR, data, 2, false, I2C_TIMEOUT_US_BH1750) == 2){
         uint64_t raw = (data[0] << 8) | data[1];
-        if(raw != 0xFFFF){  
+        if(raw == 0xFFFF){  
             // overflow
             value->lux_level_x4 = 0xFFFF;
         }else{

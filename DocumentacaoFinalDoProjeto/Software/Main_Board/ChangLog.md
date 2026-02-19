@@ -21,6 +21,10 @@ mudar fcnt de 16 para 32bits? menu e wcm
 Corrigir o build:0037 para funcionar no debug
 
 
+
+## Build:0041 - 19/02/2026
+- Corrigido erro da  correção do bh1750
+
 ## Build:0040 - 18/02/2026
 - Atualização do README.md para o WCM
 - desativado START_SEND_WITH_FIX_DATA
