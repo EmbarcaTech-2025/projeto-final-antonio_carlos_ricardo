@@ -1,6 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define SW_BUILD   "0007"
+
+
+
 #define ESP32C3_XIAO
 //#define ESP32C3_SUPER_MINI_PLUS
 
