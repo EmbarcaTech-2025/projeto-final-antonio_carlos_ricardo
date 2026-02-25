@@ -19,6 +19,7 @@ void setup() {
     lorawam_setup();
     delay(10000);
     Serial.println(SETUP_MSG);
+    SerialUART.println(SW_BUILD);
     SerialUART.println("Monitor On");
 
     // configura para sair do sleep pelo RX_PIN

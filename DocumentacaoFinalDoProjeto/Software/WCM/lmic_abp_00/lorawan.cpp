@@ -5,6 +5,9 @@
 #include "config.h"
 #include "lorawan.h"
 
+
+#include "uart_com.h"
+
 #define RFM95W_POWER    14
 
 
@@ -204,7 +207,8 @@ void lorawam_update_state(){
 
 void         lorawan_send(){
     uint32_t devaddr;
-    u4_t seqnoUp;
+    u4_t     seqnoUp;
+    dr_t     dr_sf;
     unsigned long now = millis();
     switch(lorawan_pars.mode){
         case LORAWAN_MODE_INVALID:
@@ -232,7 +236,24 @@ void         lorawan_send(){
             //LMIC.seqnoDn = 0;         // opcional
 
             LMIC_setAdrMode(0);
-            LMIC_setDrTxpow(lorawan_pars.sf, RFM95W_POWER);
+            
+
+            switch(lorawan_pars.sf){
+                case  7: dr_sf = DR_SF7;  break;
+                case  8: dr_sf = DR_SF8;  break;
+                case  9: dr_sf = DR_SF9;  break;
+                case 10: dr_sf = DR_SF10; break;
+                case 11: dr_sf = DR_SF11; break;
+                case 12: dr_sf = DR_SF12; break;
+                default: dr_sf = DR_SF7;
+            }
+
+            SerialUART.print("SF: ");
+            SerialUART.print(lorawan_pars.sf);
+            SerialUART.print(",  N=");
+            SerialUART.println(dr_sf);
+
+            LMIC_setDrTxpow(dr_sf, RFM95W_POWER);
 
             // =======================================================
             // CANAIS AU915 CONFIGURADOS (BRASIL)

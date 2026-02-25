@@ -23,3 +23,6 @@
 
 ## Versão 0.00.05 - 14/01/2026 - Build: 0005
 Add Suporte para LoRaWAN OTAA
+
+## Versão 0.00.06 - 25/02/2026 - Build: 0006
+- Correção do setting do SF
