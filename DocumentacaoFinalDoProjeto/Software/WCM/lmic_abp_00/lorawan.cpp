@@ -6,8 +6,6 @@
 #include "lorawan.h"
 
 
-#include "uart_com.h"
-
 #define RFM95W_POWER    14
 
 
@@ -248,10 +246,6 @@ void         lorawan_send(){
                 default: dr_sf = DR_SF7;
             }
 
-            SerialUART.print("SF: ");
-            SerialUART.print(lorawan_pars.sf);
-            SerialUART.print(",  N=");
-            SerialUART.println(dr_sf);
 
             LMIC_setDrTxpow(dr_sf, RFM95W_POWER);
 
