@@ -151,8 +151,14 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                 break;
             case LORA_MODE_LORAWAN_ABP:
                 printf("LoRaWAN ABP\n");
-                if(est_config->lorawan_abp_par.channel == 0xFF) printf("  H) cHannel        : AUTO\n");
-                                                           else printf("  H) cHannel        : %02d\n",   est_config->lorawan_abp_par.channel);
+                
+                switch(est_config->lorawan_abp_par.channel){
+                    case 0xFD: printf("  H) cHannel        : AUTO(0-7)\n");  break;
+                    case 0xFE: printf("  H) cHannel        : AUTO(8-15)\n"); break;
+                    case 0xFF: printf("  H) cHannel        : AUTO(0-15)\n"); break;
+                    default:   printf("  H) cHannel        : %02d\n", est_config->lorawan_abp_par.channel);
+                }
+                
                 if(est_config->lorawan_abp_par.sf      == 0xFF) printf("  F) sF             : AUTO\n");
                                                            else printf("  F) sF             : %02d\n",   est_config->lorawan_abp_par.sf);
                 printf("  T) fcnT           : 0x%08x\n", fcnt_get_next());
@@ -267,10 +273,16 @@ void menu_conf(EstConfig * est_config, bool valid_flash_data){
                         if(++est_config->lora_par.channel > 63) est_config->lora_par.channel = 0;
                         break;
                     case LORA_MODE_LORAWAN_ABP:
-                        if(++est_config->lorawan_abp_par.channel > 63) est_config->lorawan_abp_par.channel = 0xFF;
-                        break;
                     case LORA_MODE_LORAWAN_OTAA:
-                        if(++est_config->lorawan_otaa_par.channel > 63) est_config->lorawan_otaa_par.channel = 0xFF;
+                        if(est_config->lorawan_abp_par.channel < 63){
+                            est_config->lorawan_abp_par.channel++;
+                        } else if(est_config->lorawan_abp_par.channel == 63){
+                            est_config->lorawan_abp_par.channel = 0xFD;
+                        } else if(est_config->lorawan_abp_par.channel == 0xFD){
+                            est_config->lorawan_abp_par.channel = 0xFE;
+                        } else if(est_config->lorawan_abp_par.channel == 0xFE){
+                            est_config->lorawan_abp_par.channel = 0xFF;
+                        } else est_config->lorawan_abp_par.channel = 0;;
                         break;
                 }
                 break;

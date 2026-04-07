@@ -21,6 +21,8 @@ mudar fcnt de 16 para 32bits? menu e wcm
 Corrigir o build:0037 para funcionar no debug
 
 
+## Build:0042 - 07/04/2026
+- Add modos channel AUTO 0-7, 8-15 e 0-15
 
 ## Build:0041 - 19/02/2026
 - Corrigido erro da  correção do bh1750
