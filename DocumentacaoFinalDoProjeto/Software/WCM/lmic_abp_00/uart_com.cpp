@@ -56,8 +56,16 @@ static bool read_channel(char *data){
     Serial.print(data[1]);
     return false;
   } else if(lorawan_pars.channel > 63){
-    lorawan_pars.channel = 0xFF;
-    Serial.println("  - Channel: FF ==> AUTO");
+    if(lorawan_pars.channel == 0xFD){
+      lorawan_pars.channel = 0xFD;
+      Serial.println("  - Channel: FD ==> AUTO (0-7)");
+    }else if(lorawan_pars.channel == 0xFE){
+      lorawan_pars.channel = 0xFE;
+      Serial.println("  - Channel: FE ==> AUTO (8-15)");
+    } else {
+      lorawan_pars.channel = 0xFF;
+      Serial.println("  - Channel: FF ==> AUTO (0-15)");
+    }
     return true;
   }else{
     Serial.print("  - Channel: ");

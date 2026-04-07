@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define SW_BUILD   "0007"
+#define SW_BUILD   "0008"
 
 
 

@@ -29,3 +29,29 @@ Add Suporte para LoRaWAN OTAA
 
 ## Versão 0.00.07 - 25/02/2026 - Build: 0007
 - Remoção das mensagens de debug
+
+## Versão 0.00.07c - 26/03/2026 - Build: 0008
+- Instruções de Build
+    para o lmic funcionar em au915 é necessario editar o arquivo:
+        /home/user01/Arduino/libraries/MCCI_LoRaWAN_LMIC_library/project_config/lmic_project_config.h
+        para:
+```
+// project-specific definitions
+//#define CFG_eu868 1
+//  #define CFG_us915 1
+#define CFG_au915 1
+//#define CFG_as923 1
+// #define LMIC_COUNTRY_CODE LMIC_COUNTRY_CODE_JP      /* for as923-JP; also define CFG_as923 */
+//#define CFG_kr920 1
+//#define CFG_in866 1
+#define CFG_sx1276_radio 1
+//#define CFG_sx1261_radio 1
+//#define CFG_sx1262_radio 1
+//#define ARDUINO_heltec_wifi_lora_32_V3
+//#define LMIC_USE_INTERRUPTS
+```
+## Versão 0.00.08 - 07/04/2026 - Build: 0009
+- Add channels:
+    - 0xFD  ==> AUTO 0-7
+    - 0xFE  ==> AUTO 8-15
+    - 0xFF  ==> AUTO 0-15

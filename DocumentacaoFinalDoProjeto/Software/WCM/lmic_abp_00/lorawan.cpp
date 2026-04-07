@@ -255,10 +255,15 @@ void         lorawan_send(){
             // =======================================================
             for (int i = 0; i < 72; i++) LMIC_disableChannel(i);
 
-            if(lorawan_pars.channel == 0xFF){   // O Default: do 8 ao 15
-                for (int i = 8; i <= 15; i++) LMIC_enableChannel(i);
-            }else{
+            if(lorawan_pars.channel <= 0x3F){
                 LMIC_enableChannel(lorawan_pars.channel);
+            }else {
+                switch(lorawan_pars.channel){
+                    case 0xFD: for (int i = 0; i <= 7;  i++) LMIC_enableChannel(i); break;
+                    case 0xFE: for (int i = 8; i <= 15; i++) LMIC_enableChannel(i); break;
+                    case 0xFF:
+                    default:   for (int i = 0; i <= 15; i++) LMIC_enableChannel(i); break;
+                }
             }
             
             LMIC_setLinkCheckMode(0);
@@ -300,11 +305,15 @@ void         lorawan_send(){
             // ================================
             for (int i = 0; i < 72; i++) LMIC_disableChannel(i);
 
-            if(lorawan_pars.channel == 0xFF){   // O Default: do 8 ao 15
-                // Sub-band 2 (8–15)
-                for (int i = 8; i <= 15; i++) LMIC_enableChannel(i);
-            }else{
+            if(lorawan_pars.channel <= 0x3F){
                 LMIC_enableChannel(lorawan_pars.channel);
+            }else {
+                switch(lorawan_pars.channel){
+                    case 0xFD: for (int i = 0; i <= 7;  i++) LMIC_enableChannel(i); break;
+                    case 0xFE: for (int i = 8; i <= 15; i++) LMIC_enableChannel(i); break;
+                    case 0xFF:
+                    default:   for (int i = 0; i <= 15; i++) LMIC_enableChannel(i); break;
+                }
             }
 
             LMIC_setLinkCheckMode(0);
@@ -315,11 +324,6 @@ void         lorawan_send(){
             // Inicia JOIN OTAA
             Serial.println("Iniciando OTAA Join...");
             LMIC_startJoining();
-
-
-
-
-
 
 
             break;
